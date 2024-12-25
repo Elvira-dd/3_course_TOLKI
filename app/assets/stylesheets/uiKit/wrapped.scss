@@ -41,8 +41,55 @@
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  margin-top: 10vh;
   h1 {
     color: var(--accent_green);
   }
   margin-bottom: 8vh;
+  h4 {
+    color: var(--first_gray);
+  }
+}
+.W_PodcastSelection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+  .A_Button {
+    background-color: var(--accent_green);
+    width: 40%;
+    border-radius: 8px;
+  }
+  h4 {
+    color: var(--first_gray);
+  }
+  .checkboxText {
+    display: flex;
+    flex-direction: row;
+  }
+}
+.W_NewPostInfo {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+  .A_Button {
+    width: 60%;
+  }
+  h4 {
+    color: var(--first_gray);
+  }
+  .checkboxText {
+    width: 60%;
+    margin-bottom: 10vh;
+    .A_Input {
+      &.CheckBox {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    display: flex;
+    flex-direction: row;
+  }
 }
