@@ -65,12 +65,13 @@ Rails.application.routes.draw do
     resources :issues 
     get 'issues', to: 'issues#issues_for_podcast', as: 'issues_for'
   end
-  namespace :admin do
     resources :profiles
     resources :posts do
       resources :comments, only: [:new, :create, :edit, :update, :destroy]
+      member do
+        get "like"
+      end
     end
-  end  
   resources :authors
   resources :subscriptions
   resources :issue do 

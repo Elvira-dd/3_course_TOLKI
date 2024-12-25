@@ -4,13 +4,24 @@
   description: "Посты для проекта Tolki",
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
+<%
+likes_count = @post.likes.count
+like_text = "Like (#{likes_count})"
 
-<div class="postEditing">
-    <%= link_to "Edit this post", edit_admin_issue_post_path(@post) %> |
-    <%= link_to "Back to posts", admin_posts_path %>
+if current_user && @post.likes.where(user_id: current_user.id).count > 0
+  like_text = "Unlike (#{likes_count})"
+end
+%>
 
-    <%= button_to "Destroy this post", admin_post_path(@post), method: :delete, class:"destroyButton" %>
+<% if can? :create, Post %>
+<div>
+    <%= link_to like_text, like_admin_post_path(@post) %> |
+    <%= link_to "Edit this post", edit_post_path(@post) %> |
+    <%= link_to "Back to posts", posts_path %>
+
+    <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
+<%end%>
 <div>
     <div>
         <% if @post.is_comments_open %>
