@@ -8,10 +8,17 @@
     <%= form.label :description, style: "display: block" %>
     <%= form.text_area :description %>
 </div>
+
 <div>
     <%= form.label :authors %>
     <%= form.collection_check_boxes :author_ids, Author.all, :id, :name %>
 </div>
+
+<div>
+    <%= form.label :cover, "Podcast Cover", style: "display: block" %>
+    <%= form.file_field :cover %>
+</div>
+
 <div>
     <%= form.submit %>
 </div>

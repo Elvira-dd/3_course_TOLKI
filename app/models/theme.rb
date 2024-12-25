@@ -3,4 +3,5 @@ class Theme < ApplicationRecord
 
   # валидация уникальности имени темы
   validates :name, presence: true, uniqueness: true
+  has_one_attached :cover
 end
