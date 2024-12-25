@@ -1,3 +1,7 @@
+<% set_meta_tags(
+  title: "Профиль замечательного пользователя – #{@user.profile.name}",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
 <h1>Мой профиль</h1>
 <div class="profileTitle">
     <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>

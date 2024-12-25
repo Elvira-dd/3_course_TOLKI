@@ -1,4 +1,9 @@
 <%= render @post %>
+<% set_meta_tags(
+  title: "Пост – #{@post.title}",
+  description: "Посты для проекта Tolki",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
 
 <div class="postEditing">
     <%= link_to "Edit this post", edit_admin_issue_post_path(@post) %> |

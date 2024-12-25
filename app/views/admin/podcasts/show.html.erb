@@ -1,6 +1,10 @@
 <%= link_to "<- Back to podcasts", admin_podcasts_path %>
 
 <%= render @podcast %>
+<% set_meta_tags(
+  title: "Подкаст #{@podcast.name}",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
 
 <div class="podcastEditing">
     <%= link_to "Edit this podcast", edit_admin_podcast_path(@podcast) %>

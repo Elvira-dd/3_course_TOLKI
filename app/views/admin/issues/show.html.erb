@@ -1,24 +1,27 @@
-
+<% set_meta_tags(
+  title: "Подкаст #{@issue.podcast.name} – #{@issue.name}",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
 
 <div>
-  <h1><%= @issue.name %></h1>
-  <h3><%= @issue.link %></h3>
-   
+    <h1><%= @issue.name %></h1>
+    <h3><%= @issue.link %></h3>
 
-  <div id="posts">
-    <% @posts.each do |post| %>
-      <% if post.persisted? %>
+
+    <div id="posts">
+        <% @posts.each do |post| %>
+        <% if post.persisted? %>
         <div class="shortPost">
-          <h2><%= link_to post.title, admin_post_path(post) %></h2> 
-          <p><%= post.content %></p>
+            <h2><%= link_to post.title, admin_post_path(post) %></h2>
+            <p><%= post.content %></p>
         </div>
-      <% end %>
-    <% end %>
-  </div>
+        <% end %>
+        <% end %>
+    </div>
 
 
-  <div class="addPostForIssue"> 
-    <h2>Добавить пост к выпуску:</h2>
-    <%= render "admin/posts/form", post: Post.new %>
-  </div>
+    <div class="addPostForIssue">
+        <h2>Добавить пост к выпуску:</h2>
+        <%= render "admin/posts/form", post: Post.new %>
+    </div>
 </div>
