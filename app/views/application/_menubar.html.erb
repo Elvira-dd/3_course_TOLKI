@@ -1,35 +1,78 @@
-<div class="Menu">
+<div class="O_Menu">
+
     <% if user_signed_in? && !current_user.admin %>
-    <%= link_to "Главная", root_url%>
-    <%= link_to "Рекомендации", recommendation_path%>
-    <div class="MainButton">
-        <%= link_to "Написать рецензию", new_post_path%>
+    <div class="LinksList">
+        <%= link_to root_url do %>
+        <h5>Главная </h5>
+        <% end %>
+        <%= link_to recommendation_path do %>
+        <h5>Рекомендации </h5>
+        <% end %>
+        <%= link_to about_us_index_url do %>
+        <h5>О проекте </h5>
+        <% end %>
     </div>
-    <div class="MainButton">
-        <%= link_to "Профиль", my_profile_path%>
+    <div class="ButtonList">
+        <%= link_to new_post_path do %>
+        <div class="A_Button PrimaryMedium">
+            <h5> Написать рецензии</h5>
+        </div>
+        <% end %>
+        <%= link_to my_profile_path do %>
+        <div class="A_Button SecondaryMedium white">
+            <h5> Профиль</h5>
+        </div>
+        <% end %>
     </div>
 
     <%elsif user_signed_in? && current_user.admin? %>
-    <%= link_to "Главная", root_url%>
-    <%= link_to "Рекомендации", recommendation_path%>
-    <%= link_to "О проекте", about_us_index_url%>
-    <div class="MainButton">
-        <%= link_to "Написать рецензию", new_admin_post_path%>
+    <div class="LinksList">
+        <%= link_to root_url do %>
+        <h5>Главная </h5>
+        <% end %>
+        <%= link_to recommendation_path do %>
+        <h5>Рекомендации </h5>
+        <% end %>
+        <%= link_to about_us_index_url do %>
+        <h5>О проекте </h5>
+        <% end %>
     </div>
-    <div class="MainButton">
-        <%= link_to "Профиль", my_profile_path%>
+    <div class="ButtonList">
+        <%= link_to new_post_path do %>
+        <div class="A_Button PrimaryMedium">
+            <h5> Написать рецензии</h5>
+        </div>
+        <% end %>
+        <%= link_to my_profile_path do %>
+        <div class="A_Button SecondaryMedium white">
+            <h5> Профиль</h5>
+        </div>
+        <% end %>
     </div>
 
     <%else%>
-    <%= link_to "Главная", root_url%>
-    <%= link_to "О проекте", about_us_index_url%>
-    <div class="SecondaryButton">
-        <%= link_to "Регистрация", new_user_registration_path%>
+    <div class="LinksList">
+        <%= link_to root_url do %>
+        <h5>Главная </h5>
+        <% end %>
+        <%= link_to about_us_index_url do %>
+        <h5>О проекте </h5>
+        <% end %>
     </div>
-    <div class="MainButton">
-        <%= link_to "Войти", new_user_session_path%>
+    <div class="ButtonList">
+        <%= link_to new_user_registration_path do %>
+        <div class="A_Button SecondaryMedium white">
+            <h5> Регистрация</h5>
+        </div>
+        <% end %>
+        <%= link_to new_user_session_path do %>
+        <div class="A_Button SecondaryMedium ">
+            <h5> Вход</h5>
+        </div>
+        <% end %>
     </div>
     <%end%>
 </div>
+
 
 <p style="color: red"> <%= alert %> </p>

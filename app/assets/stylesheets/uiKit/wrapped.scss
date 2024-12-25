@@ -1,0 +1,38 @@
+.W_AccentCover {
+  height: 500px;
+  width: 100vw;
+  margin-left: -6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 24px;
+  &.first {
+    background-image: url('W_AccentCover_first.jpg');
+  }
+  &.ama {
+    background-image: url('W_AccentCover_ama.jpg');
+  }
+  h1 {
+    color: var(--accent_green);
+  }
+}
+.W_CardBlock {
+  padding: 5vh 0vw;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  h2 {
+    color: var(--first_gray);
+  }
+}
+.W_ListBlock_Title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  h4 {
+    color: var(--first_gray);
+  }
+}

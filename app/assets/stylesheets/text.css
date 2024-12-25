@@ -12,6 +12,10 @@ h1 {
   &.extra {
     font-size: 64px;
   }
+  &.stroke {
+    background-color: var(--four_gray);
+    border: 14px solid var(--four_gray);
+  }
 }
 
 h2 {
@@ -26,14 +30,25 @@ h3 {
   letter-spacing: 0.25px;
   font-weight: 500;
 }
-
-p {
+h4 {
   font-size: 20px;
+  line-height: 135%;
+  letter-spacing: 0.25px;
+  font-weight: 400;
+}
+h5 {
+  font-size: 16px;
+  line-height: 110%;
+  letter-spacing: 0.25px;
+  font-weight: 500;
+}
+p {
+  font-size: 16px;
   line-height: 110%;
   letter-spacing: 0.25px;
   font-weight: 400;
   &.small {
-    font-size: 14px;
+    font-size: 12px;
   }
   &.bold {
     font-weight: 600;

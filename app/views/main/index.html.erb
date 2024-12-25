@@ -3,59 +3,56 @@
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
 
-<div class="PlacePost">
-    <h1>Ищи и оставляй отзывы о своих любимых подкастах </h1>
-    <div class="MainButton">Оставить первую рецензию </div>
+<div class="W_AccentCover first">
+    <h1 class="stroke">Ищи и оставляй отзывы о своих любимых подкастах </h1>
+    <div class="A_Button Primary">
+        <h2>Оставить первую рецензию</h2>
+        <div class="Q_Arrow top_right"></div>
+    </div>
 </div>
-<div class="AuthorTop">
+<div class="W_CardBlock">
     <h2>Сегодня в топе эти авторы: </h2>
-    <div class="AuthorTopList">
+    <div class="C_AuthorsCards">
         <% @profile_top.each do |profile| %>
         <%= render partial: "authorcard", locals: { profile: profile } %>
         <% end %>
     </div>
 </div>
-<div class="HistoryTop">
-    <div class="HistoryTopTitle">
-        <h2>Если хочешь послушать про историю </h2>
+<div class="W_AccentCover ama">
+    <h1 class="stroke">Ask me anything сессия с «<%= @ama_podcast.name %>» </h1>
+    <div class="A_Button Primary">
+        <h2>поучавствовать в сессии</h2>
+    </div>
+</div>
+<div class="W_CardBlock">
+    <div class="W_ListBlock_Title">
+        <h2>Если хочешь от души посмеяться </h2>
         <h4>посмотреть все</h4>
     </div>
-    <div class="HistoryTopList">
-        <% @podcasts.each do |podcast| %>
+    <div class="C_PodcastCards">
+        <% @podcasts_cards.each do |podcast| %>
         <%= render partial: "podcastcard", locals: { podcast: podcast } %>
         <% end %>
     </div>
 </div>
-<div class="NewIssues">
-    <div class="NewIssuesTitle">
+<div class="W_CardBlock">
+    <div class="W_ListBlock_Title">
         <h2>Свежие выпуск подкаста <%= @new_podcast.name %></h2>
         <h4>посмотреть все выпуски</h4>
     </div>
-    <div class="NewIssuesList">
-        <%= render partial: "issuecard", locals: { issue: @latest_issue_for_new_podcast } %>
-    </div>
+    <%= render partial: "issuecard_secondary", locals: { issue: @latest_issue_for_new_podcast } %>
 </div>
-<div class="AmASession">
-    <h1>Ask me anything сессия с «<%= @ama_podcast.name %>» </h1>
-    <div class="MainButton">поучавствовать в сессии </div>
-</div>
-<div class="Themes">
-    <div class="ThemesTitle">
+
+<div class="W_CardBlock">
+    <div class="W_ListBlock_Title">
         <h2>Тематики</h2>
         <h4>посмотреть все</h4>
     </div>
-    <div class="ThemeList">
+    <div class="C_ThemeCards">
         <% if @themes.any? %>
-        <ul>
-            <% @themes.each do |theme| %>
-            <li>
-                <%= link_to theme_path(theme) do %>
-                <%= image_tag theme.cover %>
-                <span><%= theme.name %></span>
-                <% end %>
-            </li>
-            <% end %>
-        </ul>
+        <% @themes.each do |theme| %>
+        <%= render partial: "themecard", locals: { theme: theme } %>
+        <% end %>
         <% else %>
         <p>Темы пока не созданы.</p>
         <% end %>

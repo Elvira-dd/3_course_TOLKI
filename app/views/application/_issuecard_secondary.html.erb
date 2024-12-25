@@ -1,0 +1,13 @@
+<%= link_to admin_podcast_path(issue.podcast_id) + "/issues/#{issue.id}" do %>
+<div class="M_IssueCard Secondary">
+    <% if issue.cover.present? %>
+    <%= image_tag issue.cover, alt: issue.name, class: "IssueCoverImage" %>
+    <% else %>
+    <p>Изображение не доступно</p>
+    <% end %>
+    <div class="Title">
+        <h3><%= issue.name %></h3>
+        <p><%= issue.created_at.strftime("%d.%m.%Y") %></p>
+    </div>
+</div>
+<% end %>

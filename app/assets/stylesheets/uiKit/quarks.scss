@@ -1,0 +1,71 @@
+.Q_Arrow {
+  width: 22px;
+  height: 22px;
+
+  &.back {
+    background-image: url('Q_Arrow_back.svg');
+  }
+
+  &.down_right {
+    background-image: url('Q_Arrow_down_right.svg');
+  }
+
+  &.top_right {
+    background-image: url('Q_Arrow_top_right.svg');
+  }
+
+  &.top_right_small {
+    background-image: url('Q_Arrow_top_right_small.svg');
+  }
+}
+
+.Q_Icon {
+  width: 36px;
+  height: 36px;
+
+  &.menu {
+    background-image: url('Q_Icons_menu.svg');
+  }
+
+  &.search {
+    background-image: url('Q_Icons_search.svg');
+  }
+}
+
+.Q_Like {
+  width: 36px;
+  height: 36px;
+
+  &.withBg {
+    background-image: url('Q_Like_withBg.svg');
+    width: 70px;
+    height: 70px;
+  }
+
+  &.default {
+    background-image: url('Q_Like.svg');
+  }
+}
+
+.Q_Menu {
+  width: 36px;
+  height: 36px;
+  background-image: url('Q_Menu.svg');
+}
+
+.Q_FooterIcons {
+  width: 24px;
+  height: 24px;
+
+  &.dislike {
+    background-image: url('A_FooterIcons_Dislike.svg');
+  }
+
+  &.like {
+    background-image: url('A_FooterIcons_Like.svg');
+  }
+
+  &.share {
+    background-image: url('A_FooterIcons_Share.svg');
+  }
+}

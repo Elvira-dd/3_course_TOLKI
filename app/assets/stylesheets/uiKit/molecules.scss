@@ -1,0 +1,63 @@
+.M_AuthorCard {
+  color: var(--first_gray);
+  padding: 16px;
+  background-color: var(--four_gray);
+  width: min-content;
+  border-radius: 8px;
+  .AuthorAvatarImage {
+    height: 250px;
+    width: 250px;
+    border-radius: 8px;
+  }
+  h3 {
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+  p {
+    margin-top: 32px;
+  }
+  .A_Button {
+    margin-top: 64px;
+  }
+}
+.M_PodcastCard {
+  color: var(--first_gray);
+  padding: 16px;
+  background-color: var(--four_gray);
+  width: min-content;
+  border-radius: 8px;
+  height: 500px;
+}
+.A_Likeble_Cover {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.M_IssueCard {
+  .IssueCoverImage {
+    width: 100%;
+    height: auto;
+  }
+  .Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    color: var(--first_gray);
+    margin-top: 12px;
+  }
+}
+.M_ThemeCard {
+  .ThemeCoverImage {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+  }
+  h5 {
+    margin-top: 16px;
+    color: var(--first_gray);
+  }
+}

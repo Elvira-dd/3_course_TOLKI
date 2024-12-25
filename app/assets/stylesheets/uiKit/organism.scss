@@ -1,0 +1,19 @@
+.O_Menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5vh;
+  h5 {
+    color: var(--first_gray);
+  }
+  .LinksList {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
+  .ButtonList {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+}
