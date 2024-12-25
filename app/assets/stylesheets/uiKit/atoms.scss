@@ -5,6 +5,7 @@
   gap: 16px;
   padding: 14px 37px;
   border-radius: 8px;
+  width: fit-content;
   &.Primary {
     background-color: var(--accent_green);
   }
@@ -80,4 +81,26 @@
   letter-spacing: 0.7px;
   font-weight: 500;
   color: var(--first_gray);
+}
+.A_section {
+  background-color: var(--four_gray);
+  padding: 16px 24px;
+  width: fit-content;
+  border-radius: 8px;
+  color: var(--first_gray);
+  &.Big {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 30px 24px 24px 16px;
+    max-width: 250px;
+    gap: 12px;
+    h1 {
+      font-size: 96px;
+      line-height: 70%;
+    }
+    p {
+      width: min-content;
+    }
+  }
 }

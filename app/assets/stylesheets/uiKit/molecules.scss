@@ -61,3 +61,22 @@
     color: var(--first_gray);
   }
 }
+.M_ProfileCardOpened {
+  color: var(--first_gray);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4vh;
+  .ProfileTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ProfileFunc {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+}

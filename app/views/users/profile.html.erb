@@ -2,38 +2,48 @@
   title: "Профиль замечательного пользователя – #{@user.profile.name}",
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
-<h1>Мой профиль</h1>
-<div class="profileTitle">
-    <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
 
-    <h1> <%= @user.profile.name %> </h1>
-    <p> Знаток подкастов <%= @user.profile.level %> уровня </p>
+<div class="M_ProfileCardOpened">
+    <div style="display:flex; gap:16px">
+        <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+        <div class="ProfileTitle">
 
-    <div class="profileTitleCount">
-        <div class="placeForCount small">
-            <p> 453 подписчика </p>
+            <h1> <%= @user.profile.name %> </h1>
+            <p> Знаток подкастов <%= @user.profile.level %> уровня </p>
+
+            <div class="C_SectionList">
+                <div class="A_section Small">
+                    <h4> 453 подписчика </h4>
+                </div>
+                <div class="A_section Small">
+                    <h4> 27 подписок </h4>
+                </div>
+            </div>
         </div>
-        <div class="placeForCount small">
-            <p> 27 подписок </p>
+    </div>
+    <div class="ProfileFunc">
+        <div class="A_Button SecondaryMedium white">
+            <h5> Выйти </h5>
+        </div>
+        <div class="Q_Icon setting">
         </div>
     </div>
 </div>
-<div class="profileStaticCount">
-    <div class="PlaceForCount big">
+<div class="C_SectionList">
+    <div class="A_section Big">
         <h1> 25 </h1>
         <p> подкастов оценено </p>
     </div>
-    <div class="PlaceForCount big">
+    <div class="A_section Big">
         <h1> 125 </h1>
         <p> написанных рецензий </p>
     </div>
-    <div class="PlaceForCount big">
+    <div class="A_section Big">
         <h1> 341 </h1>
         <p> дней в приложении </p>
     </div>
 </div>
-<div class="profilePlaylists">
-</div>
+
 <div class="profilePosts">
     <h2> Рецензии </h2>
     <ul>

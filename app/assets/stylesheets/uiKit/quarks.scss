@@ -30,6 +30,12 @@
   &.search {
     background-image: url('Q_Icons_search.svg');
   }
+  &.setting {
+    background-image: url('Q_Icon_setting.png');
+    width: 34px;
+    height: 34px;
+    background-size: contain;
+  }
   &.tg {
     background-image: url('Q_tg_icon.svg');
     width: 47px;
