@@ -17,3 +17,34 @@
     gap: 20px;
   }
 }
+.O_BodyMainPage {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+}
+.O_Footer {
+  margin-top: 10vh;
+  display: flex;
+  width: 85vw;
+  padding: 8vh 12vw 8vh 6vw;
+  margin-left: -6vw;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--five_gray);
+  color: var(--first_gray);
+  align-items: center;
+  .InerBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .Q_Logo {
+      margin-right: 40px;
+    }
+    .TextBlock {
+      width: 16vw;
+      h3 + p {
+        margin-top: 12px;
+      }
+    }
+  }
+}

@@ -6,7 +6,8 @@ input::placeholder {
   color: #000000;
 }
 .classicLayout {
-  padding: 4vh 6vw;
+  overflow-x: hidden;
+  padding: 4vh 6vw 0vh 6vw;
   background-color: var(--bg_black);
 }
 

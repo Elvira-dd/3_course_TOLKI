@@ -30,6 +30,11 @@
   &.search {
     background-image: url('Q_Icons_search.svg');
   }
+  &.tg {
+    background-image: url('Q_tg_icon.svg');
+    width: 47px;
+    height: 44px;
+  }
 }
 
 .Q_Like {
@@ -68,4 +73,11 @@
   &.share {
     background-image: url('A_FooterIcons_Share.svg');
   }
+}
+.Q_Logo {
+  width: 200px;
+  height: 70px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('Q_Logo.png');
 }
