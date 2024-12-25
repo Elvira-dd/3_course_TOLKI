@@ -23,6 +23,25 @@
     text-overflow: ellipsis; /* Добавляем многоточие, если текст не помещается */
   }
 }
+.C_PodcastCardsBlock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  h2 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+  p {
+    margin-top: 8px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2; /* Ограничиваем до 2 строк */
+    text-overflow: ellipsis; /* Добавляем многоточие, если текст не помещается */
+  }
+}
 .C_TagsLine {
   display: flex;
   flex-direction: row;
@@ -35,4 +54,14 @@
   flex-direction: row;
   width: 106vw;
   margin-left: -9vw;
+}
+.C_ThemesLine {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  h5 {
+    color: var(--first_gray);
+  }
 }

@@ -36,3 +36,13 @@
     color: var(--first_gray);
   }
 }
+.W_TitleWith {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  h1 {
+    color: var(--accent_green);
+  }
+  margin-bottom: 8vh;
+}

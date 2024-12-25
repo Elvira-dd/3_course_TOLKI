@@ -29,7 +29,9 @@
     <div class="W_CardBlock">
         <div class="W_ListBlock_Title">
             <h2>Если хочешь от души посмеяться </h2>
+            <%= link_to theme_path(2) do %>
             <h4>посмотреть все</h4>
+            <% end %>
         </div>
         <div class="C_PodcastCards">
             <% @podcasts_cards.each do |podcast| %>
@@ -40,7 +42,9 @@
     <div class="W_CardBlock">
         <div class="W_ListBlock_Title">
             <h2>Свежие выпуск подкаста <%= @new_podcast.name %></h2>
+            <%= link_to podcast_path(@new_podcast) do %>
             <h4>посмотреть все выпуски</h4>
+            <% end %>
         </div>
         <%= render partial: "issuecard_secondary", locals: { issue: @latest_issue_for_new_podcast } %>
     </div>
@@ -48,7 +52,9 @@
     <div class="W_CardBlock">
         <div class="W_ListBlock_Title">
             <h2>Тематики</h2>
+            <%= link_to recommendation_path do %>
             <h4>посмотреть все</h4>
+            <% end %>
         </div>
         <div class="C_ThemeCards">
             <% if @themes.any? %>
