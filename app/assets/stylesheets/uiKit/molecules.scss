@@ -68,7 +68,6 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 4vh;
   .ProfileTitle {
     display: flex;
     flex-direction: column;
@@ -78,5 +77,52 @@
     display: flex;
     flex-direction: row;
     gap: 16px;
+  }
+}
+.M_UserCard {
+  .UserAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+  }
+  .UserInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.M_CommentCard {
+  background-color: var(--three_gray);
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 16px;
+  .M_UserCard {
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 16px;
+    .UserAvatar {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+.M_ReplyCard {
+  background-color: var(--three_gray);
+  border-radius: 8px;
+  padding: 16px;
+  .M_UserCard {
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 16px;
+    .UserAvatar {
+      width: 32px;
+      height: 32px;
+    }
   }
 }

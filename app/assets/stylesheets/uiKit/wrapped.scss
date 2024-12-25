@@ -93,3 +93,29 @@
     flex-direction: row;
   }
 }
+.W_IssueInfo_Podcast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.W_IssueFullCard_Footer {
+  .Footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 16px;
+    .Likes {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+    }
+  }
+}
+.W_CommentsBlock {
+  margin-top: 2vh;
+}
+.W_ProfilePostsCards {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
