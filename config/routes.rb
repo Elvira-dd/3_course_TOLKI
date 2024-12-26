@@ -56,6 +56,11 @@ Rails.application.routes.draw do
     end
   end
   resources :tags  
+  resources :posts do
+    member do
+      post :like
+    end
+  end
   
   namespace :admin do
     resources :issues do

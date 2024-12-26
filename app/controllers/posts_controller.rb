@@ -11,6 +11,15 @@ class PostsController < ApplicationController
     @posts = Post.where(is_comments_open: false)
     end
   end
+  def like 
+    likes = @post.likes.where(user_id: current_user.id)
+    if likes.count > 0
+      likes.destroy_all
+    else
+      @post.likes.create(user_id: current_user.id)
+    end
+    redirect_to admin_post_path(@post)
+  end
 
   # GET /posts/1 or /posts/1.json
   def show

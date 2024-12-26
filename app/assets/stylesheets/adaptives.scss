@@ -1,0 +1,113 @@
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  h5 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+/* Адаптивные стили для экранов с шириной до 480px (например, мобильные телефоны) */
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .W_AccentCover {
+    h1 {
+      width: 80%;
+      text-align: center;
+    }
+    .A_Button {
+      width: auto;
+    }
+  }
+  .AuthorAvatarImage {
+    width: 165px !important;
+    height: 165px !important;
+  }
+  .C_AuthorsCards {
+    justify-content: flex-start;
+    gap: 14px;
+    margin-left: -49vw;
+  }
+  .A_Likeble_Cover {
+    width: 200px;
+    height: 200px;
+  }
+  .C_PodcastCards {
+    justify-content: flex-start;
+    gap: 12px;
+    margin-left: -61vw;
+  }
+  .M_IssueCard {
+    .Title {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  }
+  .M_ThemeCard .ThemeCoverImage {
+    width: 175px;
+  }
+  .C_ThemeCards {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 88vw;
+    flex-wrap: wrap;
+    margin-left: 0vw;
+  }
+  .O_Footer {
+    flex-direction: column;
+    align-items: normal;
+    .InerBlock {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-bottom: 2vh;
+      .TextTwo {
+        display: flex;
+        width: 88%;
+        justify-content: space-between;
+        flex-direction: row;
+        .TextBlock {
+          width: 30vw;
+        }
+      }
+    }
+    .Q_Icon {
+      &.tg {
+        display: none;
+      }
+    }
+  }
+  .O_Footer .InerBlock .TextBlock {
+    width: 38vw;
+  }
+}

@@ -49,6 +49,9 @@
   h4 {
     color: var(--first_gray);
   }
+  p {
+    color: var(--first_gray);
+  }
 }
 .W_PodcastSelection {
   display: flex;
@@ -118,4 +121,16 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+.W_Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20vh;
+  .A_Button {
+    width: 50vw;
+    border: 0px;
+    margin-top: 16px;
+  }
 }

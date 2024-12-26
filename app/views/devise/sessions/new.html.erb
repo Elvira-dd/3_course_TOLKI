@@ -1,27 +1,15 @@
-<div class="logInTitle">
+<div class="W_TitleWith">
     <h1>С возвращением!</h1>
     <p> Чтобы учавствовать в обсуждениях, оставлять отзывы, тебе нужно войти в аккаунт! </p>
 </div>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-<div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-</div>
+<div class="W_Form">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"A_Input" %>
+    <%= f.password_field :password, autocomplete: "current-password" , class:"A_Input"%>
 
-<div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-</div>
 
-<% if devise_mapping.rememberable? %>
-<div class="field">
-    <%= f.check_box :remember_me %>
-    <%= f.label :remember_me %>
+    <div class="actions">
+        <%= f.submit "Войти", class:"A_Button Primary"%>
+    </div>
 </div>
 <% end %>
-
-<div class="actions">
-    <%= f.submit "Войти" %>
-</div>
-<% end %>
-<p> Упс! Если вас ещё нет на нашем сервисе, срочно <%= link_to "зарегистрирутесь", new_user_registration_path%>! </p>

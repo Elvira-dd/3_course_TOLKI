@@ -1,6 +1,6 @@
 class PodcastsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_podcast, only: %i[ show edit update destroy ]
+  before_action :set_podcast, only: %i[show edit update destroy]
 
   # GET /podcasts or /podcasts.json
   def index
@@ -10,7 +10,6 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1 or /podcasts/1.json
   def show
     @issues = Issue.where(link: @podcast.name)
-    @podcast = Podcast.find(params[:id])
     @posts = @podcast.posts.includes(:issue)
   end
 
@@ -64,7 +63,7 @@ class PodcastsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_podcast
-      @podcast = Podcast.find(params[:id])
+      @podcast = Podcast.find(params[:id])  # Этот метод уже устанавливает @podcast
     end
 
     # Only allow a list of trusted parameters through.
