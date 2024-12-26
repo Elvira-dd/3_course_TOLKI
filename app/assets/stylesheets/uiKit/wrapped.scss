@@ -1,0 +1,121 @@
+.W_AccentCover {
+  height: 500px;
+  width: 100vw;
+  margin-left: -6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 24px;
+  &.first {
+    background-image: url('W_AccentCover_first.jpg');
+  }
+  &.ama {
+    background-image: url('W_AccentCover_ama.jpg');
+  }
+  h1 {
+    color: var(--accent_green);
+  }
+}
+.W_CardBlock {
+  padding: 5vh 0vw;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  h2 {
+    color: var(--first_gray);
+  }
+}
+.W_ListBlock_Title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  h4 {
+    color: var(--first_gray);
+  }
+}
+.W_TitleWith {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 10vh;
+  h1 {
+    color: var(--accent_green);
+  }
+  margin-bottom: 8vh;
+  h4 {
+    color: var(--first_gray);
+  }
+}
+.W_PodcastSelection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+  .A_Button {
+    background-color: var(--accent_green);
+    width: 40%;
+    border-radius: 8px;
+  }
+  h4 {
+    color: var(--first_gray);
+  }
+  .checkboxText {
+    display: flex;
+    flex-direction: row;
+  }
+}
+.W_NewPostInfo {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+  .A_Button {
+    width: 60%;
+  }
+  h4 {
+    color: var(--first_gray);
+  }
+  .checkboxText {
+    width: 60%;
+    margin-bottom: 10vh;
+    .A_Input {
+      &.CheckBox {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    display: flex;
+    flex-direction: row;
+  }
+}
+.W_IssueInfo_Podcast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.W_IssueFullCard_Footer {
+  .Footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 16px;
+    .Likes {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+    }
+  }
+}
+.W_CommentsBlock {
+  margin-top: 2vh;
+}
+.W_ProfilePostsCards {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}

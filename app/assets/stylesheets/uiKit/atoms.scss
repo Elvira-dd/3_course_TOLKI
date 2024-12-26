@@ -1,0 +1,113 @@
+.A_Button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 37px;
+  border-radius: 8px;
+  width: fit-content;
+  &.Primary {
+    background-color: var(--accent_green);
+    h2 {
+      color: var(--five_gray);
+      margin-bottom: 0;
+    }
+  }
+  &.Redirect {
+    padding: 0px;
+    gap: 4px;
+  }
+  &.PrimaryMedium {
+    background-color: var(--accent_green);
+    h5 {
+      color: var(--five_gray);
+    }
+    padding: 10px 20px;
+  }
+  &.SecondaryMedium {
+    background-color: var(--five_gray);
+    h5 {
+      color: var(--first_gray);
+    }
+    padding: 10px 20px;
+    &.white {
+      background-color: var(--first_gray);
+      h5 {
+        color: var(--four_gray);
+      }
+    }
+  }
+}
+.A_Tag {
+  background-color: var(--light_tag);
+  padding: 8px 16px;
+  width: fit-content;
+  border-radius: 8px;
+  h5 {
+    color: var(--first_gray);
+  }
+}
+.A_Theme {
+  background-color: var(--four_gray);
+  padding: 8px 16px;
+  width: fit-content;
+  border-radius: 8px;
+}
+.A_Input {
+  width: 60%;
+  padding: 20px;
+  border-radius: 50px;
+  &.Big {
+    font-family: 'FormaDJR';
+    border-radius: 8px;
+    height: 400px;
+    width: 57%;
+    font-size: 16px;
+    line-height: 110%;
+    letter-spacing: 0.25px;
+    font-weight: 400;
+    color: var(--five_gray);
+  }
+}
+.A_Input_Black {
+  background-color: var(--bg_black);
+  border: none;
+  width: 60%;
+  height: 50px;
+  font-size: 32px;
+  font-family: 'FormaDJR';
+  line-height: 110%;
+  letter-spacing: 0.7px;
+  font-weight: 500;
+  color: var(--first_gray);
+}
+.A_Input_Black::placeholder {
+  font-family: 'FormaDJR';
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0.7px;
+  font-weight: 500;
+  color: var(--first_gray);
+}
+.A_section {
+  background-color: var(--four_gray);
+  padding: 16px 24px;
+  width: fit-content;
+  border-radius: 8px;
+  color: var(--first_gray);
+  &.Big {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 30px 24px 24px 16px;
+    max-width: 250px;
+    gap: 12px;
+    h1 {
+      font-size: 96px;
+      line-height: 70%;
+    }
+    p {
+      width: min-content;
+    }
+  }
+}

@@ -1,0 +1,226 @@
+.M_AuthorCard {
+  color: var(--first_gray);
+  padding: 16px;
+  background-color: var(--four_gray);
+  width: min-content;
+  border-radius: 8px;
+  .AuthorAvatarImage {
+    height: 250px;
+    width: 250px;
+    border-radius: 8px;
+  }
+  h3 {
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+  p {
+    margin-top: 32px;
+  }
+  .A_Button {
+    margin-top: 64px;
+  }
+}
+.M_PodcastCard {
+  color: var(--first_gray);
+  padding: 16px;
+  background-color: var(--four_gray);
+  width: min-content;
+  border-radius: 8px;
+  height: 500px;
+}
+.A_Likeble_Cover {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.M_IssueCard {
+  .IssueCoverImage {
+    width: 100%;
+    height: auto;
+  }
+  .Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    color: var(--first_gray);
+    margin-top: 12px;
+  }
+}
+.M_ThemeCard {
+  .ThemeCoverImage {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+  }
+  h5 {
+    margin-top: 16px;
+    color: var(--first_gray);
+  }
+}
+.M_ProfileCardOpened {
+  color: var(--first_gray);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  .ProfileTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ProfileFunc {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+.M_UserCard {
+  .UserAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+  }
+  .UserInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.M_CommentCard {
+  background-color: var(--three_gray);
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 16px;
+  .M_UserCard {
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 16px;
+    .UserAvatar {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+.M_ReplyCard {
+  background-color: var(--three_gray);
+  border-radius: 8px;
+  padding: 16px;
+  .M_UserCard {
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 16px;
+    .UserAvatar {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+.M_PodcastTitle {
+  color: var(--first_gray);
+  display: flex;
+  gap: 16px;
+  .PodcastText {
+    h1 + p {
+      width: 60%;
+      margin-bottom: 16px;
+    }
+  }
+  .PodcastAuthorAvatar {
+    width: 40px;
+    height: 40px;
+  }
+  .PodcastCover {
+    width: 200px;
+    height: 200px;
+  }
+  .PodcastAuthorAvatar {
+    border-radius: 50px;
+  }
+}
+.PodcastAuthorCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.PodcastAuthors {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 8px;
+}
+.PodcastThemes {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.podcastsIssues {
+  color: var(--accent_green);
+}
+
+.galleryWrapper {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.gallery {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.galleryCard {
+  min-width: 70%;
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+.galleryButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.galleryButton.left {
+  left: 0;
+}
+
+.galleryButton.right {
+  right: 0;
+}
+.PodcastPagePosts {
+  margin-top: 10vh;
+
+  .A_Button {
+    width: 70%;
+    justify-content: center;
+    margin-bottom: 5vh;
+  }
+  h2 {
+    margin-bottom: 2vh;
+    color: var(--accent_green);
+  }
+  .O_PostFullCard_WithComments {
+    margin-bottom: 4vh;
+  }
+}
