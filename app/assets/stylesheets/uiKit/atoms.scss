@@ -100,11 +100,13 @@
     flex-direction: row;
     align-items: flex-end;
     padding: 30px 24px 24px 16px;
-    max-width: 250px;
+    max-width: 300px;
     gap: 12px;
+
     h1 {
       font-size: 96px;
       line-height: 70%;
+      font-weight: 400;
     }
     p {
       width: min-content;

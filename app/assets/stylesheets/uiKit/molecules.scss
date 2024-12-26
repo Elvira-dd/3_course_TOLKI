@@ -49,6 +49,16 @@
     color: var(--first_gray);
     margin-top: 12px;
   }
+  &.Main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 4vh;
+    color: var(--first_gray);
+    h1 {
+      color: var(--accent_green);
+    }
+  }
 }
 .M_ThemeCard {
   .ThemeCoverImage {
@@ -222,5 +232,20 @@
   }
   .O_PostFullCard_WithComments {
     margin-bottom: 4vh;
+  }
+}
+.M_IssueTitle {
+  color: var(--first_gray);
+  display: flex;
+  gap: 16px;
+  margin-bottom: 5vh;
+  .PodcastCover {
+    width: 100px;
+    height: 100px;
+  }
+  .PodcastAuthorAvatar {
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
   }
 }

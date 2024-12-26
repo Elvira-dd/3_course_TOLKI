@@ -1,18 +1,18 @@
+<% if post.user.present? %>
 <div class="O_PostFullCard_WithComments">
     <div class="M_PostFullCard">
         <div class="M_UserCard">
             <div class="UserInfo">
                 <%= image_tag post.user.profile.avatar, alt: post.user.profile.name, class: "UserAvatar" if post.user.profile.avatar.present? %>
                 <div class="UserTitle">
-                    <h3><%=  post.user.profile.name %></h3>
-                    <p> знаток подкастов <%=  post.user.profile.level %> уровня </p>
+                    <h3><%= post.user.profile.name %></h3>
+                    <p> знаток подкастов <%= post.user.profile.level %> уровня </p>
                 </div>
-
             </div>
             <div class="W_IssueInfo_Podcast">
                 <p> подкаст </p>
                 <div class="A_Tag">
-                    <p> <%=  post.issue.podcast.name %> </p>
+                    <p> <%= post.issue.podcast.name %> </p>
                 </div>
                 <p> выпуск </p>
                 <div class="A_Tag">
@@ -24,16 +24,19 @@
         <h1> <%= post.title %> </h1>
 
         <div class="A_Content">
-            <p> <%=  post.content %> </p>
-
+            <p> <%= post.content %> </p>
         </div>
         <div class="W_IssueFullCard_Footer">
+            <% if post.created_at %>
             <p><%= post.created_at.strftime('%d.%m.%Y в %H:%M') %></p>
+            <% else %>
+            <p>Дата не указана</p>
+            <% end %>
             <div class="Footer">
                 <div class="Likes">
-                    <div class="Q_FooterIcons like"> </div>
-                    <div class="Q_FooterIcons dislike"> </div>
-                    <div class="Q_FooterIcons share"> </div>
+                    <div class="Q_FooterIcons like"></div>
+                    <div class="Q_FooterIcons dislike"></div>
+                    <div class="Q_FooterIcons share"></div>
                 </div>
                 <% if post.is_comments_open %>
                 <div class="A_Button PrimaryMedium">
@@ -50,8 +53,8 @@
                 <div class="M_UserCard">
                     <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" if comment.user.profile.avatar.present? %>
                     <div class="UserTitle">
-                        <h5><%=  comment.user.profile.name %></h5>
-                        <p class="small"> знаток подкастов <%=  comment.user.profile.level %> уровня </p>
+                        <h5><%= comment.user.profile.name %></h5>
+                        <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
                     </div>
                 </div>
                 <p><%= comment.content %></p>
@@ -61,3 +64,4 @@
         </ul>
     </div>
 </div>
+<% end %>
