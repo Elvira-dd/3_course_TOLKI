@@ -27,12 +27,14 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
-  if @post.save
-    redirect_to @post, notice: "Пост успешно создан!"
-  else
-    render :new
-  end
+    @issue = Issue.find(params[:issue_id]) # Ensure you have access to the issue
+    @post = @issue.posts.new(post_params.merge(user_id: current_user.id))
+  
+    if @post.save
+      redirect_to @post, notice: 'Post was successfully created.'
+    else
+      render :new
+    end
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json
@@ -74,7 +76,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :is_comments_open, :link, :hashtag, :issue_id, :user_id)
+      params.require(:post).permit(:title, :content, :is_comments_open, :link, :hashtag)
     end
     
 end

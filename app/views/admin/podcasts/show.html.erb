@@ -1,99 +1,46 @@
+<%= link_to "<- Back to podcasts", admin_podcasts_path %>
+
+<%= render @podcast %>
 <% set_meta_tags(
   title: "Подкаст #{@podcast.name}",
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
-<div class="O_PodcastPage">
 
-    <!-- Блок заголовка подкаста -->
-    <div class="M_PodcastTitle">
-        <%= image_tag @podcast.cover, alt: @podcast.cover, class: "PodcastCover" if @podcast.cover.present? %>
-
-        <div class="PodcastText">
-            <h1> Подкаст «<%= @podcast.name%>»</h1>
-            <p><%= @podcast.description%> </p>
-            <h5> Авторы подкаста </h5>
-            <div class="PodcastAuthors">
-                <% @podcast.authors.each do |author| %>
-                <div class="PodcastAuthorCard">
-                    <%= image_tag author.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
-                    <div class="AuthorCard">
-                        <h5><%= author.name%> </h5>
-                        <p class="small"><%= author.name %> </p>
-                    </div>
-                </div>
-                <% end %>
-            </div>
-        </div>
-    </div>
-
-    <!-- Темы подкаста -->
-    <div class="PodcastThemes">
-        <% if @podcast.themes.any? %>
+<div class="podcastEditing">
+    <%= link_to "Edit this podcast", edit_admin_podcast_path(@podcast) %>
+</div>
+<div class="podcastThemes">
+    <h2>Теги</h2>
+    <% if @podcast.themes.any? %>
+    <ul>
         <% @podcast.themes.each do |theme| %>
-        <div class="A_Tag">
-            <h5><%= theme.name %></h5>
-        </div>
+        <li><%= theme.name %></li>
         <% end %>
-        <% else %>
-        <p>Этот подкаст пока не имеет тегов.</p>
+    </ul>
+    <% else %>
+    <p>Этот подкаст пока не имеет тегов.</p>
+    <% end %>
+</div>
+<div class="podcastsAuthors">
+    <% @authors.each do |author| %>
+    <%= render author %>
+    <% end %>
+</div>
+<div class="podcastsIssues">
+    <h1>Выпуски подкаста</h1>
+    <div id="issues" class="allIssuesPage">
+        <% @issues.each do |issue| %>
+        <%= render issue %>
         <% end %>
     </div>
-
-    <!-- Кнопка редактирования подкаста -->
-    <div class="podcastEditing">
-        <%= link_to "Edit this podcast", edit_admin_podcast_path(@podcast) %>
-    </div>
-
-    <!-- Галерея выпусков -->
-    <div class="podcastsIssues">
-        <h2>Выпуски</h2>
-        <div id="issues" class="allIssuesPage">
-            <div class="Q_Arrow withBg" onclick="moveGallery(-1)"></div>
-            <div class="gallery">
-                <% @issues.each do |issue| %>
-                <div class="galleryCard">
-                    <%= render partial: "issuecard_secondary", locals: { issue: issue } %>
-                </div>
-                <% end %>
-            </div>
-            <div class="Q_Arrow withBg2" onclick="moveGallery(1)"></div>
-        </div>
-
-    </div>
-
-    <!-- Секция рецензий -->
-    <div class="PodcastPagePosts">
-        <h2>Рецензии</h2>
-        <div class="A_Button Primary">
-            <h2> написать рецензию </h2>
-        </div>
-        <div id="posts">
-            <% if @posts.present? %>
-            <% @posts.each do |post| %>
-            <%= render partial: "postcard", locals: { post: post } %>
-            <% end %>
-            <% else %>
-            <p>No posts available.</p>
-            <% end %>
-        </div>
-
-        <!-- JavaScript для управления галереей -->
-        <%= javascript_tag do %>
-        let currentIndex = 0;
-
-        function moveGallery(direction) {
-        const gallery = document.querySelector('.gallery');
-        const cards = document.querySelectorAll('.galleryCard');
-        const cardWidth = cards[0].offsetWidth + 20; // ширина карточки + отступы
-
-        currentIndex += direction;
-
-        // Ограничиваем текущий индекс
-        if (currentIndex < 0) { currentIndex=0; } else if (currentIndex> cards.length - 1) {
-            currentIndex = cards.length - 1;
-            }
-
-            // Перемещаем галерею
-            gallery.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-            }
-            <% end %>
+</div>
+<h2>Рецензии</h2>
+<div id="posts">
+    <% if @posts.present? %>
+    <% @posts.each do |post| %>
+    <%= render post %>
+    <% end %>
+    <% else %>
+    <p>No posts available.</p>
+    <% end %>
+</div>

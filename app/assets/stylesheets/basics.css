@@ -6,9 +6,7 @@ input::placeholder {
   color: #000000;
 }
 .classicLayout {
-  overflow-x: hidden;
-  padding: 4vh 6vw 0vh 6vw;
-  background-color: var(--bg_black);
+  padding: 4vh 6vw;
 }
 
 .comment {

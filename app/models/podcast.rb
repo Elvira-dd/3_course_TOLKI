@@ -4,5 +4,4 @@ class Podcast < ApplicationRecord
     has_many :posts, through: :issues
     has_and_belongs_to_many :authors
     has_and_belongs_to_many :themes
-    has_one_attached :cover
 end

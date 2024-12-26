@@ -2580,107 +2580,52 @@ def create_title
   
   def create_users(quantity)
     i = 0
-    
+  
     quantity.times do
       user_data = {
         email: "user_#{i}@email.com",
         password: 'testtest'
       }
-    
+  
       if i == 0
         user_data[:admin] = true
       end
-    
+  
       # Создание пользователя
       user = User.create!(user_data)
       puts "User created with id #{user.id}"
-    
+  
       # Создание профиля для пользователя
-      profile = Profile.create!(
+      Profile.create!(
         user_id: user.id,
         name: "Default User #{i}",
         bio: "This is the default bio for user #{user.email}.",
+        avatar: "default_avatar.png",
         level: random_rating
       )
-      
-      # Привязка аватара через ActiveStorage
-      file_path = Rails.root.join("app/assets/images/default_avatar.png")
-      profile.avatar.attach(
-        io: File.open(file_path),
-        filename: "default_avatar.png",
-        content_type: "image/png"
-      )
-      
       puts "Profile created for user with id #{user.id}"
+  
       i += 1
     end
   end
   
-  # def create_podcast(quantity)
-  #   covers = [
-  #     Rails.root.join("app/assets/images/cover1.png"),
-  #     Rails.root.join("app/assets/images/cover2.png"),
-  #     Rails.root.join("app/assets/images/cover3.png")
-  #   ]
-    
-  #   quantity.times do 
-  #     podcast = Podcast.create!(
-  #       name: @companies.sample[:name], 
-  #       description: create_sentence, 
-  #       average_rating: "Средняя оценка:#{random_rating}/100"
-  #     )
-      
-  #     # Случайный выбор обложки
-  #     file_path = covers.sample
-  #     podcast.cover.attach(
-  #       io: File.open(file_path),
-  #       filename: File.basename(file_path),
-  #       content_type: "image/png"
-  #     )
-  #   end
-  # end
-
   def create_podcast(quantity)
     quantity.times do 
-      podcast = Podcast.create!(
-        name: @companies.sample[:name], 
-        description: create_sentence, 
-        average_rating: "Средняя оценка:#{random_rating}/100"
-      )
-      
-      # Привязка изображения к ActiveStorage
-      file_path = Rails.root.join("app/assets/images/cover_test.png") # путь к вашему файлу
-      podcast.cover.attach(
-        io: File.open(file_path),
-        filename: "cover_test.png",
-        content_type: "image/png"
-      )
+      Podcast.create!(name: @companies.sample[:name], description: create_sentence, cover: "cover_test.png", average_rating: "Средняя оценка:#{random_rating}/100")
     end
   end
   
-def create_issues(quantity)
-  Podcast.all.each do |podcast|
-    puts "Creating issues for podcast with id #{podcast.id}"
-    i = 1
-    quantity.to_a.sample.times do 
-      issue = podcast.issues.create!(
-        name: "Выпуск #{create_title}", 
-        link: podcast.name
-      )
-      
-      # Привязка обложки через ActiveStorage
-      file_path = Rails.root.join("app/assets/images/issue_cover_test.png")
-      issue.cover.attach(
-        io: File.open(file_path),
-        filename: "issue_cover_test.png",
-        content_type: "image/png"
-      )
-      
-      puts "Issue created for podcast with id #{podcast.id}, issue id: #{issue.id}"
-      i += 1
+  def create_issues(quantity)
+    Podcast.all.each do |podcast|
+      puts "Creating issues for podcast with id #{podcast.id}"
+      i = 1
+      quantity.to_a.sample.times do 
+        issue = podcast.issues.create!(name: "Выпуск #{create_title}", link: podcast.name, cover: "issue_cover_test.png")
+        puts "Issue created for podcast with id #{podcast.id}, issue id: #{issue.id}"
+        i += 1
+      end
     end
   end
-end
   
   def create_authors(quantity)
     Podcast.all.each do |podcast|
@@ -2734,25 +2679,11 @@ end
   
   def create_themes_and_assign_to_podcasts(theme_count)
     themes = theme_count.times.map do |i|
-      # Создание темы
-      theme = Theme.create!(
-        name: "Theme ##{i + 1}", 
-        description: create_sentence
-      )
-  
-      # Привязка обложки через ActiveStorage
-      file_path = Rails.root.join("app/assets/images/tag_cover_test.png")
-      theme.cover.attach(
-        io: File.open(file_path),
-        filename: "tag_cover_test.png",
-        content_type: "image/png"
-      )
-  
-      puts "Theme created with id #{theme.id}, name: #{theme.name}"
-      theme
+      Theme.create!(name: "Theme ##{i + 1}", cover:"tag_cover_test.png", description: create_sentence)
     end
+    # theme_names = ["История", "Секс", "Искусство", "Исто"]
+    # themes = theme_names.map { |name| Theme.find_or_create_by!(name: name) }
   
-    # Привязка тем к подкастам
     Podcast.all.each do |podcast|
       podcast.themes = themes.sample(rand(1..3))
       puts "Assigned themes to podcast with id #{podcast.id}"

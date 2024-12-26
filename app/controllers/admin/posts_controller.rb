@@ -18,34 +18,23 @@ class Admin::PostsController < ApplicationController
   def new
     @post = Post.new
     @podcasts = Podcast.all
-    @simplified_podcasts = @podcasts.map do |podcast|
-      {
-        id: podcast.id,
-        name: podcast.name,
-        issues: podcast.issues.map { |issue| { id: issue.id, name: issue.name } }
-      }
-    end
   end
 
   # GET /posts/1/edit
   def edit
   end
-  
 
   # POST /posts or /posts.json
-  
+
   def create
-    @post = current_user.posts.new(post_params)
-  
-    if @post.save
-      redirect_to @post, notice: 'Пост был успешно создан.'
-    else
-      @podcasts = Podcast.all # Загрузи данные заново, чтобы избежать проблем при повторном рендеринге
-      render :new, status: :unprocessable_entity
-    end
-    
+    @post = current_user.posts.new(post_params)  # Используем current_user для привязки поста к пользователю
+
+  if @post.save
+    redirect_to @post, notice: 'Пост был успешно создан.'
+  else
+    render :new
   end
-  
+  end
   def like 
     likes = @post.likes.where(user_id: current_user.id)
     if likes.count > 0
@@ -87,7 +76,6 @@ class Admin::PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :is_comments_open, :link, :hashtag, :issue_id, :user_id)
+      params.require(:post).permit(:title, :content, :is_comments_open, :podcast_id, :issue_id, :user_id)
     end
-    
 end

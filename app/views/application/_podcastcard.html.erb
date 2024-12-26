@@ -1,18 +1,7 @@
-<%= link_to admin_podcast_path(podcast) do %>
-<div class="M_PodcastCard">
-    <div class="A_Likeble_Cover" style="background-image: url('<%= url_for(podcast.cover) %>');">
-        <div class="Q_Like withBg"></div>
-    </div>
-    <h2><%= podcast.name %></h2>
-    <div class="C_TagsLine">
-        <% if podcast.themes.any? %>
-        <% podcast.themes.each do |theme| %>
-        <div class="A_Tag">
-            <h5><%= theme.name %></h5>
-        </div>
-        <% end %>
-        <% end %>
-    </div>
+<div class="PodcastCard">
+    <%= link_to admin_podcast_path(podcast) do %>
+    <div class="LikeButton"> </div>
+    <h3><%= podcast.name %></h3>
     <p><%= podcast.description %></p>
+    <% end %>
 </div>
-<% end %>

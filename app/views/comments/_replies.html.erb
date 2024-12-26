@@ -1,14 +1,11 @@
-<div class="W_ReplyCards">
+<ul class="replies">
     <% comment.replies.each do |reply| %>
-    <div class="M_ReplyCard">
-        <div class="M_UserCard">
-            <%= image_tag reply.user.profile.avatar, alt: reply.user.profile.name, class: "UserAvatar" if reply.user.profile.avatar.present? %>
-            <div class="UserTitle">
-                <h5><%=  reply.user.profile.name %></h5>
-                <p class="small"> знаток подкастов <%=  reply.user.profile.level %> уровня </p>
-            </div>
+    <li class="replyCard">
+        <div class="replyHeader">
+            <p><strong><%= reply.user.profile.name %>:</strong></p>
         </div>
         <p><%= reply.content %></p>
         <%= render partial: "comments/replies", locals: { comment: reply } %>
-    </div>
+    </li>
     <% end %>
+</ul>

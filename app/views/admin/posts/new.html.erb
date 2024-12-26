@@ -1,75 +1,97 @@
-<% content_for :title, "New post" %>
-<div class="O_NewPostForm">
-    <div class="W_TitleWith Themes">
-        <h1>На какой подкаст вы бы
-            хотели написать рецензию?</h1>
-        <h4>Напиши название подкаста или выпуска или вставь ссылку</h4>
-    </div>
-
-    <%= form_with(model: @post, url: admin_posts_path, method: :post) do |form| %>
-
-    <!-- Блок выбора подкаста и выпуска -->
-    <div id="podcast_selection" class="W_PodcastSelection">
-        <%= select_tag :podcast_id, options_from_collection_for_select(@podcasts, :id, :name), 
-                       prompt: "Выберите название подкаста", onchange: "updateIssues(this)", class: "A_Input" %>
-        <%= select_tag :issue_id, "", prompt: "Сначала выберите подкаст", 
-                       disabled: true, data: { issues: @simplified_podcasts.to_json }, class: "A_Input" %>
-        <%= submit_tag "Далее", disabled: true, id: "next_button", class: "A_Button" %>
-
-    </div>
-
-    <!-- Блок с формой для написания отзыва, скрыт изначально -->
-    <div id="review_section" style="display: none;" class="W_NewPostInfo">
-        <%= hidden_field_tag :user_id, current_user.id %>
-        <%= text_field_tag :title, nil,placeholder: "Заголовок", class: "A_Input_Black" %>
-        <%= text_area_tag :content, nil, placeholder: "Напишите все что думаешь...", class: "A_Input Big" %>
-        <div class="checkboxText">
-            <%= check_box_tag :is_comments_open, 1, false, class: "A_Input CheckBox" %>
-
-            <h4>Хотите, чтобы другие пользователи могли комментировать вашу рецензию?</h4>
-        </div>
-
-        <%= submit_tag "Опубликовать", class: "A_Button Primary" %>
-    </div>
-    <% end %>
+<% set_meta_tags(
+  title: "Строчим новую рецензию",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
+<% if @podcasts.present? %>
+<h2>Выберите подкаст и выпуск</h2>
+<% if @post.errors.any? %>
+<div class="error_explanation">
+    <h2>Ошибки:</h2>
+    <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
 </div>
-<%= javascript_tag do %>
+<% end %>
+<%= form_with(model: @post, url: admin_posts_path, method: :post) do |form| %>
 
-// Функция для обновления списка выпусков на основе выбранного подкаста
-function updateIssues(select) {
-const podcastId = select.value;
-const issuesSelect = document.querySelector('[name="issue_id"]');
-const submitButton = document.querySelector('[type="submit"]');
+<!-- Блок выбора подкаста и выпуска -->
+<div id="podcast_selection">
+    <div>
+        <%= label_tag :podcast_id, "Выберите подкаст:" %>
+        <%= select_tag :podcast_id, options_from_collection_for_select(@podcasts, :id, :name), prompt: "Выберите подкаст", onchange: "updateIssues(this)" %>
+    </div>
+    <div>
+        <%= label_tag :issue_id, "Выберите выпуск:" %>
+        <%= select_tag :issue_id, "", prompt: "Сначала выберите подкаст", disabled: true, data: { issues: @podcasts.to_json(include: :issues) } %>
+    </div>
+    <div>
+        <%= submit_tag "Далее", disabled: true, id: "next_button" %>
+    </div>
+</div>
 
-// Получаем данные о подкастах из data-атрибута
-const podcastIssues = JSON.parse(issuesSelect.dataset.issues);
+<!-- Блок с формой для написания отзыва, скрыт изначально -->
+<div id="review_section" style="display: none;">
+    <%= hidden_field_tag :user_id, current_user.id %>
+    <div>
+        <%= label_tag :title, "Заголовок:" %>
+        <%= text_field_tag :title %>
+    </div>
+    <div>
+        <%= label_tag :content, "Отзыв:" %>
+        <%= text_area_tag :content %>
+    </div>
+    <div>
+        <%= check_box_tag :is_comments_open %>
+        <%= label_tag :is_comments_open, "Комменты будем открывать?" %>
+    </div>
+    <div>
+        <%= submit_tag "Опубликовать" %>
+    </div>
+</div>
 
-if (podcastId) {
-// Находим выпуски для выбранного подкаста
-const podcast = podcastIssues.find(podcast => podcast.id == podcastId);
-const issues = podcast ? podcast.issues : [];
+<% end %>
+<script>
+    // Функция для обновления списка выпусков на основе выбранного подкаста
+    function updateIssues(select) {
+        const podcastId = select.value;
+        const issuesSelect = document.querySelector('[name="issue_id"]'); // Используем правильный селектор для issue_id
+        const submitButton = document.querySelector('[type="submit"]');
 
-// Очищаем и обновляем выпадающий список
-issuesSelect.innerHTML = issues.map(issue =>
-`<option value="${issue.id}">${issue.name}</option>`
-).join('');
-issuesSelect.disabled = false;
-submitButton.disabled = false;
-} else {
-issuesSelect.innerHTML = '';
-issuesSelect.disabled = true;
-submitButton.disabled = true;
-}
-}
+        // Получаем данные о подкастах из data-атрибута
+        const podcastIssues = JSON.parse(issuesSelect.dataset.issues);
 
-// Показ формы отзыва после выбора подкаста и выпуска
-document.getElementById("next_button").addEventListener("click", function(event) {
-event.preventDefault(); // предотвращаем отправку формы
+        if (podcastId) {
+            // Находим выпуски для выбранного подкаста
+            const podcast = podcastIssues.find(podcast => podcast.id == podcastId);
+            const issues = podcast ? podcast.issues : [];
 
-// Скрываем блок выбора подкаста
-document.getElementById("podcast_selection").style.display = "none";
+            // Очищаем и обновляем выпадающий список
+            issuesSelect.innerHTML = issues.map(issue =>
+                `<option value="${issue.id}">${issue.name}</option>`
+            ).join('');
+            issuesSelect.disabled = false;
+            submitButton.disabled = false;
+        } else {
+            issuesSelect.innerHTML = ''; // Если подкаст не выбран, очищаем список выпусков
+            issuesSelect.disabled = true;
+            submitButton.disabled = true;
+        }
+    }
 
-// Показываем блок с формой
-document.getElementById("review_section").style.display = "flex";
-});
+    // Показать форму отзыва после выбора подкаста и выпуска
+    document.getElementById("next_button").addEventListener("click", function(event) {
+        event.preventDefault(); // предотвращаем отправку формы
+
+        // Скрываем блок выбора подкаста и выпуска
+        document.getElementById("podcast_selection").style.display = "none";
+
+        // Показываем блок с формой для написания отзыва
+        document.getElementById("review_section").style.display = "block";
+    });
+</script>
+
+<% else %>
+<h2>Нет доступных подкастов или выпусков</h2>
 <% end %>
