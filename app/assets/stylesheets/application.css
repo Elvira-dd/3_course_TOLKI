@@ -11,5 +11,5 @@
 *= require rawStyles
 *= require_tree ./components
 *= require_tree ./uiKit
-
+*= require adaptives
 */

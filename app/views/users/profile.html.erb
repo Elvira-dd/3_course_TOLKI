@@ -22,9 +22,9 @@
             </div>
         </div>
         <div class="ProfileFunc">
-            <div class="A_Button SecondaryMedium white">
-                <h5> Выйти </h5>
-            </div>
+            <%= button_to destroy_user_session_path, method: :delete, class: "A_Button SecondaryMedium white" do %>
+            <h5> Выйти </h5>
+            <% end %>
             <div class="Q_Icon setting">
             </div>
         </div>

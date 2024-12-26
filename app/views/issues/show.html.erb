@@ -1,24 +1,68 @@
-<p style="color: green"><%= notice %></p>
+<% set_meta_tags(
+  title: "Подкаст #{@issue.podcast.name} | выпуск #{@issue.name} ",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
+<div class="O_IssuePage">
 
+    <!-- Блок заголовка подкаста -->
+    <div class="M_IssueTitle">
+        <%= image_tag @issue.podcast.cover, alt: @issue.podcast.cover, class: "PodcastCover" if @issue.podcast.cover.present? %>
 
-<div>
-  <h1><%= @issue.name %></h1>
-  <h3><%= @issue.link %></h3>
+        <div class="PodcastText">
+            <h3> Подкаст «<%= @issue.podcast.name%>»</h3>
+            <div class="PodcastAuthors">
+                <% @issue.podcast.authors.each do |author| %>
+                <div class="PodcastAuthorCard">
+                    <%= image_tag author.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
+                    <div class="AuthorCard">
+                        <h5><%= author.name%> </h5>
+                        <p class="small"><%= author.name %> </p>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
 
-  <div id="posts">
-  <% @posts.each do |post| %>
-    <% if post.persisted? %>
-      <div class="post">
-        <h2><%= link_to post.title, post %></h2>
-        <p><%= post.content %></p>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-<% if can? :create, Issue %>
-  <div>
-      <h2>Add a post:</h2>
-      <%= render "posts/form", post: Post.new %>
+    <div class="M_IssueCard Main">
+        <h1> <%= @issue.name %></h1>
+        <%= image_tag @issue.cover, alt: @issue.name, class: "IssueCoverImage" %>
+        <p><%= @issue.created_at.strftime("%d.%m.%Y") %></p>
+    </div>
+
+    <div class="C_SectionList">
+        <div class="A_section Big">
+            <h1> 96 </h1>
+            <p> средняя оценка </p>
+        </div>
+        <div class="A_section Big">
+            <h1> 32% </h1>
+            <p> воды </p>
+        </div>
+        <div class="A_section Big">
+            <h1> 70% </h1>
+            <p> полезных инсайдов </p>
+        </div>
+        <div class="A_section Big">
+            <h1> 90% </h1>
+            <p> свежести
+                информации </p>
+        </div>
+    </div>
+    <!-- Секция рецензий -->
+    <div class="PodcastPagePosts">
+        <h2>Рецензии</h2>
+        <div class="A_Button Primary">
+            <h2> написать рецензию </h2>
+        </div>
+        <div id="posts">
+            <% if @issue.posts.present? %>
+            <% @issue.posts.each do |post| %>
+            <%= render partial: "postcard", locals: { post: post } %>
+            <% end %>
+            <% else %>
+            <p>No posts available.</p>
+            <% end %>
+        </div>
     </div>
 </div>
-<%end%>

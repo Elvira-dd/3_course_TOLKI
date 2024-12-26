@@ -1,7 +1,75 @@
 <% content_for :title, "New post" %>
+<div class="O_NewPostForm">
+    <div class="W_TitleWith Themes">
+        <h1>На какой подкаст вы бы
+            хотели написать рецензию?</h1>
+        <h4>Напиши название подкаста или выпуска или вставь ссылку</h4>
+    </div>
 
-<h1>New post</h1>
+    <%= form_with(model: @post, url: admin_posts_path, method: :post) do |form| %>
 
-<%= render "form", post: @post %>
+    <!-- Блок выбора подкаста и выпуска -->
+    <div id="podcast_selection" class="W_PodcastSelection">
+        <%= select_tag :podcast_id, options_from_collection_for_select(@podcasts, :id, :name), 
+                       prompt: "Выберите название подкаста", onchange: "updateIssues(this)", class: "A_Input" %>
+        <%= select_tag :issue_id, "", prompt: "Сначала выберите подкаст", 
+                       disabled: true, data: { issues: @simplified_podcasts.to_json }, class: "A_Input" %>
+        <%= submit_tag "Далее", disabled: true, id: "next_button", class: "A_Button" %>
 
-<br>
+    </div>
+
+    <!-- Блок с формой для написания отзыва, скрыт изначально -->
+    <div id="review_section" style="display: none;" class="W_NewPostInfo">
+        <%= hidden_field_tag :user_id, current_user.id %>
+        <%= text_field_tag :title, nil,placeholder: "Заголовок", class: "A_Input_Black" %>
+        <%= text_area_tag :content, nil, placeholder: "Напишите все что думаешь...", class: "A_Input Big" %>
+        <div class="checkboxText">
+            <%= check_box_tag :is_comments_open, 1, false, class: "A_Input CheckBox" %>
+
+            <h4>Хотите, чтобы другие пользователи могли комментировать вашу рецензию?</h4>
+        </div>
+
+        <%= submit_tag "Опубликовать", class: "A_Button Primary" %>
+    </div>
+    <% end %>
+</div>
+<%= javascript_tag do %>
+
+// Функция для обновления списка выпусков на основе выбранного подкаста
+function updateIssues(select) {
+const podcastId = select.value;
+const issuesSelect = document.querySelector('[name="issue_id"]');
+const submitButton = document.querySelector('[type="submit"]');
+
+// Получаем данные о подкастах из data-атрибута
+const podcastIssues = JSON.parse(issuesSelect.dataset.issues);
+
+if (podcastId) {
+// Находим выпуски для выбранного подкаста
+const podcast = podcastIssues.find(podcast => podcast.id == podcastId);
+const issues = podcast ? podcast.issues : [];
+
+// Очищаем и обновляем выпадающий список
+issuesSelect.innerHTML = issues.map(issue =>
+`<option value="${issue.id}">${issue.name}</option>`
+).join('');
+issuesSelect.disabled = false;
+submitButton.disabled = false;
+} else {
+issuesSelect.innerHTML = '';
+issuesSelect.disabled = true;
+submitButton.disabled = true;
+}
+}
+
+// Показ формы отзыва после выбора подкаста и выпуска
+document.getElementById("next_button").addEventListener("click", function(event) {
+event.preventDefault(); // предотвращаем отправку формы
+
+// Скрываем блок выбора подкаста
+document.getElementById("podcast_selection").style.display = "none";
+
+// Показываем блок с формой
+document.getElementById("review_section").style.display = "flex";
+});
+<% end %>
