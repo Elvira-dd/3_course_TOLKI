@@ -126,3 +126,101 @@
     }
   }
 }
+.M_PodcastTitle {
+  color: var(--first_gray);
+  display: flex;
+  gap: 16px;
+  .PodcastText {
+    h1 + p {
+      width: 60%;
+      margin-bottom: 16px;
+    }
+  }
+  .PodcastAuthorAvatar {
+    width: 40px;
+    height: 40px;
+  }
+  .PodcastCover {
+    width: 200px;
+    height: 200px;
+  }
+  .PodcastAuthorAvatar {
+    border-radius: 50px;
+  }
+}
+.PodcastAuthorCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.PodcastAuthors {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 8px;
+}
+.PodcastThemes {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.podcastsIssues {
+  color: var(--accent_green);
+}
+
+.galleryWrapper {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.gallery {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.galleryCard {
+  min-width: 70%;
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+.galleryButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.galleryButton.left {
+  left: 0;
+}
+
+.galleryButton.right {
+  right: 0;
+}
+.PodcastPagePosts {
+  margin-top: 10vh;
+
+  .A_Button {
+    width: 70%;
+    justify-content: center;
+    margin-bottom: 5vh;
+  }
+  h2 {
+    margin-bottom: 2vh;
+    color: var(--accent_green);
+  }
+  .O_PostFullCard_WithComments {
+    margin-bottom: 4vh;
+  }
+}

@@ -17,6 +17,25 @@
   &.top_right_small {
     background-image: url('Q_Arrow_top_right_small.svg');
   }
+  &.withBg {
+    background-image: url('Q_Arrow_withBg.png');
+    background-size: contain;
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    margin-top: 160px;
+    z-index: 1000;
+  }
+  &.withBg2 {
+    background-image: url('Q_Arrow_withBg2.png');
+    background-size: contain;
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    margin-top: 160px;
+    margin-left: 1120px;
+    z-index: 1000;
+  }
 }
 
 .Q_Icon {
