@@ -1,5 +1,5 @@
 <div class="IssueCard">
-    <%= link_to admin_podcast_path(issue.podcast_id) + "/issues/#{issue.id}" do %>
+    <%= link_to podcast_path(issue.podcast_id) + "/issues/#{issue.id}" do %>
     <% if issue.cover.present? %>
     <%= image_tag issue.cover, alt: issue.name, class: "IssueCoverImage" %>
     <% else %>

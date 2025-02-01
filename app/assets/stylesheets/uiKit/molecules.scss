@@ -40,8 +40,10 @@
 .M_IssueCard {
   .IssueCoverImage {
     width: 100%;
-    height: auto;
+    height: auto; /* Устанавливаем фиксированную высоту */
+    object-fit: cover; /* Делаем обрезку изображений */
   }
+
   .Title {
     display: flex;
     justify-content: space-between;
@@ -49,6 +51,7 @@
     color: var(--first_gray);
     margin-top: 12px;
   }
+
   &.Main {
     display: flex;
     flex-direction: column;
@@ -190,13 +193,22 @@
 
 .gallery {
   display: flex;
+  justify-content: center;
+  align-items: center;
   transition: transform 0.5s ease-in-out;
 }
 
 .galleryCard {
-  min-width: 70%;
   margin: 0 10px;
   flex-shrink: 0;
+  width: 1150px; /* Одинаковая ширина */
+  height: 450px; /* Одинаковая высота */
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.galleryCard.active {
+  opacity: 1; /* Центральная карточка полностью видна */
 }
 
 .galleryButton {
@@ -242,6 +254,9 @@
   .PodcastCover {
     width: 100px;
     height: 100px;
+  }
+  a {
+    color: var(--first_gray);
   }
   .PodcastAuthorAvatar {
     border-radius: 50px;

@@ -15,13 +15,13 @@ class Admin::IssuesController < ApplicationController
   end
   # GET /issues/1 or /issues/1.json
   def show
-    @issue = Issue.find(params[:id])
-  @posts = if user_signed_in?
-             @issue.posts
-           else
-             @issue.posts.where(is_comments_open: false)
-           end
-  @post = @issue.posts.new # инициализируем пустой пост для формы
+    @issue = Issue.includes(posts: { user: :profile }).find(params[:id])
+    @posts = if user_signed_in?
+      @issue.posts.where.not(id: nil)
+    else
+      @issue.posts.where(is_comments_open: false).where.not(id: nil)
+    end
+    @post = Post.new(issue: @issue)
   end
 
   # GET /issues/new

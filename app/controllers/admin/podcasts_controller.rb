@@ -13,12 +13,13 @@ class Admin::PodcastsController < ApplicationController
 
   # GET /admin/podcasts/1
   def show
-    @issues = Issue.where(link: @podcast.name)
-    @authors = @podcast.authors
+  @podcast = Podcast.find(params[:id]) # Сначала находим подкаст
+  @issues = Issue.where(link: @podcast.name) # Теперь можно использовать @podcast
+  @authors = @podcast.authors
+  @posts = @podcast.posts.includes(:issue)
+  
+end
 
-    @podcast = Podcast.find(params[:id])
-    @posts = @podcast.posts.includes(:issue)
-  end
 
   # GET /admin/podcasts/new
   def new

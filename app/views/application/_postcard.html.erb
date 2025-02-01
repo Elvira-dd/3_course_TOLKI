@@ -1,13 +1,17 @@
 <div class="O_PostFullCard_WithComments">
     <div class="M_PostFullCard">
         <div class="M_UserCard">
+            <%= link_to profile_path(post.user.profile) do %>
             <div class="UserInfo">
+                <% if post.user&.profile.present? %>
                 <%= image_tag post.user.profile.avatar, alt: post.user.profile.name, class: "UserAvatar" if post.user.profile.avatar.present? %>
                 <div class="UserTitle">
                     <h3><%= post.user.profile.name %></h3>
                     <p> знаток подкастов <%= post.user.profile.level %> уровня </p>
                 </div>
+                <% end %>
             </div>
+            <% end %>
             <div class="W_IssueInfo_Podcast">
                 <p> подкаст </p>
                 <div class="A_Tag">
@@ -19,9 +23,10 @@
                 </div>
             </div>
         </div>
+        <%= link_to post_path(post) do %>
         <%= image_tag post.issue.cover, alt: post.issue.name, class: "PostCover" if post.issue.cover? %>
         <h1> <%= post.title %> </h1>
-
+        <% end %>
         <div class="A_Content">
             <p> <%= post.content %> </p>
         </div>

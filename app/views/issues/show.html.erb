@@ -6,10 +6,12 @@
 
     <!-- Блок заголовка подкаста -->
     <div class="M_IssueTitle">
+        <%= link_to podcast_path(@issue.podcast) do %>
         <%= image_tag @issue.podcast.cover, alt: @issue.podcast.cover, class: "PodcastCover" if @issue.podcast.cover.present? %>
 
         <div class="PodcastText">
             <h3> Подкаст «<%= @issue.podcast.name%>»</h3>
+            <%end%>
             <div class="PodcastAuthors">
                 <% @issue.podcast.authors.each do |author| %>
                 <div class="PodcastAuthorCard">
