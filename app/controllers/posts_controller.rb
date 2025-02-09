@@ -39,6 +39,9 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
   if @post.save
+    if current_user.posts.count == 1
+      UserMailer.with(user: current_user).welcome_email.deliver_now
+    end
     redirect_to @post, notice: "Пост успешно создан!"
   else
     render :new

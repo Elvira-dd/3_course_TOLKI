@@ -2579,33 +2579,16 @@ def create_title
   end
   
   def create_users(quantity)
-    i = 0
-  
-    quantity.times do
+    quantity.times do |i|
       user_data = {
         email: "user_#{i}@email.com",
         password: 'testtest'
       }
+      
+      user_data[:admin] = true if i == 0
   
-      if i == 0
-        user_data[:admin] = true
-      end
-  
-      # Создание пользователя
       user = User.create!(user_data)
       puts "User created with id #{user.id}"
-  
-      # Создание профиля для пользователя
-      Profile.create!(
-        user_id: user.id,
-        name: "Default User #{i}",
-        bio: "This is the default bio for user #{user.email}.",
-        avatar: "default_avatar.png",
-        level: random_rating
-      )
-      puts "Profile created for user with id #{user.id}"
-  
-      i += 1
     end
   end
   

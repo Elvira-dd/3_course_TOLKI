@@ -22,11 +22,11 @@
 }
 .M_PodcastCard {
   color: var(--first_gray);
-  padding: 16px;
+  padding: 16px 16px 40px 16px;
   background-color: var(--four_gray);
   width: min-content;
   border-radius: 8px;
-  height: 500px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 12px;

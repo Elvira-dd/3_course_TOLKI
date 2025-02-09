@@ -31,22 +31,28 @@
     </div>
     <div class="C_SectionList">
         <div class="A_section Big">
-            <h1> 25 </h1>
+            <h1> <%= @reviewed_podcasts_count %> </h1>
             <p> подкастов оценено </p>
         </div>
         <div class="A_section Big">
-            <h1> 125 </h1>
+            <h1> <%= @posts_count %> </h1>
             <p> написанных рецензий </p>
         </div>
         <div class="A_section Big">
-            <h1> 341 </h1>
+            <h1> <%= @days_in_app %> </h1>
             <p> дней в приложении </p>
         </div>
     </div>
     <div class="W_ProfilePlaylistBlock">
     </div>
     <h1 style="color: var(--accent_green)">Рецензии </h1>
+
     <div class="W_ProfilePostsCards">
+        <%= link_to new_admin_post_path do %>
+        <div class="A_Button Primary">
+            <h5> Написать рецензии</h5>
+        </div>
+        <%end%>
         <% @posts.each do |post| %>
         <%= render partial: "postcard", locals: { post: post } %>
         <% end %>
