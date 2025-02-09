@@ -60,5 +60,5 @@ a {
   letter-spacing: 3%;
   font-weight: 500;
   text-decoration: none;
-  color: black;
+  color: var(--first_gray);
 }

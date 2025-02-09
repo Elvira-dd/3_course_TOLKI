@@ -14,13 +14,17 @@
             <% end %>
             <div class="W_IssueInfo_Podcast">
                 <p> подкаст </p>
+                <%= link_to podcast_path(post.issue.podcast) do %>
                 <div class="A_Tag">
                     <p> <%= post.issue.podcast.name %> </p>
                 </div>
+                <% end %>
                 <p> выпуск </p>
+                <%= link_to podcast_issue_path(post.issue.podcast, post.issue) do %>
                 <div class="A_Tag">
                     <p><%= truncate(post.issue.name, length: 30, omission: '...') %></p>
                 </div>
+                <% end %>
             </div>
         </div>
         <%= link_to post_path(post) do %>

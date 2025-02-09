@@ -7,16 +7,14 @@
 
     <%= form_with(model: @post, url: admin_posts_path, method: :post) do |form| %>
 
-    <!-- Блок выбора подкаста и выпуска -->
     <div id="podcast_selection" class="W_PodcastSelection">
-        <%= select_tag :podcast_id, options_from_collection_for_select(@podcasts || [], :id, :name), 
+        <%= select_tag :podcast_id, options_from_collection_for_select(@podcasts, :id, :name), 
                        prompt: "Выберите название подкаста", onchange: "updateIssues(this)", class: "A_Input" %>
         <%= select_tag :issue_id, "", prompt: "Сначала выберите подкаст", 
-                       disabled: true, data: { issues: @simplified_podcasts.to_json }, class: "A_Input" %>
+                       disabled: true, class: "A_Input", id: "issue_select", data: { issues: @podcasts.to_json } %>
         <%= submit_tag "Далее", disabled: true, id: "next_button", class: "A_Button" %>
     </div>
 
-    <!-- Блок с формой для написания отзыва, скрыт изначально -->
     <div id="review_section" style="display: none;" class="W_NewPostInfo">
         <%= hidden_field_tag :user_id, current_user.id %>
         <%= text_field_tag :title, nil, placeholder: "Заголовок", class: "A_Input_Black" %>
@@ -29,35 +27,31 @@
     </div>
     <% end %>
 </div>
+
 <%= javascript_tag do %>
-// Функция для обновления списка выпусков на основе выбранного подкаста
 function updateIssues(select) {
 const podcastId = select.value;
 const issuesSelect = document.querySelector('[name="issue_id"]');
 const submitButton = document.querySelector('[type="submit"]');
 
-// Получаем данные о подкастах из data-атрибута
 const podcastIssues = JSON.parse(issuesSelect.dataset.issues);
 
 if (podcastId) {
-// Находим выпуски для выбранного подкаста
 const podcast = podcastIssues.find(podcast => podcast.id == podcastId);
 const issues = podcast ? podcast.issues : [];
 
-// Очищаем и обновляем выпадающий список
 issuesSelect.innerHTML = issues.map(issue =>
 `<option value="${issue.id}">${issue.name}</option>`
 ).join('');
 issuesSelect.disabled = false;
-submitButton.disabled = false;
 } else {
 issuesSelect.innerHTML = '';
 issuesSelect.disabled = true;
-submitButton.disabled = true;
-}
 }
 
-// Показ формы отзыва после выбора подкаста и выпуска
+submitButton.disabled = !issuesSelect.value;
+}
+
 document.getElementById("next_button").addEventListener("click", function(event) {
 event.preventDefault(); // предотвращаем отправку формы
 
@@ -67,4 +61,10 @@ document.getElementById("podcast_selection").style.display = "none";
 // Показываем блок с формой
 document.getElementById("review_section").style.display = "flex";
 });
+
+document.querySelector('[name="issue_id"]').addEventListener('change', function() {
+const submitButton = document.querySelector('[type="submit"]');
+submitButton.disabled = !this.value;
+});
+
 <% end %>

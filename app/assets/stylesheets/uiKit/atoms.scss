@@ -1,4 +1,5 @@
 .A_Button {
+  font-family: 'FormaDJR';
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -6,8 +7,12 @@
   padding: 14px 37px;
   border-radius: 8px;
   width: fit-content;
+  cursor: pointer;
   &.Primary {
     background-color: var(--accent_green);
+    color: var(--five_gray);
+    font-size: 24px;
+    font-weight: 500;
     h2 {
       color: var(--five_gray);
       margin-bottom: 0;
@@ -57,17 +62,28 @@
   width: 60%;
   padding: 20px;
   border-radius: 50px;
+  color: var(--five_gray);
+  font-size: 20px;
+
+  font-family: 'FormaDJR';
   &.Big {
     font-family: 'FormaDJR';
     border-radius: 8px;
     height: 400px;
     width: 57%;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 110%;
     letter-spacing: 0.25px;
     font-weight: 400;
     color: var(--five_gray);
   }
+}
+.A_Input::placeholder {
+  color: var(--five_gray);
+  opacity: 0.8;
+  font-size: 20px;
+  line-height: 90%;
+  font-family: 'FormaDJR';
 }
 .A_Input_Black {
   background-color: var(--bg_black);
@@ -112,4 +128,13 @@
       width: min-content;
     }
   }
+}
+.A_Likeble_Cover {
+  display: flex;
+  justify-content: flex-end;
+  width: 250px;
+  height: 250px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 10px;
 }

@@ -2,6 +2,7 @@
   title: "Главная",
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
+
 <div class="O_BodyMainPage">
     <div class="W_AccentCover first">
         <h1 class="stroke">Ищи и оставляй отзывы о своих любимых подкастах</h1>
@@ -29,9 +30,6 @@
     <div class="W_CardBlock">
         <div class="W_ListBlock_Title">
             <h2>Если хочешь от души посмеяться </h2>
-            <%= link_to theme_path(2) do %>
-            <h4>посмотреть все</h4>
-            <% end %>
         </div>
         <div class="C_PodcastCards">
             <% @podcasts_cards.each do |podcast| %>

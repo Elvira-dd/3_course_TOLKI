@@ -52,6 +52,11 @@
   p {
     color: var(--first_gray);
   }
+  a {
+    color: var(--accent_green);
+    font-size: 16px;
+    font-weight: 500;
+  }
 }
 .W_PodcastSelection {
   display: flex;
@@ -132,5 +137,11 @@
     width: 50vw;
     border: 0px;
     margin-top: 16px;
+  }
+  .actions {
+    width: calc(60% + 40px);
+    .A_Button {
+      width: 100%;
+    }
   }
 }

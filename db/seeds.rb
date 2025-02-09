@@ -2679,7 +2679,7 @@ def create_title
   
   def create_themes_and_assign_to_podcasts(theme_count)
     themes = theme_count.times.map do |i|
-      Theme.create!(name: "Theme ##{i + 1}", cover:"tag_cover_test.png", description: create_sentence)
+      Theme.create!(name: "Theme ##{i + 1}", cover:"long_theme_cover.png", description: create_sentence)
     end
     # theme_names = ["История", "Секс", "Искусство", "Исто"]
     # themes = theme_names.map { |name| Theme.find_or_create_by!(name: name) }

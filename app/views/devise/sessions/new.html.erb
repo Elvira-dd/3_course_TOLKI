@@ -4,8 +4,8 @@
 </div>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 <div class="W_Form">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"A_Input" %>
-    <%= f.password_field :password, autocomplete: "current-password" , class:"A_Input"%>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"A_Input", placeholder: "Логин" %>
+    <%= f.password_field :password, autocomplete: "current-password" , class:"A_Input", placeholder: "Пароль"%>
 
 
     <div class="actions">

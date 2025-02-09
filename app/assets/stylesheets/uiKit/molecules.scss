@@ -27,16 +27,11 @@
   width: min-content;
   border-radius: 8px;
   height: 500px;
-}
-.A_Likeble_Cover {
   display: flex;
-  justify-content: flex-end;
-  padding: 10px;
-  width: 250px;
-  height: 250px;
-  background-size: cover;
-  background-repeat: no-repeat;
+  flex-direction: column;
+  gap: 12px;
 }
+
 .M_IssueCard {
   .IssueCoverImage {
     width: 100%;
@@ -66,8 +61,10 @@
 .M_ThemeCard {
   .ThemeCoverImage {
     width: 200px;
-    height: auto;
+    height: 200px;
     border-radius: 8px;
+    object-fit: cover;
+    object-position: 67%;
   }
   h5 {
     margin-top: 16px;
@@ -133,6 +130,9 @@
     flex-direction: row;
     gap: 10px;
     margin-bottom: 16px;
+    a {
+      color: var(--first_gray);
+    }
     .UserAvatar {
       width: 32px;
       height: 32px;
@@ -203,7 +203,6 @@
   flex-shrink: 0;
   width: 1150px; /* Одинаковая ширина */
   height: 450px; /* Одинаковая высота */
-  opacity: 0.5;
   transition: opacity 0.3s ease-in-out;
 }
 
@@ -262,5 +261,30 @@
     border-radius: 50px;
     width: 40px;
     height: 40px;
+  }
+}
+
+.W_ThemePageCover {
+  width: 100%;
+  .W_ThemeCover {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+    }
+    h1 {
+      position: absolute;
+      margin-bottom: 12px;
+      margin-left: 12px;
+      color: var(--first_gray);
+    }
+  }
+  .W_ThemeCover + p {
+    margin-top: 20px;
+    color: var(--first_gray);
+    opacity: 0.6;
   }
 }
