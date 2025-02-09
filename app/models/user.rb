@@ -17,6 +17,7 @@ class User < ApplicationRecord
       name: "Default User #{id}", 
       bio: "This is the default bio for user #{email}.",
       avatar: "default_avatar.png",
+      # Поправить тут, когда перестанут пользователи через сиды создаваться: сделать 0
       level: random_rating
     )
   end
