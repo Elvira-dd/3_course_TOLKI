@@ -42,6 +42,22 @@
     </div>
 
 
+
+    <div class="W_LinksLine_Title">
+        <p>Слушать на</p>
+        <div class="C_LinksLine">
+            <% if @podcast.external_links.any? %>
+            <% @podcast.external_links.each do |link| %>
+            <div class="A_Link">
+                <a href="<%= link['url'] %>" target="_blank"><%= link['service'] %></a>
+            </div>
+            <% end %>
+            <% else %>
+            <p>Нет внешних ссылок</p>
+            <% end %>
+        </div>
+    </div>
+
     <!-- Галерея выпусков -->
     <div class="podcastsIssues">
         <h2>Выпуски</h2>

@@ -11,6 +11,7 @@ class PodcastsController < ApplicationController
   def show
     @issues = Issue.where(link: @podcast.name)
     @posts = @podcast.posts.includes(:issue)
+      @podcast = Podcast.find(params[:id])
   end
 
   # GET /podcasts/new

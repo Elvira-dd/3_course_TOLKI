@@ -138,3 +138,15 @@
   background-repeat: no-repeat;
   padding: 10px;
 }
+
+.A_Link {
+  background-color: var(--light_tag);
+  width: max-content;
+  padding: 16px 24px;
+  border-radius: 8px;
+  border: 0px;
+  a {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

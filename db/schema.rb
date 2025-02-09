@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_24_084019) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_09_105744) do
   create_table "authors", force: :cascade do |t|
     t.text "name"
     t.text "description"
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_084019) do
     t.datetime "updated_at", null: false
     t.string "cover"
     t.string "average_rating"
+    t.json "external_links"
   end
 
   create_table "podcasts_themes", id: false, force: :cascade do |t|

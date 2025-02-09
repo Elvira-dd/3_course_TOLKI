@@ -2591,13 +2591,29 @@ def create_title
       puts "User created with id #{user.id}"
     end
   end
-  
+
   def create_podcast(quantity)
-    quantity.times do 
-      Podcast.create!(name: @companies.sample[:name], description: create_sentence, cover: "cover_test.png", average_rating: "Средняя оценка:#{random_rating}/100")
+    quantity.times do
+      podcast = Podcast.create!(
+        name: @companies.sample[:name],
+        description: create_sentence,
+        cover: "cover_test.png",
+        average_rating: "Средняя оценка:#{random_rating}/100",
+        external_links: generate_random_links # Генерация случайных ссылок
+      )
     end
   end
   
+  # Метод для генерации случайных ссылок
+  def generate_random_links
+    services = ["YouTube", "Яндекс Музыка", "Spotify", "Apple Music"]
+    links = services.sample(rand(1..services.length)).map do |service|
+      { service: service, url: "https://#{service.downcase}.com/#{SecureRandom.hex(4)}" }
+    end
+    links
+  end
+  
+
   def create_issues(quantity)
     Podcast.all.each do |podcast|
       puts "Creating issues for podcast with id #{podcast.id}"
