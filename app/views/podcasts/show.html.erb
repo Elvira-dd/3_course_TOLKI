@@ -9,6 +9,7 @@
         <%= image_tag @podcast.cover, alt: @podcast.cover, class: "PodcastCover" if @podcast.cover.present? %>
 
         <div class="PodcastText">
+
             <h1> Подкаст «<%= @podcast.name%>»</h1>
             <p><%= @podcast.description%> </p>
             <h5> Авторы подкаста </h5>

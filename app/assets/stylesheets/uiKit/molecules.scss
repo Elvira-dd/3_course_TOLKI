@@ -144,6 +144,14 @@
   display: flex;
   gap: 16px;
   .PodcastText {
+    h1 {
+      color: var(--accent_green);
+    }
+
+    color: var(--second_gray);
+    p + h5 {
+      margin-top: 50px;
+    }
     h1 + p {
       width: 60%;
       margin-bottom: 16px;

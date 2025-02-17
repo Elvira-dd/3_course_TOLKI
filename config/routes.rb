@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       resources :issues, only: [:index, :show]
       resources :podcasts, only: [:index, :show]
       resources :themes, only: [:index, :show]
+      resources :users, only: [:index, :show]
+      resources :profiles, only: [:index, :show]
     end
   end
   
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
   devise_for :users
   get "about_us/index"
   get "main/index"
+   get "main/test"
   get "promo/index"
   get 'recommendation', to: 'recommendation#index'
   resources :themes
