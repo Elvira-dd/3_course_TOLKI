@@ -2588,7 +2588,7 @@ def create_title
       user_data[:admin] = true if i == 0
   
       user = User.create!(user_data)
-      puts "User created with id #{user.id}"
+      puts "User created with id #{user.id} #{user.jti}"
     end
   end
 
