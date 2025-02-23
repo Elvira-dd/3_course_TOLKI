@@ -2558,7 +2558,7 @@ def create_title
 
   def seed
     reset_db
-    create_users(10)
+    create_users(16)
     create_podcast(10)
     create_issues(3..10)
     create_post(1..4)
@@ -2568,8 +2568,7 @@ def create_title
       create_comment_replies
     end
   
-    create_authors(1..3)
-    create_themes_and_assign_to_podcasts(20) # добавляем вызов метода для создания и присваивания тем
+    create_themes_and_assign_to_podcasts(20) 
   end
   
   def reset_db
@@ -2586,6 +2585,7 @@ def create_title
       }
       
       user_data[:admin] = true if i == 0
+      user_data[:is_author] = true if i >=11
   
       user = User.create!(user_data)
       puts "User created with id #{user.id} #{user.jti}"
@@ -2593,14 +2593,25 @@ def create_title
   end
 
   def create_podcast(quantity)
+    authors = Author.includes(:user).where(users: { is_author: true })
+    return if authors.empty?
+  
     quantity.times do
       podcast = Podcast.create!(
         name: @companies.sample[:name],
         description: create_sentence,
         cover: "cover_test.png",
-        average_rating: "Средняя оценка:#{random_rating}/100",
-        external_links: generate_random_links # Генерация случайных ссылок
+        average_rating: "Средняя оценка: #{random_rating}/100",
+        external_links: generate_random_links
       )
+  
+      # Выбираем случайное количество авторов от 1 до 3
+      authors_to_assign = authors.sample(rand(1..3))
+  
+      # Привязываем выбранных авторов к подкасту
+      podcast.authors << authors_to_assign
+  
+      puts "Podcast with id #{podcast.id} created with authors: #{authors_to_assign.map(&:id).join(', ')}"
     end
   end
   
@@ -2626,43 +2637,41 @@ def create_title
     end
   end
   
-  def create_authors(quantity)
-    Podcast.all.each do |podcast|
-      i = 1
-      quantity.to_a.sample.times do 
-        author = podcast.authors.create!(name: create_tag_text, description: create_sentence, avatar: "cover_test.png")
-        i += 1
-        puts "Author with id #{author.id} just created for podcast id #{podcast.id}"
-      end
-    end
-  end
   
   def create_post(quantity)
-    Issue.all.each do |issue|
+    Podcast.all.each do |podcast|  # Проходим по всем подкастам
       i = 1
       boolComment = [true, false].sample
-      quantity.to_a.sample.times do 
+      quantity.to_a.sample.times do
         user = User.all.sample
-        post = issue.posts.create!(title: create_title, content: create_content, link: "https://music.yandex.ru/album/#{issue.podcast.name}/#{i}", hashtag: create_title, is_comments_open: boolComment, user: user)
+  
+        # Создаем пост для подкаста, указывая его id
+        post = podcast.posts.create!(
+          title: create_title,
+          content: create_content,
+          link: "https://music.yandex.ru/album/#{podcast.name}/#{i}",
+          hashtag: create_title,
+          is_comments_open: boolComment,
+          user: user
+        )
+        
+        puts "Post with id #{post.id} just created for Podcast with id #{podcast.id}"
         i += 1
-        puts "Post with id #{post.id} just created for Issue with id #{issue.id}"
       end
     end
   end
-  
   def create_comments(quantity)
-    posts = Post.where(is_comments_open: true)
+    commentable_records = (Post.where(is_comments_open: true) + Issue.all)
   
-    posts.each do |post|
+    commentable_records.each do |commentable|
       quantity.to_a.sample.times do
         user = User.all.sample
-        comment = Comment.create!(
-          post_id: post.id,
+        comment = commentable.comments.create!(
           content: create_sentence,
           user_id: user.id
         )
   
-        puts "Comment with id #{comment.id} for post with id #{comment.post.id} just created"
+        puts "Comment with id #{comment.id} for #{commentable.class.name.downcase} with id #{commentable.id} just created"
       end
     end
   end
@@ -2670,8 +2679,13 @@ def create_title
   def create_comment_replies
     Comment.all.each do |comment|
       if rand(1..3) == 1
-        comment_reply = comment.replies.create!(post_id: comment.post_id, content: create_sentence, user_id: comment.user.id)
-        puts "Comment reply with id #{comment.id} for post with id #{comment.post.id} just created"
+        comment_reply = comment.replies.create!(
+          commentable: comment.commentable,
+          content: create_sentence,
+          user_id: User.all.sample.id
+        )
+  
+        puts "Comment reply with id #{comment_reply.id} for #{comment.commentable.class.name.downcase} with id #{comment.commentable.id} just created"
       end
     end
   end

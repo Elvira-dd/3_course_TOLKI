@@ -10,31 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_17_134033) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_23_001529) do
   create_table "authors", force: :cascade do |t|
-    t.text "name"
-    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "avatar"
+    t.integer "user_id"
+    t.string "exten_bio"
+    t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
   create_table "authors_podcasts", id: false, force: :cascade do |t|
-    t.integer "podcast_id", null: false
     t.integer "author_id", null: false
+    t.integer "podcast_id", null: false
+    t.index ["author_id", "podcast_id"], name: "index_authors_podcasts_on_author_id_and_podcast_id"
+    t.index ["podcast_id", "author_id"], name: "index_authors_podcasts_on_podcast_id_and_author_id"
   end
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.datetime "date"
-    t.integer "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "user_name"
     t.string "integer"
     t.integer "comment_id"
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.integer "issue_id"
+    t.string "commentable_type"
+    t.integer "commentable_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -64,6 +68,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_17_134033) do
     t.string "cover"
     t.string "average_rating"
     t.json "external_links"
+    t.integer "author_id"
+    t.index ["author_id"], name: "index_podcasts_on_author_id"
   end
 
   create_table "podcasts_themes", id: false, force: :cascade do |t|
@@ -82,9 +88,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_17_134033) do
     t.string "hashtag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "issue_id", null: false
     t.integer "user_id"
-    t.index ["issue_id"], name: "index_posts_on_issue_id"
+    t.integer "podcast_id"
+    t.index ["podcast_id"], name: "index_posts_on_podcast_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -130,14 +136,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_17_134033) do
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
     t.string "jti", null: false
+    t.boolean "is_author", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "posts"
+  add_foreign_key "authors", "users"
   add_foreign_key "issues", "podcasts"
   add_foreign_key "likes", "users"
-  add_foreign_key "posts", "issues"
+  add_foreign_key "podcasts", "authors"
+  add_foreign_key "posts", "podcasts"
   add_foreign_key "tags", "podcasts"
 end

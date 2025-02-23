@@ -4,7 +4,8 @@ class IssuesController < ApplicationController
 
   # GET /issues or /issues.json
   def index
-    @issues = Issue.all
+    @podcast = Podcast.find(params[:podcast_id])
+    @issues = @podcast.issues
   end
   
   def issues_for_podcast
@@ -15,13 +16,8 @@ class IssuesController < ApplicationController
   end
   # GET /issues/1 or /issues/1.json
   def show
-    @issue = Issue.includes(posts: { user: :profile }).find(params[:id])
-    @posts = if user_signed_in?
-      @issue.posts.where.not(id: nil)
-    else
-      @issue.posts.where(is_comments_open: false).where.not(id: nil)
-    end
-    @post = Post.new(issue: @issue)
+    @issue = Issue.find(params[:id])  
+    @commentable = @issue 
   end
 
   # GET /issues/new

@@ -1,11 +1,11 @@
-<%= link_to profile_path(profile) do %>
+<%= link_to profile_path(author.user.profile) do %>
 <div class="M_AuthorCard">
-    <%= image_tag profile.avatar, alt: profile.name, class: "AuthorAvatarImage" if profile.avatar.present? %>
-    <h3><%= profile.name %></h3>
+    <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorAvatarImage" if author.user.profile.avatar.present? %>
+    <h3><%= author.user.profile.name %></h3>
     <div class="A_Tag">
-        <h5>Уровень автора: <%= profile.level %></h5>
+        <h5>Уровень автора: <%= author.user.profile.level %></h5>
     </div>
-    <p><%= profile.bio %></p>
+    <p><%= author.exten_bio %></p>
     <div class="A_Button Redirect">
         <h4> читать рецензии</h4>
         <div class="Q_Arrow top_right_small">

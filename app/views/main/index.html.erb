@@ -16,8 +16,8 @@
     <div class="W_CardBlock">
         <h2>Сегодня в топе эти авторы: </h2>
         <div class="C_AuthorsCards">
-            <% @profile_top.each do |profile| %>
-            <%= render partial: "authorcard", locals: { profile: profile } %>
+            <% @profile_top.each do |author| %>
+            <%= render partial: "authorcard", locals: { author: author } %>
             <% end %>
         </div>
     </div>

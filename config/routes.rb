@@ -28,21 +28,17 @@ Rails.application.routes.draw do
   get 'recommendation', to: 'recommendation#index'
   resources :themes
 
+  resources :issues
   resources :users
   get 'my_profile', to: 'users#profile', as: :my_profile
 
   resources :subscriptions, only: [:create]
   resources :podcasts do 
-    member do
-      get :issues
-    end
-    resources :issues 
+    resources :issues, only: [:index, :show]
+    resources :posts
     get 'issues', to: 'issues#issues_for_podcast', as: 'issues_for'
   end
   
-  resources :issue do 
-    resources :posts 
-  end
 
   resources :posts do
     collection do
@@ -67,7 +63,7 @@ Rails.application.routes.draw do
   
   namespace :admin do
     resources :issues do
-      resources :posts, only: [:new, :create]
+
     end
   resources :podcasts do 
     resources :issues 
@@ -83,7 +79,7 @@ Rails.application.routes.draw do
   resources :authors
   resources :subscriptions
   resources :issue do 
-    resources :posts 
+    resources :comments
   end
 
   resources :posts do

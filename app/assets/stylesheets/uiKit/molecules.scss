@@ -98,6 +98,7 @@
   .UserInfo {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 12px;
   }
   display: flex;
@@ -144,13 +145,16 @@
   display: flex;
   gap: 16px;
   .PodcastText {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     h1 {
       color: var(--accent_green);
     }
 
     color: var(--second_gray);
     p + h5 {
-      margin-top: 50px;
+      margin-top: 12px;
     }
     h1 + p {
       width: 60%;
@@ -162,8 +166,8 @@
     height: 40px;
   }
   .PodcastCover {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
   }
   .PodcastAuthorAvatar {
     border-radius: 50px;
@@ -185,7 +189,7 @@
   display: flex;
   flex-direction: row;
   gap: 12px;
-  margin-top: 40px;
+  margin-top: 12px;
 }
 
 .podcastsIssues {
@@ -241,7 +245,7 @@
   margin-top: 10vh;
 
   .A_Button {
-    width: 70%;
+    width: fit-content;
     justify-content: center;
     margin-bottom: 5vh;
   }

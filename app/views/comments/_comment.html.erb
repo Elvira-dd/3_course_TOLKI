@@ -1,30 +1,36 @@
 <% if comment.persisted? %>
 <%
-likes_count = comment.likes.count
-like_text = "Like (#{likes_count})"
+=begin%>
+<%
+    likes_count = comment.likes.count
+    like_text = "Like (#{likes_count})"
 
-if current_user && comment.likes.where(user_id: current_user.id).count > 0
-  like_text = "Unlike (#{likes_count})"
-end
-%>
+    if current_user && comment.likes.where(user_id: current_user.id).exists?
+      like_text = "Unlike (#{likes_count})"
+    end
+  %>
+<%
+=end%>
 
-<div class="comment <%= 'reply' if comment.comment_id != nil %>">
-    <p><%= comment.user ? comment.user.email : "Unknown User" %>
-    </p>
-    <p><%= comment.content %>
-    </p>
-    <p> <%= comment.created_at %>
-    </p>
-    <div><%= link_to like_text, like_post_comment_path(@post, comment) %> </div>
-    <%= render comment.replies %>
+<div class="comment <%= 'reply' if comment.comment_id.present? %>">
+    <p><%= comment.user ? comment.user.email : "Unknown User" %></p>
+    <p><%= comment.content %></p>
+    <p> <%= comment.created_at %></p>
+
     <%
 =begin%>
-    <p>
-        <% if can? :create, Comment && (comment.user_name == current_user.email)%>
-        <%= link_to 'Destroy Comment', [comment.post, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    </p>
+    <div>
+        <%= link_to like_text, like_comment_path(comment), method: :post %>
+    </div>
     <%
 =end%>
-</div>
 
+    <%= render comment.replies %>
+
+    <% if can?(:destroy, comment) && (comment.user == current_user) %>
+    <p>
+        <%= link_to 'Destroy Comment', comment, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+    </p>
+    <% end %>
+</div>
 <% end %>

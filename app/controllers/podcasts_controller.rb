@@ -5,14 +5,16 @@ class PodcastsController < ApplicationController
   # GET /podcasts or /podcasts.json
   def index
     @podcasts = Podcast.all
+    @issues = Issue.all
   end
 
   # GET /podcasts/1 or /podcasts/1.json
-  def show
-    @issues = Issue.where(link: @podcast.name)
-    @posts = @podcast.posts.includes(:issue)
-      @podcast = Podcast.find(params[:id])
-  end
+
+    def show
+      @podcast = Podcast.find(params[:id])  
+      @issues = @podcast.issues              
+      @posts = @podcast.posts.includes(:comments) 
+    end
 
   # GET /podcasts/new
   def new

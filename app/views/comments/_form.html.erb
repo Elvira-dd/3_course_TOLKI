@@ -1,10 +1,7 @@
-<%= form_for([@post, @post.comments.build]) do |form| %>
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %> <!-- Ensure this is correctly set -->
-  </div>
+<%= form_with(model: [commentable, Comment.new], local: true) do |form| %>
+<%= form.hidden_field :commentable_type, value: commentable.class.name %>
+<%= form.hidden_field :commentable_id, value: commentable.id %>
 
-  <div>
-    <%= form.submit %>
-  </div>
+<%= form.text_area :content, placeholder: "Оставьте комментарий..." %>
+<%= form.submit "Отправить" %>
 <% end %>

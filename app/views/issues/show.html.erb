@@ -15,10 +15,10 @@
             <div class="PodcastAuthors">
                 <% @issue.podcast.authors.each do |author| %>
                 <div class="PodcastAuthorCard">
-                    <%= image_tag author.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
+                    <%= image_tag author.user.profile.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
                     <div class="AuthorCard">
-                        <h5><%= author.name%> </h5>
-                        <p class="small"><%= author.name %> </p>
+                        <h5><%= author.user.profile.name%> </h5>
+                        <p class="small"><%= author.exten_bio %> </p>
                     </div>
                 </div>
                 <% end %>
@@ -57,14 +57,14 @@
         <div class="A_Button Primary">
             <h2> написать рецензию </h2>
         </div>
-        <div id="posts">
-            <% if @issue.posts.present? %>
-            <% @issue.posts.each do |post| %>
-            <%= render partial: "postcard", locals: { post: post } %>
-            <% end %>
-            <% else %>
-            <p>No posts available.</p>
-            <% end %>
+        <div>
+            <div>
+                <div class="postsCommentSection">
+                    <h3>Автор готов к бурным обсуждениям</h3>
+
+                    <%= render @commentable.comments %>
+                </div>
+            </div>
         </div>
     </div>
 </div>

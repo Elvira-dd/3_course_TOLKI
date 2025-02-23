@@ -1,4 +1,4 @@
 class Issue < ApplicationRecord
-    has_many :posts
     belongs_to :podcast
-end
+    has_many :comments, as: :commentable, dependent: :destroy
+  end

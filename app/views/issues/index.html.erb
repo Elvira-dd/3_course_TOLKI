@@ -1,16 +1,9 @@
-<p style="color: green"><%= notice %></p>
+<h1>Выпуски подкаста "<%= @podcast.name %>"</h1>
 
-<% content_for :title, "Issues" %>
-
-<h1>Issues</h1>
-
-<div id="issues">
-  <% @issues.each do |issue| %>
-    <%= render issue %>
-    <p>
-      <%= link_to "Show this issue", issue %>
-    </p>
-  <% end %>
-</div>
-
-
+<ul>
+    <% @issues.each do |issue| %>
+    <li>
+        <strong><%= issue.name %></strong> - <%= link_to "Просмотр", issue_path(issue) %>
+    </li>
+    <% end %>
+</ul>
