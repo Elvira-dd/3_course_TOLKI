@@ -389,6 +389,7 @@ DEPENDENCIES
   devise-jwt
   importmap-rails
   jbuilder
+  jwt
   letter_opener
   meta-tags
   puma (>= 5.0)
