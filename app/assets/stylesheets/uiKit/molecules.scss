@@ -104,18 +104,34 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: top;
+  .CommentFeedback {
+    display: flex;
+    flex-direction: row;
+    .LikeBlock {
+    }
+  }
 }
 .M_CommentCard {
   background-color: var(--three_gray);
   margin-bottom: 10px;
   border-radius: 8px;
   padding: 16px;
+  color: var(--first_gray);
   .M_UserCard {
     justify-content: flex-start;
     flex-direction: row;
     gap: 10px;
     margin-bottom: 16px;
+    .UserTitle {
+      width: 100%;
+      p.small {
+        color: var(--second_gray);
+      }
+      div + p {
+        margin-top: 16px;
+      }
+    }
     .UserAvatar {
       width: 32px;
       height: 32px;
@@ -213,7 +229,7 @@
 .galleryCard {
   margin: 0 10px;
   flex-shrink: 0;
-  width: 1150px; /* Одинаковая ширина */
+  width: 1250px; /* Одинаковая ширина */
   height: 450px; /* Одинаковая высота */
   transition: opacity 0.3s ease-in-out;
 }
@@ -225,7 +241,7 @@
 .galleryButton {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-80%);
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;

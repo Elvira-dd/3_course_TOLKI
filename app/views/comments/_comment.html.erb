@@ -1,36 +1,24 @@
-<% if comment.persisted? %>
-<%
-=begin%>
-<%
-    likes_count = comment.likes.count
-    like_text = "Like (#{likes_count})"
+<li class="M_CommentCard">
+    <div class="M_UserCard">
+        <% if comment.user.profile.avatar.present? %>
+        <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" %>
+        <% end %>
+        <div class="UserTitle">
+            <h5><%= comment.user.profile.name %></h5>
+            <div style="display:flex; justify-content:space-between">
+                <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
+                <p class="small"> <%= comment.created_at.strftime("%d.%m.%Y") %> </p>
+            </div>
+            <p><%= comment.content %></p>
+            <div class="CommentFeedback">
+                <div class="Q_HandLike">
+                </div>
+                <div class="Q_HandLike dislike">
+                </div>
+            </div>
+        </div>
 
-    if current_user && comment.likes.where(user_id: current_user.id).exists?
-      like_text = "Unlike (#{likes_count})"
-    end
-  %>
-<%
-=end%>
-
-<div class="comment <%= 'reply' if comment.comment_id.present? %>">
-    <p><%= comment.user ? comment.user.email : "Unknown User" %></p>
-    <p><%= comment.content %></p>
-    <p> <%= comment.created_at %></p>
-
-    <%
-=begin%>
-    <div>
-        <%= link_to like_text, like_comment_path(comment), method: :post %>
     </div>
-    <%
-=end%>
 
-    <%= render comment.replies %>
-
-    <% if can?(:destroy, comment) && (comment.user == current_user) %>
-    <p>
-        <%= link_to 'Destroy Comment', comment, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
-    </p>
-    <% end %>
-</div>
-<% end %>
+    <%= render partial: "comments/replies", collection: comment.replies, as: :reply, locals: { commentable: commentable } %>
+</li>

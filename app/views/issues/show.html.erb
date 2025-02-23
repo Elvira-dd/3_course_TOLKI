@@ -59,11 +59,13 @@
         </div>
         <div>
             <div>
-                <div class="postsCommentSection">
-                    <h3>Автор готов к бурным обсуждениям</h3>
 
-                    <%= render @commentable.comments %>
+                <div class="W_CommentsBlock">
+                    <ul>
+                        <%= render partial: "comments/comment", collection: @issue.comments.not_replies, as: :comment, locals: { commentable: @issue } %>
+                    </ul>
                 </div>
+
             </div>
         </div>
     </div>

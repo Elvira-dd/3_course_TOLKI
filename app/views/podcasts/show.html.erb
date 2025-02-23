@@ -14,7 +14,6 @@
                 <p><%= @podcast.description%> </p>
             </div>
             <div>
-                <h5> Авторы подкаста </h5>
                 <div class="PodcastAuthors">
                     <% @podcast.authors.each do |author| %>
                     <div class="PodcastAuthorCard">
@@ -106,7 +105,7 @@ let currentIndex = 0;
 function moveGallery(direction) {
 const gallery = document.querySelector('.gallery');
 const cards = document.querySelectorAll('.galleryCard');
-const cardWidth = 1150 + 20; // 250px ширина + 20px отступы
+const cardWidth = 1270
 
 currentIndex += direction;
 

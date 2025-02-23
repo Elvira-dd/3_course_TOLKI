@@ -39,19 +39,7 @@
     </div>
     <div class="W_CommentsBlock">
         <ul>
-            <% post.comments.not_replies.each do |comment| %>
-            <li class="M_CommentCard">
-                <div class="M_UserCard">
-                    <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" if comment.user.profile.avatar.present? %>
-                    <div class="UserTitle">
-                        <h5><%= comment.user.profile.name %></h5>
-                        <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
-                    </div>
-                </div>
-                <p><%= comment.content %></p>
-                <%= render partial: "comments/replies", locals: { comment: comment } %>
-            </li>
-            <% end %>
+            <%= render partial: "comments/comment", collection: post.comments.not_replies, as: :comment, locals: { commentable: post } %>
         </ul>
     </div>
 </div>
