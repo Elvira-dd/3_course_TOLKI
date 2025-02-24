@@ -19,10 +19,7 @@
         <%= hidden_field_tag :user_id, current_user.id %>
         <%= text_field_tag :title, nil, placeholder: "Заголовок", class: "A_Input_Black" %>
         <%= text_area_tag :content, nil, placeholder: "Напишите все что думаешь...", class: "A_Input Big" %>
-        <div class="checkboxText">
-            <%= check_box_tag :is_comments_open, 1, false, class: "A_Input CheckBox" %>
-            <h4>Хотите, чтобы другие пользователи могли комментировать вашу рецензию?</h4>
-        </div>
+
         <%= submit_tag "Опубликовать", class: "A_Button Primary" %>
     </div>
     <% end %>

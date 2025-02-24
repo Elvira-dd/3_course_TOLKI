@@ -14,14 +14,6 @@
                 <p><%= reply.content %></p>
             </div>
         </div>
-
-
-
-        <div class="CommentActions">
-            <% if can?(:destroy, reply) && (reply.user == current_user) %>
-            <%= link_to 'Удалить', reply, method: :delete, data: { turbo_confirm: "Вы уверены?" }, class: "DeleteComment" %>
-            <% end %>
-        </div>
     </li>
     <% end %>
 </ul>

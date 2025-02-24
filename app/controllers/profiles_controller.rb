@@ -15,7 +15,7 @@ class ProfilesController < ApplicationController
       redirect_to my_profile_path  # Редирект на личный профиль
     end
   
-  @reviewed_podcasts_count = @user.posts.joins(:issue).select("distinct issues.podcast_id").count
+  @reviewed_podcasts_count = 2
   @posts_count = @user.posts.count
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
   end

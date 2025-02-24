@@ -44,7 +44,32 @@ Rails.application.routes.draw do
     resources :posts
     get 'issues', to: 'issues#issues_for_podcast', as: 'issues_for'
   end
+
+  resources :comments do
+    member do
+      post 'like'
+      post 'dislike'
+    end
+  end
+
+
+  resources :posts do
+    resources :comments do
+      member do
+        post 'like'
+        post 'dislike'
+      end
+    end
+  end
   
+  resources :issues do
+    resources :comments do
+      member do
+        post 'like'
+        post 'dislike'
+      end
+    end
+  end
 
   resources :posts do
     collection do
@@ -53,11 +78,6 @@ Rails.application.routes.draw do
     end
     member do
       get "like"
-    end
-    resources :comments do
-      member do
-        get "like"
-      end
     end
   end
   resources :tags  

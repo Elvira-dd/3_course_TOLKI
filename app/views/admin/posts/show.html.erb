@@ -24,11 +24,11 @@ end
 <%end%>
 <div>
     <div>
-        <% if @post.is_comments_open %>
+
         <div class="postsCommentSection">
             <h3>Автор готов к бурным обсуждениям</h3>
             <%= render "admin/comments/form" %>
             <%= render @post.comments %>
         </div>
-        <% end %>
+
     </div>

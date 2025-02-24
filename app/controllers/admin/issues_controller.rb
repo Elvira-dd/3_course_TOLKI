@@ -19,7 +19,7 @@ class Admin::IssuesController < ApplicationController
     @posts = if user_signed_in?
       @issue.posts.where.not(id: nil)
     else
-      @issue.posts.where(is_comments_open: false).where.not(id: nil)
+      @issue.posts.where.not(id: nil)
     end
     @post = Post.new(issue: @issue)
   end

@@ -2630,7 +2630,7 @@ def create_title
       puts "Creating issues for podcast with id #{podcast.id}"
       i = 1
       quantity.to_a.sample.times do 
-        issue = podcast.issues.create!(name: "Выпуск #{create_title}", link: podcast.name, cover: "issue_cover_test.png")
+        issue = podcast.issues.create!(name: "Выпуск #{create_title}", cover: "issue_cover_test.png")
         puts "Issue created for podcast with id #{podcast.id}, issue id: #{issue.id}"
         i += 1
       end
@@ -2649,9 +2649,7 @@ def create_title
         post = podcast.posts.create!(
           title: create_title,
           content: create_content,
-          link: "https://music.yandex.ru/album/#{podcast.name}/#{i}",
           hashtag: create_title,
-          is_comments_open: boolComment,
           user: user
         )
         
@@ -2661,7 +2659,7 @@ def create_title
     end
   end
   def create_comments(quantity)
-    commentable_records = (Post.where(is_comments_open: true) + Issue.all)
+    commentable_records = (Post.all + Issue.all)
   
     commentable_records.each do |commentable|
       quantity.to_a.sample.times do

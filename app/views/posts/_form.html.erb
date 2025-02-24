@@ -1,43 +1,36 @@
 <%= form_with(model: [@issue, @post]) do |form| %>
-  <% if @post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<% if @post.errors.any? %>
+<div style="color: red">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
+    <ul>
         <% @post.errors.full_messages.each do |error| %>
-          <li><%= error %></li>
+        <li><%= error %></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+</div>
+<% end %>
 
-  <div>
+<div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= form.label :content, style: "display: block" %>
     <%= form.text_area :content %>
-  </div>
-
-  <div>
-    <%= form.label :is_comments_open, style: "display: block" %>
-    <%= form.check_box :is_comments_open %>
-  </div>
-
-  <div>
-    <%= form.label :link, style: "display: block" %>
-    <%= form.text_field :link %>
-  </div>
+</div>
 
 
-  <div>
+
+
+
+<div>
     <%= form.label :hashtag, style: "display: block" %>
     <%= form.text_field :hashtag %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= form.submit %>
-  </div>
+</div>
 <% end %>

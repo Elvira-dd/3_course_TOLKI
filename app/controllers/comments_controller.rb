@@ -24,16 +24,27 @@ class CommentsController < ApplicationController
     end
   end
 
-  # Лайк/дизлайк комментария
   def like
+    @comment = Comment.find(params[:id])
     likes = @comment.likes.where(user_id: current_user.id)
-    
+
     if likes.exists?
       likes.destroy_all
     else
       @comment.likes.create(user_id: current_user.id)
     end
+    redirect_to @comment.commentable
+  end
 
+  def dislike
+    @comment = Comment.find(params[:id])
+    dislikes = @comment.dislikes.where(user_id: current_user.id)
+
+    if dislikes.exists?
+      dislikes.destroy_all
+    else
+      @comment.dislikes.create(user_id: current_user.id)
+    end
     redirect_to @comment.commentable
   end
 

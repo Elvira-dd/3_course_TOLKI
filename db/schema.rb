@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_23_001529) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_23_213811) do
   create_table "authors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_23_001529) do
     t.string "commentable_type"
     t.integer "commentable_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+  end
+
+  create_table "dislikes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "dislikeable_type", null: false
+    t.integer "dislikeable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dislikeable_type", "dislikeable_id"], name: "index_dislikes_on_dislikeable"
+    t.index ["user_id"], name: "index_dislikes_on_user_id"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -83,8 +93,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_23_001529) do
     t.string "title"
     t.text "content"
     t.datetime "date"
-    t.boolean "is_comments_open"
-    t.string "link"
     t.string "hashtag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -143,6 +151,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_23_001529) do
   end
 
   add_foreign_key "authors", "users"
+  add_foreign_key "dislikes", "users"
   add_foreign_key "issues", "podcasts"
   add_foreign_key "likes", "users"
   add_foreign_key "podcasts", "authors"

@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     if current_user
       @posts = current_user.posts
     else
-    @posts = Post.where(is_comments_open: false)
+    @posts = Post.all
     end
   end
   def like 
@@ -87,7 +87,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :is_comments_open, :link, :hashtag, :user_id)
+      params.require(:post).permit(:title, :content, :hashtag, :user_id)
     end
     
 end
