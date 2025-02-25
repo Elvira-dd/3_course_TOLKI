@@ -5,7 +5,6 @@ class Post < ApplicationRecord
 
     validates :title, presence: true
     validates :content, presence: true
-    validates :link, presence: true
 
     def as_json 
         {

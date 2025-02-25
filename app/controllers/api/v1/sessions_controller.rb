@@ -1,5 +1,5 @@
 class Api::V1::SessionsController < Devise::SessionsController
-    skip_before_action :verify_authenticity_token, only: [:create, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:create, :destroy]
   skip_before_action :verify_signed_out_user, only: :destroy
   before_action :load_user, only: :create
 
@@ -19,16 +19,25 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   def destroy
-    @user = User.find_by_jti(decrypt_payload[0]['jti'])
+    payload = decrypt_payload
 
-    if @user && @user.update_column(:jti, SecureRandom.uuid)
-      render json: {
-        messages: "Signed Out Successfully",
-        is_success: true
-      }, status: :ok
+    if payload
+      @user = User.find_by(jti: payload[0]['jti'])
+
+      if @user && @user.update_column(:jti, SecureRandom.uuid)
+        render json: {
+          messages: "Signed Out Successfully",
+          is_success: true
+        }, status: :ok
+      else
+        render json: {
+          messages: "Sign Out Failed - Unauthorized",
+          is_success: false
+        }, status: :unauthorized
+      end
     else
       render json: {
-        messages: "Sign Out Failed - Unauthorized",
+        messages: "Sign Out Failed - Invalid or Missing Token",
         is_success: false
       }, status: :unauthorized
     end
@@ -36,29 +45,36 @@ class Api::V1::SessionsController < Devise::SessionsController
 
   private
 
-    def sign_in_params
-      params.require(:user).permit(:email, :password)
+  def sign_in_params
+    params.permit(:email, :password, :format, session: {})
+  end
+
+  def load_user
+    @user = User.find_for_database_authentication(email: sign_in_params[:email])
+
+    unless @user
+      render json: {
+        messages: "Sign In Failed - Unauthorized",
+        is_success: false
+      }, status: :unauthorized
     end
+  end
 
-    def load_user
-      @user = User.find_for_database_authentication(email: sign_in_params[:email])
+  def encrypt_payload
+    payload = @user.as_json(only: [:email, :jti])
+    token = JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key!, 'HS256')
+  end
 
-      unless @user
-        render json: {
-          messages: "Sign In Failed - Unauthorized",
-          is_success: false
-        }, status: :unauthorized
+  def decrypt_payload
+    jwt = request.headers["Authorization"]&.split(' ')&.last
+    if jwt
+      begin
+        JWT.decode(jwt, Rails.application.credentials.devise_jwt_secret_key!, true, { algorithm: 'HS256' })
+      rescue JWT::DecodeError
+        nil
       end
+    else
+      nil
     end
-
-    def encrypt_payload
-      payload = @user.as_json(only: [:email, :jti])
-      token = JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key!, 'HS256')
-    end
-
-    def decrypt_payload
-      jwt = request.headers["Authorization"]
-      token = JWT.decode(jwt, Rails.application.credentials.devise_jwt_secret_key!, true, { algorithm: 'HS256' })
-    end
-
+  end
 end

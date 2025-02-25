@@ -2561,6 +2561,7 @@ def create_title
     create_users(16)
     create_podcast(10)
     create_issues(3..10)
+    create_themes_and_assign_to_podcasts(20) 
     create_post(1..4)
     create_comments(1..6)
   
@@ -2568,7 +2569,7 @@ def create_title
       create_comment_replies
     end
   
-    create_themes_and_assign_to_podcasts(20) 
+    
   end
   
   def reset_db
@@ -2602,7 +2603,8 @@ def create_title
         description: create_sentence,
         cover: "cover_test.png",
         average_rating: "Средняя оценка: #{random_rating}/100",
-        external_links: generate_random_links
+        # external_links: generate_random_links
+        external_links: "fbeuefuw"
       )
   
       # Выбираем случайное количество авторов от 1 до 3
@@ -2641,7 +2643,6 @@ def create_title
   def create_post(quantity)
     Podcast.all.each do |podcast|  # Проходим по всем подкастам
       i = 1
-      boolComment = [true, false].sample
       quantity.to_a.sample.times do
         user = User.all.sample
   

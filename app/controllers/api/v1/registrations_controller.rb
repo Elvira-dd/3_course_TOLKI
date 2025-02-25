@@ -1,5 +1,5 @@
 class Api::V1::RegistrationsController < Devise::RegistrationsController
-    skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   
   def create
     @user = User.new(user_params)
@@ -28,5 +28,5 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
       payload = @user.as_json(only: [:email, :jti])
       token = JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key!, 'HS256')
     end
-    
+
 end
