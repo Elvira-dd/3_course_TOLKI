@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     if cookies[:guest_token] 
       puts "GUEST TOKEN"
       puts cookies[:guest_token]
-    else
+    else        
       puts "NO TOKEN"
       cookies[:guest_token] = SecureRandom.uuid
     end 
