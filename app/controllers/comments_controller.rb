@@ -33,7 +33,8 @@ class CommentsController < ApplicationController
     else
       @comment.likes.create(user_id: current_user.id)
     end
-    redirect_to @comment.commentable
+
+    redirect_to @comment.commentable  # Перенаправляем на пост или другой ресурс, к которому относится комментарий
   end
 
   def dislike
@@ -45,7 +46,8 @@ class CommentsController < ApplicationController
     else
       @comment.dislikes.create(user_id: current_user.id)
     end
-    redirect_to @comment.commentable
+
+    redirect_to @comment.commentable  # Перенаправляем на пост или другой ресурс
   end
 
   # GET /comments/1/edit

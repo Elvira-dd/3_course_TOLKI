@@ -13,7 +13,7 @@ class PodcastsController < ApplicationController
     def show
       @podcast = Podcast.find(params[:id])  
       @issues = @podcast.issues              
-      @posts = @podcast.posts.includes(:comments) 
+      @content_items = (@podcast.issues + @podcast.posts).sort_by(&:created_at).shuffle
     end
 
   # GET /podcasts/new

@@ -1,9 +1,10 @@
-<h1> <%= author.name %> </h1>
+<h1> <%= @author.user.profile.name %>
+</h1>
 
 
 <p>
     <strong>Description:</strong>
-    <%= author.description %>
+    <%= @author.exten_bio %>
 </p>
 
 
@@ -13,3 +14,10 @@
 
     <%= button_to "Destroy this author", @author, method: :delete %>
 </div>
+
+<h2>Подкасты автора:</h2>
+<ul>
+    <div class="podcasts-list">
+        <%= render partial: "podcastcard", collection: @podcasts, as: :podcast %>
+    </div>
+</ul>

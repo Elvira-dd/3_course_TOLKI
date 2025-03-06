@@ -12,13 +12,13 @@
             <p><%= comment.content %></p>
             <div class="CommentFeedback">
                 <div>
-                    <%= link_to like_comment_path(comment), method: :post, remote: true, class: "like-button" do %>
+                    <%= link_to like_comment_path(comment), method: :post, class: "like-button" do %>
                     <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
                     <% end %>
                     <span class="like-count"><%= comment.likes.count %></span>
                 </div>
                 <div>
-                    <%= link_to dislike_comment_path(comment), method: :post, remote: true, class: "dislike-button" do %>
+                    <%= link_to dislike_comment_path(comment), method: :post, class: "dislike-button" do %>
                     <%= image_tag "Q_HandLike.svg", alt: "Dislike", class: "Q_HandLike dislike" %>
                     <% end %>
                     <span class="dislike-count"><%= comment.dislikes.count %></span>

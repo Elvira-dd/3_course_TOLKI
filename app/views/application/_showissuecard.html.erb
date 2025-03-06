@@ -2,26 +2,27 @@
     <div class="M_PostFullCard">
         <div class="M_UserCard">
             <div class="UserInfo">
-                <%= image_tag post.podcast.cover, alt: post.podcast.name, class: "UserAvatar" if post.podcast.cover.present? %>
-                <h3>Подкаст «<%= post.podcast.name %>»</h3>
+                <%= image_tag issue.podcast.cover, alt: issue.podcast.name, class: "UserAvatar" if issue.podcast.cover.present? %>
+                <h3>Подкаст «<%= issue.podcast.name %>»</h3>
             </div>
             <div class="W_IssueInfo_Podcast">
-                <% if post.created_at %>
-                <p><%= post.created_at.strftime('%d.%m.%Y') %></p>
+                <% if issue.created_at %>
+                <p><%= issue.created_at.strftime('%d.%m.%Y') %></p>
                 <% else %>
                 <p>Дата не указана</p>
                 <% end %>
                 <div class="A_Tag">
-                    <p> Обсуждение </p>
+                    <p>Выпуск подкаста</p>
                 </div>
             </div>
         </div>
-
+        <%= image_tag issue.cover, alt: issue.name, class: "IssueCover" if issue.cover.present? %>
 
         <div class="A_Content">
-            <h1> <%= post.title %> </h1>
-            <p> <%= post.content %> </p>
+            <h1><%= issue.name %></h1>
+            <p> <%= issue.description %> </p>
         </div>
+
         <div class="W_IssueFullCard_Footer">
             <div class="Footer">
                 <div class="Likes">
@@ -29,17 +30,19 @@
                     <div class="Q_FooterIcons dislike"></div>
                     <div class="Q_FooterIcons share"></div>
                 </div>
-                <%= link_to post_path(post) do %>
+                <%= link_to podcast_issue_path(issue.podcast, issue) do %>
                 <div class="A_Button PrimaryMedium">
-                    <h5>Перейти в обсуждение</h5>
+                    <h5>Перейти к выпуску</h5>
                 </div>
                 <% end %>
             </div>
         </div>
     </div>
+
+    <!-- Блок комментариев можно убрать, если у выпусков нет обсуждений -->
     <div class="W_CommentsBlock">
         <ul>
-            <%= render partial: "comments/comment", collection: post.comments.not_replies.last(1), as: :comment, locals: { commentable: post } %>
+            <%= render partial: "comments/comment", collection: issue.comments.not_replies.last(1), as: :comment, locals: { commentable: issue } %>
         </ul>
     </div>
 </div>

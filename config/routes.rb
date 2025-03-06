@@ -45,31 +45,12 @@ Rails.application.routes.draw do
     get 'issues', to: 'issues#issues_for_podcast', as: 'issues_for'
   end
 
-  resources :comments do
-    member do
-      post 'like'
-      post 'dislike'
-    end
+  resources :comments, only: [] do
+    post 'like', on: :member
+    post 'dislike', on: :member
   end
 
 
-  resources :posts do
-    resources :comments do
-      member do
-        post 'like'
-        post 'dislike'
-      end
-    end
-  end
-  
-  resources :issues do
-    resources :comments do
-      member do
-        post 'like'
-        post 'dislike'
-      end
-    end
-  end
 
   resources :posts do
     collection do

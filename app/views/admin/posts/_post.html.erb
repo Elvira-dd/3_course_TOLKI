@@ -1,25 +1,19 @@
 <div class="cardPost">
-<p>
-    <%=  post.user.email %>
-  </p>
-  <h2>
-  <%= link_to post.title, admin_post_path(post) %>
-  </h2>
-  <h3>
-    <%= post.issue.podcast.name %> - <%= post.issue.name %>
-  </h3>
-  <p>
-    <%= post.link %>
-  </p>
-  <p>
-    <strong>#</strong>
-    <%= post.hashtag %>
-  </p>
+    <p>
+        <%=  post.user.email %>
+    </p>
+    <h2>
+        <%= link_to post.title, admin_post_path(post) %>
+    </h2>
 
-  <p class="postContent">
-    <%= post.content %>
-  </p>
-  
+    <p>
+        <strong>#</strong>
+        <%= post.hashtag %>
+    </p>
+
+    <p class="postContent">
+        <%= post.content %>
+    </p>
+
 
 </div>
-

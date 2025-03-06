@@ -16,13 +16,17 @@
             <div>
                 <div class="PodcastAuthors">
                     <% @podcast.authors.each do |author| %>
+                    <%= link_to author_path(author) do %>
                     <div class="PodcastAuthorCard">
+
                         <%= image_tag author.user.profile.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
                         <div class="AuthorCard">
                             <h5><%= author.user.profile.name%> </h5>
                             <p class="small"><%= author.exten_bio %> </p>
                         </div>
+
                     </div>
+                    <% end %>
                     <% end %>
                 </div>
             </div>
@@ -85,20 +89,24 @@
     </div>
 
     <!-- Секция рецензий -->
+
     <div class="PodcastPagePosts">
         <h2>Лента авторов</h2>
-        <div id="posts">
-            <% if @posts.present? %>
-            <% @posts.each do |post| %>
-            <%= render partial: "postcard", locals: { post: post } %>
+        <div class="posts">
+            <% @content_items.each do |item| %>
+            <% if item.is_a?(Issue) %>
+            <%= render partial: "showissuecard", locals: { issue: item } %>
+            <% elsif item.is_a?(Post) %>
+            <%= render partial: "postcard", locals: { post: item } %>
             <% end %>
-            <% else %>
-            <p>No posts available.</p>
             <% end %>
         </div>
     </div>
-    <!-- JavaScript для управления галереей -->
+
+
 </div>
+
+<!-- JavaScript для управления галереей -->
 <%= javascript_tag do %>
 let currentIndex = 0;
 
