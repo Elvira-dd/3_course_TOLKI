@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resources :posts do
       resources :comments, only: [:new, :create, :edit, :update, :destroy]
       member do
-        post "like"
+        get "like"
       end
     end
   end
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   resources :issues do
     resources :comments, only: [:new, :create, :edit, :update, :destroy, :show]
     member do
-      post :like
+      get :like
     end
   end
   resources :users
@@ -64,8 +64,8 @@ Rails.application.routes.draw do
 
   resources :comments do
     member do
-      post "like"
-      post "dislike"
+      get "like"
+      get "dislike"
     end
   end
 
@@ -75,7 +75,7 @@ Rails.application.routes.draw do
       post :create_post_step
     end
     member do
-      post "like"
+      get "like"
     end
     resources :comments, only: [:new, :create, :edit, :update, :destroy, :show]
   end

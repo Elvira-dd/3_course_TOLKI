@@ -12,7 +12,7 @@
             <p><%= comment.content %></p>
             <div class="CommentFeedback">
                 <div>
-                    <%= link_to like_comment_path(comment), method: :post, class: "like-button" do %>
+                    <%= link_to like_comment_path(comment), class: "like-button" do %>
                     <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
                     <% end %>
                     <span class="like-count"><%= comment.likes.count %></span>

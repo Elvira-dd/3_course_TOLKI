@@ -22,7 +22,7 @@ class PostsController < ApplicationController
     else
       @post.likes.create(user_id: current_user.id)
     end
-    redirect_to admin_post_path(@post)
+    redirect_to post_path(@post)
   end
 
   # GET /posts/1 or /posts/1.json

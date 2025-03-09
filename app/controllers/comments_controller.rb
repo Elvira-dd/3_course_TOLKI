@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
       @comment.likes.create(user_id: current_user.id)
     end
   
-    redirect_to @comment.commentable 
+    redirect_to @comment.commentable  # Перенаправляем на пост или другой ресурс
   end
 
   def dislike
@@ -75,10 +75,12 @@ class CommentsController < ApplicationController
 
   # Определяем, к какому объекту (Post или Issue) относится комментарий
   def set_commentable
-    if params[:commentable_type] && params[:commentable_id]
-      @commentable = params[:commentable_type].constantize.find(params[:commentable_id])
-    else
-      head :unprocessable_entity
+    if action_name != 'like' # Если это не запрос на лайк
+      if params[:commentable_type] && params[:commentable_id]
+        @commentable = params[:commentable_type].constantize.find(params[:commentable_id])
+      else
+        head :unprocessable_entity
+      end
     end
   end
 
