@@ -7,7 +7,10 @@ class CommentsController < ApplicationController
   def new
     @comment = @commentable.comments.new
   end
-
+  def show
+    @comment = Comment.find(params[:id])
+    @commentable = @comment.commentable
+  end
   # POST /comments
   def create
     @comment = @commentable.comments.new(comment_params.merge(user_id: current_user.id))
@@ -27,14 +30,14 @@ class CommentsController < ApplicationController
   def like
     @comment = Comment.find(params[:id])
     likes = @comment.likes.where(user_id: current_user.id)
-
+  
     if likes.exists?
       likes.destroy_all
     else
       @comment.likes.create(user_id: current_user.id)
     end
-
-    redirect_to @comment.commentable  # Перенаправляем на пост или другой ресурс, к которому относится комментарий
+  
+    redirect_to @comment.commentable 
   end
 
   def dislike

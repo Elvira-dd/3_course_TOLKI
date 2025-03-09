@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= content_for(:title) || "Толки - сервис для подбора и рецензий подкастов" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+</head>
+
+<body class="mainForm">
+    <p style="color: green" class="niceNotice"><%= notice %></p>
+    <%= render "menubar" %>
+    <%= yield %>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainForm = document.querySelector('.mainForm');
+            const emailForm = document.querySelector('.emailForm');
+            const video = document.createElement('video');
+
+            video.src = '<%= asset_path("background.mp4") %>'; // путь к видео
+            video.muted = true; // если требуется, чтобы видео было без звука
+            video.autoplay = false; // видео проигрывается один раз
+
+            let videoEnded = false; // флаг для проверки, завершилось ли видео
+
+            video.addEventListener('ended', () => {
+                videoEnded = true; // устанавливаем флаг, что видео завершилось
+            });
+
+            // Обработчик для наведения на emailForm
+            emailForm.addEventListener('mouseenter', () => {
+                mainForm.style.backgroundImage = 'none'; // убираем гифку
+                video.style.display = 'block'; // показываем видео
+                video.currentTime = 0; // сбрасываем время воспроизведения
+                video.play(); // начинаем воспроизведение
+                mainForm.appendChild(video);
+                videoEnded = false; // сбрасываем флаг, чтобы видео не считалось завершенным
+            });
+
+            // Обработчик для ухода с emailForm
+            emailForm.addEventListener('mouseleave', () => {
+                // если видео не завершилось, скрываем его и возвращаем гифку
+                if (!videoEnded) {
+                    video.pause(); // при уходе останавливаем видео
+                    video.style.display = 'none'; // скрыть видео, если оно еще не завершилось
+                }
+                mainForm.style.backgroundImage = 'url("<%= asset_path("background.gif") %>")'; // вернуть гифку
+            });
+
+            // Обработчик для ухода с mainForm
+            mainForm.addEventListener('mouseleave', () => {
+                video.pause(); // останавливаем видео
+                video.style.display = 'none'; // скрываем видео
+                mainForm.style.backgroundImage = 'url("<%= asset_path("background.gif") %>")'; // вернуть гифку
+            });
+        });
+    </script>
+
+
+
+</body>
+
+</html>

@@ -8,6 +8,8 @@ class Admin::AuthorsController < ApplicationController
 
   # GET /authors/1 or /authors/1.json
   def show
+    @author = Author.find(params[:id])
+    @podcasts = @author.podcasts
   end
 
   # GET /authors/new
@@ -65,6 +67,6 @@ class Admin::AuthorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def author_params
-      params.require(:author).permit(:name, :description)
+      params.require(:author).permit(:user_id, :exten_bio)
     end
 end

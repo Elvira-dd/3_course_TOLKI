@@ -1,5 +1,7 @@
-<%= form_for([@post, @post.comments.build]) do |form| %>
-<%= form.text_area :content, placeholder: "Ваше мнение во всей красе", class: 'classicInput' %>
-<%= form.hidden_field :comment_id, value: parent_comment_id if defined? parent_comment_id %>
-<%= form.submit "Отправить", class: "formButton" %>
+<%= form_with(model: [commentable, Comment.new], local: true) do |form| %>
+<%= form.hidden_field :commentable_type, value: commentable.class.name %>
+<%= form.hidden_field :commentable_id, value: commentable.id %>
+
+<%= form.text_area :content, placeholder: "Оставьте комментарий..." %>
+<%= form.submit "Отправить" %>
 <% end %>

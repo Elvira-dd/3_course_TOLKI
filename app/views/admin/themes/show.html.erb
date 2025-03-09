@@ -1,0 +1,23 @@
+<% set_meta_tags(
+  title: "Всякое на тему – #{@theme.name}",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
+<div class="W_ThemePageCover">
+    <div class="W_ThemeCover">
+        <%= image_tag @theme.cover %>
+        <h1> <%= @theme.name %></h1>
+    </div>
+    <p> <%= @theme.description %> </p>
+</div>
+
+<div class="themePodcastsList">
+    <% if @podcasts.any? %>
+    <div class="C_ThemePodcastCards">
+        <% @podcasts.each do |podcast| %>
+        <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+        <% end %>
+    </div>
+    <% else %>
+    <p>Пока нет подкастов с этой темой.</p>
+    <% end %>
+</div>

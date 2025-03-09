@@ -1,0 +1,20 @@
+<% if reply.replies.any? %>
+<ul class="RepliesList">
+    <% reply.replies.each do |reply| %>
+    <li class="M_CommentCard reply">
+        <div class="M_UserCard">
+            <% if reply.user.profile.avatar.present? %>
+            <%= image_tag reply.user.profile.avatar, alt: reply.user.profile.name, class: "UserAvatar" %>
+            <% end %>
+            <div>
+                <div class="UserTitle">
+                    <h5><%= reply.user.profile.name %></h5>
+                    <p class="small"> знаток подкастов <%= reply.user.profile.level %> уровня </p>
+                </div>
+                <p><%= reply.content %></p>
+            </div>
+        </div>
+    </li>
+    <% end %>
+</ul>
+<% end %>

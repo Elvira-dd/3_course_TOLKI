@@ -1,10 +1,11 @@
 class Admin::IssuesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_issue, only: %i[show edit update destroy]
+  before_action :set_issue, only: %i[ show edit update destroy ]
 
   # GET /issues or /issues.json
   def index
-    @issues = Issue.all
+    @podcast = Podcast.find(params[:podcast_id])
+    @issues = @podcast.issues
   end
   
   def issues_for_podcast
@@ -15,13 +16,8 @@ class Admin::IssuesController < ApplicationController
   end
   # GET /issues/1 or /issues/1.json
   def show
-    @issue = Issue.includes(posts: { user: :profile }).find(params[:id])
-    @posts = if user_signed_in?
-      @issue.posts.where.not(id: nil)
-    else
-      @issue.posts.where.not(id: nil)
-    end
-    @post = Post.new(issue: @issue)
+    @issue = Issue.find(params[:id])  
+    @commentable = @issue 
   end
 
   # GET /issues/new
@@ -63,14 +59,10 @@ class Admin::IssuesController < ApplicationController
 
   # DELETE /issues/1 or /issues/1.json
   def destroy
-    @issue = Issue.find(params[:id])
-  
-    # Optional: If you want to delete associated posts before deleting the issue
-    @issue.posts.destroy_all 
-  
-    @issue.destroy
+    @issue.destroy!
+
     respond_to do |format|
-      format.html { redirect_to admin_issue_path, notice: "Issue was successfully destroyed." }
+      format.html { redirect_to issues_path, status: :see_other, notice: "Issue was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -87,18 +79,18 @@ class Admin::IssuesController < ApplicationController
     end
 end
 
-# class Admin::IssuesController < ApplicationController
-#   def create
-#     @podcast = Podcast.find(params[:podcast_id])
-#     #@comment = @podcast.comments.create(params[:comment])
-#     @issue = @podcast.issues.create(params[:issue].permit(:name, :link))
-#     redirect_to podcast_path(@podcast)
-#   end
+class IssuesController < ApplicationController
+  def create
+    @podcast = Podcast.find(params[:podcast_id])
+    #@comment = @podcast.comments.create(params[:comment])
+    @issue = @podcast.issues.create(params[:issue].permit(:name, :link))
+    redirect_to podcast_path(@podcast)
+  end
 
-#   def destroy
-#     @podcast = Podcast.find(params[:podcast_id])
-#     @issue = @podcast.issues.find(params[:id])
-#     @issue.destroy
-#     redirect_to podcast_path(@podcast)
-#   end
-# end
+  def destroy
+    @podcast = Podcast.find(params[:podcast_id])
+    @issue = @podcast.issues.find(params[:id])
+    @issue.destroy
+    redirect_to podcast_path(@podcast)
+  end
+end

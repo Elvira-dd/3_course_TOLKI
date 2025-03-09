@@ -12,6 +12,10 @@ class PostsController < ApplicationController
     end
   end
   def like 
+ 
+      @post = Post.find(params[:id])  
+      @commentable = @post 
+
     likes = @post.likes.where(user_id: current_user.id)
     if likes.count > 0
       likes.destroy_all
@@ -23,6 +27,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find(params[:id])  
+    @commentable = @post 
   end
 
   # GET /posts/new

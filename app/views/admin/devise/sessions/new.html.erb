@@ -1,0 +1,15 @@
+<div class="W_TitleWith">
+    <h1>С возвращением!</h1>
+    <p> Чтобы учавствовать в обсуждениях, оставлять отзывы, тебе нужно войти в аккаунт! </p>
+</div>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="W_Form">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"A_Input", placeholder: "Логин" %>
+    <%= f.password_field :password, autocomplete: "current-password" , class:"A_Input", placeholder: "Пароль"%>
+
+
+    <div class="actions">
+        <%= f.submit "Войти", class:"A_Button Primary"%>
+    </div>
+</div>
+<% end %>

@@ -1,0 +1,21 @@
+<% set_meta_tags(
+  title: "Лучшие рекомендации подкастов",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
+<div class="W_TitleWith Themes">
+    <h1>Лента для вас</h1>
+    <div class="C_ThemesLine">
+        <% @themes.each do |theme| %>
+        <%= link_to theme_path(theme) do %>
+        <div class="A_Theme">
+            <h5><%= theme.name %> </h5>
+        </div>
+        <% end %>
+        <% end %>
+    </div>
+</div>
+<div class="C_PodcastCardsBlock">
+    <% @podcasts_top.each do |podcast| %>
+    <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+    <% end %>
+</div>

@@ -1,18 +1,14 @@
-<%
-set_meta_tags(
-  title: "Admin Panel | Tolki - посты",
-  description: "Посты для проекта Tolki",
-  keywords: "Подкасты , Рецензии, Информация"
-)
-%>
+<p style="color: green"><%= notice %></p>
 
-<h1>Посты</h1>
+<% content_for :title, "Все посты" %>
 
-<div id="posts" class="allPostsPage">
-    <% @posts.each do |post| %>
+<h1>Posts</h1>
+
+<div id="posts">
+  <% @posts.each do |post| %>
     <%= render post %>
     <p>
-
+      <%= link_to "Show this post", post %>
     </p>
-    <% end %>
+  <% end %>
 </div>

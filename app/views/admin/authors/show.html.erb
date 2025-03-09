@@ -1,15 +1,12 @@
-<% set_meta_tags(
-  title: "Личная берложка #{@author.name}",
-  description: "Посты для проекта Tolki",
-  keywords: "Подкасты, Рецензии, Информация"
-) %>
-
-<%= @author.name %>
-<%= @author.description %>
+<h1> <%= @author.user.profile.name %>
+</h1>
 
 
-<p> 12 подписчика </p>
-<p> 12 подписок </p>
+<p>
+    <strong>Description:</strong>
+    <%= @author.exten_bio %>
+</p>
+
 
 <div>
     <%= link_to "Edit this author", edit_author_path(@author) %> |
@@ -17,3 +14,10 @@
 
     <%= button_to "Destroy this author", @author, method: :delete %>
 </div>
+
+<h2>Подкасты автора:</h2>
+<ul>
+    <div class="podcasts-list">
+        <%= render partial: "podcastcard", collection: @podcasts, as: :podcast %>
+    </div>
+</ul>

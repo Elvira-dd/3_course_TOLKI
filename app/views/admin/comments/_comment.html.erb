@@ -1,21 +1,34 @@
-<div class="cardComment">
-    <% if comment.persisted? %>
-    <div class="comment <%= 'reply' if comment.comment_id.present? %>">
-        <h3 class="commenter">
-            <%= comment.user ? comment.user.email : "Unknown User" %>
-        </h3>
-        <p><%= comment.content %></p>
-
-        <!-- Reply Form -->
-        <%= render "admin/comments/form", parent_comment_id: comment.id, post: comment.post %>
-
-        <!-- Nested Replies -->
-        <%= render partial: "admin/comments/comment", collection: comment.replies.ordered, as: :comment %>
+<li class="M_CommentCard">
+    <div class="M_UserCard">
+        <% if comment.user.profile.avatar.present? %>
+        <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" %>
+        <% end %>
+        <div class="UserTitle">
+            <h5><%= comment.user.profile.name %></h5>
+            <div style="display:flex; justify-content:space-between">
+                <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
+                <p class="small"> <%= comment.created_at.strftime("%d.%m.%Y") %> </p>
+            </div>
+            <p><%= comment.content %></p>
+            <div class="CommentFeedback">
+                <div>
+                    <%= link_to like_comment_path(comment), method: :post, class: "like-button" do %>
+                    <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
+                    <% end %>
+                    <span class="like-count"><%= comment.likes.count %></span>
+                </div>
+                <div>
+                    <%= link_to dislike_comment_path(comment), method: :post, class: "dislike-button" do %>
+                    <%= image_tag "Q_HandLike.svg", alt: "Dislike", class: "Q_HandLike dislike" %>
+                    <% end %>
+                    <span class="dislike-count"><%= comment.dislikes.count %></span>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="editingComment">
-        <%= button_to 'Edit Comment', edit_post_comment_path(comment.post, comment), method: :get, class: "editButton" %>
-        <%= button_to 'Destroy Comment', [comment.post, comment], method: :delete, data: { confirm: "Are you sure?" }, class: "destroyButton" %>
-    </div>
+    <% if comment.replies.any? %>
+    <ul class="replies">
+        <%= render partial: "comments/comment", collection: comment.replies, as: :comment, locals: { commentable: commentable } %>
+    </ul>
     <% end %>
-</div>
+</li>

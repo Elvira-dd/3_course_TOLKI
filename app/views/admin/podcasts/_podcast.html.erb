@@ -1,17 +1,12 @@
-<div id="<%= dom_id podcast %>" class="cardPodcast">
-    <div class="podcastCover">
-        <% if podcast.cover.present? %>
-        <%= image_tag podcast.cover, alt: "Cover Image" %>
-        <% else %>
-        <p>No cover image available</p>
-        <% end %>
-    </div>
-    <%= link_to podcast.name, admin_podcast_path(podcast) %>
+<div id="<%= dom_id podcast %>">
     <p>
-        <%= podcast.description %>
+        <strong>Name:</strong>
+        <%= podcast.name %>
     </p>
+
     <p>
-        <%= podcast.average_rating %>
+        <strong>Description:</strong>
+        <%= podcast.description %>
     </p>
 
 </div>

@@ -24,11 +24,10 @@ end
 <%end%>
 <div>
     <div>
-
-        <div class="postsCommentSection">
-            <h3>Автор готов к бурным обсуждениям</h3>
-            <%= render "admin/comments/form" %>
-            <%= render @post.comments %>
+        <div class="W_CommentsBlock">
+            <ul>
+                <%= render partial: "comments/comment", collection: @post.comments.not_replies, as: :comment, locals: { commentable: @post } %>
+            </ul>
         </div>
-
     </div>
+</div>

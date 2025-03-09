@@ -9,44 +9,72 @@
         <%= image_tag @podcast.cover, alt: @podcast.cover, class: "PodcastCover" if @podcast.cover.present? %>
 
         <div class="PodcastText">
-            <h1> Подкаст «<%= @podcast.name%>»</h1>
-            <p><%= @podcast.description%> </p>
-            <h5> Авторы подкаста </h5>
-            <div class="PodcastAuthors">
-                <% @podcast.authors.each do |author| %>
-                <div class="PodcastAuthorCard">
-                    <%= image_tag author.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
-                    <div class="AuthorCard">
-                        <h5><%= author.name%> </h5>
-                        <p class="small"><%= author.name %> </p>
+            <div>
+                <h1> Подкаст «<%= @podcast.name%>»</h1>
+                <p><%= @podcast.description%> </p>
+            </div>
+            <div>
+                <div class="PodcastAuthors">
+                    <% @podcast.authors.each do |author| %>
+                    <%= link_to author_path(author) do %>
+                    <div class="PodcastAuthorCard">
+
+                        <%= image_tag author.user.profile.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
+                        <div class="AuthorCard">
+                            <h5><%= author.user.profile.name%> </h5>
+                            <p class="small"><%= author.exten_bio %> </p>
+                        </div>
+
                     </div>
+                    <% end %>
+                    <% end %>
                 </div>
+            </div>
+            <div class="PodcastThemes">
+                <% if @podcast.themes.any? %>
+                <% @podcast.themes.each do |theme| %>
+                <%= link_to theme_path(theme) do %>
+                <div class="A_Tag">
+                    <h5><%= theme.name %></h5>
+                </div>
+                <%end%>
+                <% end %>
+                <% else %>
+                <p>Этот подкаст пока не имеет тегов.</p>
                 <% end %>
             </div>
         </div>
     </div>
 
     <!-- Темы подкаста -->
-    <div class="PodcastThemes">
-        <% if @podcast.themes.any? %>
-        <% @podcast.themes.each do |theme| %>
-        <div class="A_Tag">
-            <h5><%= theme.name %></h5>
-        </div>
-        <% end %>
-        <% else %>
-        <p>Этот подкаст пока не имеет тегов.</p>
-        <% end %>
-    </div>
 
-    <!-- Кнопка редактирования подкаста -->
-    <div class="podcastEditing">
-        <%= link_to "Edit this podcast", edit_admin_podcast_path(@podcast) %>
+
+
+
+    <div class="W_LinksLine_Title">
+        <p>Слушать на</p>
+        <div class="C_LinksLine">
+            <% if @podcast.external_links.any? %>
+            <% @podcast.external_links.each do |link| %>
+            <div class="A_Link">
+                <a href="<%= link['url'] %>" target="_blank"><%= link['service'] %></a>
+            </div>
+            <% end %>
+            <% else %>
+            <p>Нет внешних ссылок</p>
+            <% end %>
+        </div>
     </div>
 
     <!-- Галерея выпусков -->
     <div class="podcastsIssues">
-        <h2>Выпуски</h2>
+        <div class="W_ListBlock_Title">
+            <h2>Лучшие выпуски</h2>
+            <%= link_to podcast_issues_path(@podcast) do %>
+            <h4>посмотреть все</h4>
+            <% end %>
+        </div>
+
         <div id="issues" class="allIssuesPage">
             <div class="Q_Arrow withBg" onclick="moveGallery(-1)"></div>
             <div class="gallery">
@@ -58,44 +86,67 @@
             </div>
             <div class="Q_Arrow withBg2" onclick="moveGallery(1)"></div>
         </div>
-
     </div>
 
     <!-- Секция рецензий -->
+
     <div class="PodcastPagePosts">
-        <h2>Рецензии</h2>
-        <%= link_to new_admin_post_path do %>
-        <div class="A_Button Primary">
-            <h2> написать рецензию </h2>
-        </div>
-        <% end %>
-        <div id="posts">
-            <% if @posts.present? %>
-            <% @posts.each do |post| %>
-            <%= render partial: "postcard", locals: { post: post } %>
+        <h2>Лента авторов</h2>
+        <div class="posts">
+            <% @content_items.each do |item| %>
+            <% if item.is_a?(Issue) %>
+            <%= render partial: "showissuecard", locals: { issue: item } %>
+            <% elsif item.is_a?(Post) %>
+            <%= render partial: "postcard", locals: { post: item } %>
             <% end %>
-            <% else %>
-            <p>No posts available.</p>
             <% end %>
         </div>
+    </div>
 
-        <!-- JavaScript для управления галереей -->
-        <%= javascript_tag do %>
-        let currentIndex = 0;
 
-        function moveGallery(direction) {
-        const gallery = document.querySelector('.gallery');
-        const cards = document.querySelectorAll('.galleryCard');
-        const cardWidth = cards[0].offsetWidth + 20; // ширина карточки + отступы
+</div>
 
-        currentIndex += direction;
+<!-- JavaScript для управления галереей -->
+<%= javascript_tag do %>
+let currentIndex = 0;
 
-        // Ограничиваем текущий индекс
-        if (currentIndex < 0) { currentIndex=0; } else if (currentIndex> cards.length - 1) {
-            currentIndex = cards.length - 1;
-            }
+function moveGallery(direction) {
+const gallery = document.querySelector('.gallery');
+const cards = document.querySelectorAll('.galleryCard');
+const cardWidth = 1270
 
-            // Перемещаем галерею
-            gallery.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-            }
-            <% end %>
+currentIndex += direction;
+
+// Ограничиваем текущий индекс
+if (currentIndex < 0) { currentIndex=0; } else if (currentIndex> cards.length - 1) {
+    currentIndex = cards.length - 1;
+    }
+
+    // Перемещаем галерею
+    gallery.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+    // Обновляем прозрачность карточек
+    updateOpacity();
+    }
+
+    function updateOpacity() {
+    const cards = document.querySelectorAll('.galleryCard');
+    cards.forEach((card, index) => {
+    // Проверка для добавления класса "active" только для текущей карточки
+    if (index === currentIndex) {
+    card.classList.add("active");
+    card.style.opacity = "1"; // Полная видимость для активной карточки
+    } else {
+    card.classList.remove("active");
+    card.style.opacity = "0.5"; // Прозрачность для остальных
+    }
+    });
+    }
+
+    // Вызываем updateOpacity при загрузке страницы
+    document.addEventListener("DOMContentLoaded", function() {
+    updateOpacity(); // обновляем состояние на момент загрузки страницы
+    const cards = document.querySelectorAll('.galleryCard');
+    cards[0].style.opacity = "1"; // Начальная карточка (первая) будет видимой
+    });
+    <% end %>

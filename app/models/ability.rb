@@ -15,6 +15,11 @@ class Ability
     can :manage, Post, user: user
     can :manage, Comment, user: user
 
+    if user.persisted? # Только авторизованные пользователи
+      can :create, Like # Разрешаем ставить лайки
+      can :like, Post   # Разрешаем действие like на постах
+    end
+    
     return unless user.admin? 
     can :manage, :all
     # See the wiki for details:

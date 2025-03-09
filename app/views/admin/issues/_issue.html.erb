@@ -1,7 +1,6 @@
-<div id="<%= dom_id issue %>" class="cardIssue">
-  <%= link_to issue.name, admin_podcast_issue_path(@podcast, issue) %>
-  <%= button_to "Destroy this issue", admin_podcast_issue_path(@podcast, issue), method: :delete, data: { confirm: "Are you sure?" }, class:"destroyButton" %>
+<div id="<%= dom_id issue %>">
+  <p>
+    <strong>Name:</strong>
+    <%= issue.name %>
+  </p>
 </div>
-
-
-

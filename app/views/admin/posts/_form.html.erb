@@ -1,22 +1,36 @@
-<%= form_with(model: [:admin, @issue, @post]) do |form| %>
+<%= form_with(model: [@issue, @post]) do |form| %>
 <% if @post.errors.any? %>
 <div style="color: red">
     <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
     <ul>
-        <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <% @post.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
         <% end %>
     </ul>
 </div>
 <% end %>
-<div class="createPostForm">
-    <%= form.text_field :title, placeholder: "Манящий заголовок", class: 'classicInput'%>
-    <%= form.text_area :content, placeholder: "Ваше мнение во всей красе", class: 'classicInput'%>
-    s
 
-
-    <%= form.text_field :hashtag, placeholder: "#краткостьСестраТаланта", class: 'classicInput'%>
-
-    <%= form.submit "Отправить", class:"formButton"%>
-    <% end %>
+<div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
 </div>
+
+<div>
+    <%= form.label :content, style: "display: block" %>
+    <%= form.text_area :content %>
+</div>
+
+
+
+
+
+<div>
+    <%= form.label :hashtag, style: "display: block" %>
+    <%= form.text_field :hashtag %>
+</div>
+
+<div>
+    <%= form.submit %>
+</div>
+<% end %>

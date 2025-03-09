@@ -1,20 +1,16 @@
 <%= form_for([@podcast, @podcast.issues.new]) do |form| %>
-<div>
-    <%= form.label :cover, "Issue Cover", style: "display: block" %>
-    <%= form.file_field :cover %>
-</div>
 
-<div>
+  <div>
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
-</div>
+  </div>
 
-<div>
+  <div>
     <%= form.label :link, style: "display: block" %>
     <%= form.text_field :link %>
-</div>
+  </div>
 
-<div>
+  <div>
     <%= form.submit %>
-</div>
+  </div>
 <% end %>

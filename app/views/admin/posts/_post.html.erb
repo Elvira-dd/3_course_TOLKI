@@ -1,19 +1,28 @@
-<div class="cardPost">
-    <p>
-        <%=  post.user.email %>
-    </p>
-    <h2>
-        <%= link_to post.title, admin_post_path(post) %>
-    </h2>
+<p>
+    <strong>User:</strong>
+    <%=  post.user.email %>
+</p>
+<p>
+    <strong>Title:</strong>
+    <%= post.title %>
+</p>
+<p>
 
-    <p>
-        <strong>#</strong>
-        <%= post.hashtag %>
-    </p>
+<p>
+    <strong>Content:</strong>
+    <%= post.content %>
+</p>
 
-    <p class="postContent">
-        <%= post.content %>
-    </p>
+<p>
+    <strong>Date:</strong>
+    <%= post.created_at %>
+</p>
 
+
+
+<p>
+    <strong>Hashtag:</strong>
+    <%= post.hashtag %>
+</p>
 
 </div>
