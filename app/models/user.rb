@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :likes
+  has_many :dislikes
   has_many :posts
   has_many :comments
   has_one :profile, dependent: :destroy

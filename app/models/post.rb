@@ -12,4 +12,5 @@ class Post < ApplicationRecord
         }
     end
     has_many :likes, as: :likeable
+    has_many :dislikes, as: :dislikeable
 end

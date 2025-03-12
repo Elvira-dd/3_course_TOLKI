@@ -29,6 +29,7 @@ class CommentsController < ApplicationController
 
   def like
     @comment = Comment.find(params[:id])
+    @comment.dislikes.where(user_id: current_user.id).destroy_all
     likes = @comment.likes.where(user_id: current_user.id)
   
     if likes.exists?
@@ -42,6 +43,7 @@ class CommentsController < ApplicationController
 
   def dislike
     @comment = Comment.find(params[:id])
+    @comment.likes.where(user_id: current_user.id).destroy_all 
     dislikes = @comment.dislikes.where(user_id: current_user.id)
 
     if dislikes.exists?

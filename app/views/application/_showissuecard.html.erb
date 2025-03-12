@@ -1,3 +1,9 @@
+<%
+likes_count = issue.likes.count
+dislikes_count = issue.dislikes.count
+%>
+
+
 <div class="O_PostFullCard_WithComments">
     <div class="M_PostFullCard">
         <div class="M_UserCard">
@@ -25,10 +31,19 @@
 
         <div class="W_IssueFullCard_Footer">
             <div class="Footer">
-                <div class="Likes">
-                    <div class="Q_FooterIcons like"></div>
-                    <div class="Q_FooterIcons dislike"></div>
-                    <div class="Q_FooterIcons share"></div>
+                <div class="CommentFeedback">
+                    <div>
+                        <%= link_to like_issue_path(issue), class: "like-button" do %>
+                        <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
+                        <% end %>
+                        <span class="like-count"><%= issue.likes.count %></span>
+                    </div>
+                    <div>
+                        <%= link_to dislike_issue_path(issue), class: "dislike-button" do %>
+                        <%= image_tag "Q_HandLike.svg", alt: "Dislike", class: "Q_HandLike dislike" %>
+                        <% end %>
+                        <span class="dislike-count"><%= issue.dislikes.count %></span>
+                    </div>
                 </div>
                 <%= link_to podcast_issue_path(issue.podcast, issue) do %>
                 <div class="A_Button PrimaryMedium">

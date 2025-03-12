@@ -12,17 +12,34 @@ class PostsController < ApplicationController
     end
   end
   def like 
- 
       @post = Post.find(params[:id])  
       @commentable = @post 
 
     likes = @post.likes.where(user_id: current_user.id)
+    @post.dislikes.where(user_id: current_user.id).destroy_all 
+
     if likes.count > 0
       likes.destroy_all
     else
       @post.likes.create(user_id: current_user.id)
     end
-    redirect_to post_path(@post)
+    redirect_back fallback_location: @post
+  end
+
+  def dislike
+    @post = Post.find(params[:id])
+
+    @post.likes.where(user_id: current_user.id).destroy_all 
+
+    dislikes = @post.dislikes.where(user_id: current_user.id)
+
+    if dislikes.exists?
+      dislikes.destroy_all
+    else
+      @post.dislikes.create(user_id: current_user.id)
+    end
+
+    redirect_back fallback_location: @post  # Перенаправляем на пост или другой ресурс
   end
 
   # GET /posts/1 or /posts/1.json
@@ -66,15 +83,7 @@ class PostsController < ApplicationController
       end
     end
   end
-  def like 
-    likes = @post.likes.where(user_id: current_user.id)
-    if likes.count > 0
-      likes.destroy_all
-    else
-      @post.likes.create(user_id: current_user.id)
-    end
-    redirect_to @post
-  end
+  
   # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy!

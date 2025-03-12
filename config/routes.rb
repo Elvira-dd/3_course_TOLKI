@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:new, :create, :edit, :update, :destroy]
       member do
         get "like"
+        get "dislike"
       end
     end
   end
@@ -50,7 +51,8 @@ Rails.application.routes.draw do
   resources :issues do
     resources :comments, only: [:new, :create, :edit, :update, :destroy, :show]
     member do
-      get :like
+      get "like"
+      get "dislike"
     end
   end
   resources :users
@@ -76,6 +78,7 @@ Rails.application.routes.draw do
     end
     member do
       get "like"
+      get "dislike"
     end
     resources :comments, only: [:new, :create, :edit, :update, :destroy, :show]
   end
