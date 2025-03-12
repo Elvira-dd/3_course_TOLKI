@@ -1,3 +1,11 @@
+<%
+likes_count = comment.likes.count
+dislikes_count = comment.dislikes.count
+user_liked = comment.likes.exists?(user_id: current_user.id)
+user_disliked = comment.dislikes.exists?(user_id: current_user.id)
+%>
+
+
 <li class="M_CommentCard">
     <div class="M_UserCard">
         <% if comment.user.profile.avatar.present? %>
@@ -12,14 +20,12 @@
             <p><%= comment.content %></p>
             <div class="CommentFeedback">
                 <div>
-                    <%= link_to like_comment_path(comment), class: "like-button" do %>
-                    <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
+                    <%= link_to like_comment_path(comment), class: "Q_HandLike #{'active' if user_liked}" do %>
                     <% end %>
                     <span class="like-count"><%= comment.likes.count %></span>
                 </div>
                 <div>
-                    <%= link_to dislike_comment_path(comment), method: :post, class: "dislike-button" do %>
-                    <%= image_tag "Q_HandLike.svg", alt: "Dislike", class: "Q_HandLike dislike" %>
+                    <%= link_to dislike_comment_path(comment), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
                     <% end %>
                     <span class="dislike-count"><%= comment.dislikes.count %></span>
                 </div>

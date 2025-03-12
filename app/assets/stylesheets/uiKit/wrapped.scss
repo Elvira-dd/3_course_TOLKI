@@ -112,6 +112,11 @@
     flex-direction: row;
     justify-content: space-between;
     margin-top: 16px;
+    align-items: center;
+    margin-bottom: 3vh;
+    .A_Button {
+      margin-bottom: 0;
+    }
     .Likes {
       display: flex;
       flex-direction: row;

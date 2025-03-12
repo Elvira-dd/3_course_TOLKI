@@ -1,6 +1,8 @@
 <%
 likes_count = issue.likes.count
 dislikes_count = issue.dislikes.count
+user_liked = issue.likes.exists?(user_id: current_user.id)
+user_disliked = issue.dislikes.exists?(user_id: current_user.id)
 %>
 
 
@@ -33,14 +35,12 @@ dislikes_count = issue.dislikes.count
             <div class="Footer">
                 <div class="CommentFeedback">
                     <div>
-                        <%= link_to like_issue_path(issue), class: "like-button" do %>
-                        <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
+                        <%= link_to like_issue_path(issue), class: "Q_HandLike #{'active' if user_liked}" do %>
                         <% end %>
                         <span class="like-count"><%= issue.likes.count %></span>
                     </div>
                     <div>
-                        <%= link_to dislike_issue_path(issue), class: "dislike-button" do %>
-                        <%= image_tag "Q_HandLike.svg", alt: "Dislike", class: "Q_HandLike dislike" %>
+                        <%= link_to dislike_issue_path(issue), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
                         <% end %>
                         <span class="dislike-count"><%= issue.dislikes.count %></span>
                     </div>

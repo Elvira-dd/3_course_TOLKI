@@ -77,11 +77,15 @@
   }
 }
 .Q_HandLike {
+  display: block;
   width: 20px;
   height: 20px;
   background-image: url('Q_HandLike.svg');
   background-size: contain;
   background-repeat: no-repeat;
+  &.active {
+    background-image: url('Q_HandLikeFull.svg');
+  }
   &.dislike {
     transform: rotate(180deg);
   }
