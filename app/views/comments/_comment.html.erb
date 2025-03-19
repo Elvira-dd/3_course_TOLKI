@@ -1,8 +1,14 @@
 <%
 likes_count = comment.likes.count
 dislikes_count = comment.dislikes.count
-user_liked = comment.likes.exists?(user_id: current_user.id)
-user_disliked = comment.dislikes.exists?(user_id: current_user.id)
+
+if current_user.present? 
+  user_liked = comment.likes.exists?(user_id: current_user.id)
+  user_disliked = comment.dislikes.exists?(user_id: current_user.id)
+else
+  user_liked = false
+  user_disliked = false
+end
 %>
 
 

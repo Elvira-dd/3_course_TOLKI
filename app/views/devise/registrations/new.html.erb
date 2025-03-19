@@ -1,20 +1,24 @@
-<div class="W_TitleWith">
-    <h1>Приветствуем!</h1>
-    <p> Чтобы учавствовать в обсуждениях, оставлять отзывы, тебе нужно зарегистрироваться! </p>
-</div>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-<%= render "devise/shared/error_messages", resource: resource %>
-
-<div class="W_Form">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"A_Input", placeholder: "Логин" %>
-    <%= f.password_field :password, autocomplete: "new-password", class:"A_Input", placeholder: "Пароль" %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"A_Input", placeholder: "И еще раз, пожалуйста"  %>
-
-    <div class="actions">
-        <%= f.submit "Зарегистрироваться", class:"A_Button Primary"%>
-    </div>
+<div style="display: flex; gap:10vh; flex-direction:column">
     <div class="W_TitleWith">
-        <p> Если у тебя уже есть аккаунт, смело <%= link_to "заходи", new_user_session_path%>, не стесняйся! </p>
+        <h1>Приветствуем!</h1>
+        <p> Чтобы учавствовать в обсуждениях, оставлять отзывы, тебе нужно зарегистрироваться! </p>
+    </div>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="W_Form">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"A_Input", placeholder: "Логин" %>
+        <%= f.password_field :password, autocomplete: "new-password", class:"A_Input", placeholder: "Пароль" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"A_Input", placeholder: "И еще раз, пожалуйста"  %>
+
+        <div class="actions">
+            <%= f.submit "Зарегистрироваться", class:"A_Button Primary"%>
+        </div>
+    </div>
+    <% end %>
+    <div class="W_TitleWith small">
+        <h4>Если у тебя уже есть аккаунт, смело
+            <%= link_to "заходи", new_user_session_path, style: "text-decoration:underline" %>, не стесняйся!
+        </h4>
     </div>
 </div>
-<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_06_102545) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_17_135421) do
   create_table "authors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -97,8 +97,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_06_102545) do
     t.string "hashtag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.integer "podcast_id"
+    t.integer "author_id"
+    t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["podcast_id"], name: "index_posts_on_podcast_id"
   end
 
@@ -156,6 +157,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_06_102545) do
   add_foreign_key "issues", "podcasts"
   add_foreign_key "likes", "users"
   add_foreign_key "podcasts", "authors"
+  add_foreign_key "posts", "authors"
   add_foreign_key "posts", "podcasts"
   add_foreign_key "tags", "podcasts"
 end

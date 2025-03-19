@@ -5,11 +5,8 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    if current_user
-      @posts = current_user.posts
-    else
+
     @posts = Post.all
-    end
   end
   def like 
       @post = Post.find(params[:id])  

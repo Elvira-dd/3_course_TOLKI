@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   has_many :likes
   has_many :dislikes
-  has_many :posts
+  
   has_many :comments
   has_one :profile, dependent: :destroy
   has_one :author

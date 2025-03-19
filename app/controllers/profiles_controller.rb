@@ -10,13 +10,12 @@ class ProfilesController < ApplicationController
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user
-    @posts = @user.posts
+    @comments = @user.comments
     if @profile.user == current_user
       redirect_to my_profile_path  # Редирект на личный профиль
     end
   
   @reviewed_podcasts_count = 2
-  @posts_count = @user.posts.count
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
   end
 

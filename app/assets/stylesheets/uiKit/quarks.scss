@@ -65,15 +65,23 @@
 .Q_Like {
   width: 36px;
   height: 36px;
-
+  background-image: url('Q_Like.svg');
   &.withBg {
     background-image: url('Q_Like_withBg.svg');
     width: 70px;
     height: 70px;
   }
 
-  &.default {
-    background-image: url('Q_Like.svg');
+  &.accent {
+    background-image: url('Q_Like_accent.svg');
+  }
+}
+.Q_Profile {
+  width: 36px;
+  height: 36px;
+  background-image: url('Q_Profile.svg');
+  &.accent {
+    background-image: url('Q_Profile_accent.svg');
   }
 }
 .Q_HandLike {
@@ -119,4 +127,9 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url('Q_Logo.png');
+  &.long {
+    width: 120px;
+    height: 40px;
+    background-image: url('Q_Logo_long.png');
+  }
 }

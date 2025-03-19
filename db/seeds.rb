@@ -51,6 +51,13 @@ def create_title
   
     sentence = sentence_words.join(' ').capitalize + '.'
   end
+  def generate_random_links
+    services = ["YouTube", "Яндекс Музыка", "Spotify", "Apple Music"]
+    links = services.sample(rand(1..services.length)).map do |service|
+      { service: service, url: "https://#{service.downcase}.com/#{SecureRandom.hex(4)}" }
+    end
+    links
+  end
 
   def seed
     reset_db
@@ -113,13 +120,7 @@ def create_title
   end
   
   # Метод для генерации случайных ссылок
-  def generate_random_links
-    services = ["YouTube", "Яндекс Музыка", "Spotify", "Apple Music"]
-    links = services.sample(rand(1..services.length)).map do |service|
-      { service: service, url: "https://#{service.downcase}.com/#{SecureRandom.hex(4)}" }
-    end
-    links
-  end
+  
   
 
   def create_issues(quantity)
@@ -133,19 +134,17 @@ def create_title
     end
   end
   
-  
   def create_post(quantity)
-    Podcast.all.each do |podcast|  # Проходим по всем подкастам
+    Podcast.all.each do |podcast|  
       i = 1
       quantity.to_a.sample.times do
-        user = User.all.sample
+        author = Author.all.sample  # Выбираем случайного автора вместо пользователя
   
-        # Создаем пост для подкаста, указывая его id
         post = podcast.posts.create!(
           title: create_title,
           content: create_content,
           hashtag: create_title,
-          user: user
+          author: author  # Теперь привязываем пост к автору
         )
         
         puts "Post with id #{post.id} just created for Podcast with id #{podcast.id}"
@@ -153,6 +152,7 @@ def create_title
       end
     end
   end
+
   def create_comments(quantity)
     commentable_records = (Post.all + Issue.all)
   

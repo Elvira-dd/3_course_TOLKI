@@ -4,9 +4,7 @@ class UsersController < ApplicationController
   end
   def profile
     @user = current_user
-    @posts = @user.posts
-  
-  
+    @comments = @user.comments.where(comment_id: nil)
 
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
   end

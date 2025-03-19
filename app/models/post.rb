@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
     belongs_to :podcast
-    belongs_to :user 
+    belongs_to :author, class_name: "Author" 
     has_many :comments, as: :commentable, dependent: :destroy
 
     validates :title, presence: true

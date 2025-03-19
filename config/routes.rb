@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get "about_us/index"
   get "main/index"
   get "main/test"
+  get "main/favorite"
   get "promo/index"
   get "recommendation", to: "recommendation#index"
 
