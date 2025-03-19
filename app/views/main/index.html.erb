@@ -4,37 +4,75 @@
 ) %>
 
 <div class="O_BodyMainPage">
-    <div class="W_AccentCover first">
-        <h1 class="stroke">Ищи и оставляй отзывы о своих любимых подкастах</h1>
+    <div class="W_AccentCover" style="margin-top:80px">
+        <div class="Q_Logo long"> </div>
+        <h1 class="double">Лучшие подкасты только у нас!</h1>
+        <h3> У нас собрана лучшая коллекция подкастов на любой вкус, собранная исходя из отзывов и мнений реальных слушателей </h3>
         <%= link_to (user_signed_in? ? new_post_path : new_user_session_path) do %>
         <div class="A_Button Primary">
-            <h2>Оставить рецензию</h2>
-            <div class="Q_Arrow top_right"></div>
+            <h3>К поиску</h3>
         </div>
         <% end %>
     </div>
-    <div class="W_CardBlock">
-        <h2>Сегодня в топе эти авторы: </h2>
-        <div class="C_AuthorsCards">
-            <% @profile_top.each do |author| %>
-            <%= render partial: "authorcard", locals: { author: author } %>
+    <div class="W_TitleWith">
+        <h4> Что конкретно вы ищите?</h4>
+        <div class="C_TagsLine">
+            <div class="A_Tag">
+                <h5>Пост </h5>
+            </div>
+            <div class="A_Tag">
+                <h5>Подкаст </h5>
+            </div>
+            <div class="A_Tag">
+                <h5>Выпуск </h5>
+            </div>
+            <div class="A_Tag">
+                <h5>Автор </h5>
+            </div>
+        </div>
+        <div class="SearchContainer">
+            <%= form_with url: search_path, method: :get, local: true do %>
+            <input type="text" name="query" placeholder="Напиши название подкаста или выпуска или вставь ссылку" class="SearchInput">
+            <button type="submit" class="SearchButton">
+                <div class="Q_Icon search"> </div>
+            </button>
             <% end %>
         </div>
+    </div>
+    <div class="">
+        <div class="W_ListBlock_Title">
+            <h2> Подборка лучших научных подкастов </h2>
+            <%= link_to recommendation_path do %>
+            <h4>посмотреть все </h4>
+            <%end%>
+        </div>
+        <div class="C_AuthorsCards">
+            <% @science_podcasts.each do |podcast| %>
+            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+            <% end %>
+        </div>
+    </div>
+    <div class="">
+        <div class="W_ListBlock_Title">
+            <h2> Подборка лучших научных подкастов </h2>
+            <%= link_to recommendation_path do %>
+            <h4>посмотреть все </h4>
+            <%end%>
+        </div>
+        <div class="C_AuthorsCards">
+            <% @love_podcasts.each do |podcast| %>
+            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+            <% end %>
+        </div>
+    </div>
+    <div class="W_CardBlock">
+        <h2>Сегодня в топе эти авторы: </h2>
+
     </div>
     <div class="W_AccentCover ama">
         <h1 class="stroke">Ask me anything сессия с «<%= @ama_podcast.name %>» </h1>
         <div class="A_Button Primary">
             <h2>поучавствовать в сессии</h2>
-        </div>
-    </div>
-    <div class="W_CardBlock">
-        <div class="W_ListBlock_Title">
-            <h2>Если хочешь от души посмеяться </h2>
-        </div>
-        <div class="C_PodcastCards">
-            <% @podcasts_cards.each do |podcast| %>
-            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
-            <% end %>
         </div>
     </div>
     <div class="W_CardBlock">

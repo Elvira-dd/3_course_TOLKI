@@ -44,8 +44,8 @@
   }
 }
 .A_Tag {
-  background-color: var(--light_tag);
-  padding: 8px 16px;
+  background-color: var(--four_gray);
+  padding: 12px 20px;
   width: fit-content;
   border-radius: 8px;
   h5 {
@@ -149,4 +149,38 @@
     font-size: 20px;
     font-weight: 500;
   }
+}
+
+.SearchContainer {
+  display: flex;
+
+  background: #d1d1d1;
+  border-radius: 30px;
+  padding: 10px 15px;
+  width: 60vw;
+  form {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.SearchInput {
+  flex-grow: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  width: 57vw;
+}
+.SearchInput::placeholder {
+  font-size: 16px;
+  color: var(--five_gray);
+}
+
+.SearchButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
 }

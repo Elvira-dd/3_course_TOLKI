@@ -12,6 +12,9 @@ h1 {
   &.extra {
     font-size: 64px;
   }
+  &.double {
+    font-size: 100px;
+  }
   &.stroke {
     background-color: var(--four_gray);
     border: 14px solid var(--four_gray);

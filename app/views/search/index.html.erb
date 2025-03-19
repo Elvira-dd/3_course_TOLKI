@@ -1,0 +1,11 @@
+<h2>Результаты поиска</h2>
+
+<% if @results.any? %>
+<ul>
+    <% @results.each do |podcast| %>
+    <li><%= link_to podcast.name, podcast_path(podcast) %></li>
+    <% end %>
+</ul>
+<% else %>
+<p>Ничего не найдено.</p>
+<% end %>

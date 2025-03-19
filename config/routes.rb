@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "tags/show"
   get "users/index"
   get "recommendation/index"
+  get 'search', to: 'search#index'
   resources :profiles
 
   devise_for :users

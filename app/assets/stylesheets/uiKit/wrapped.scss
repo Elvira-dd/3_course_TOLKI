@@ -1,5 +1,4 @@
 .W_AccentCover {
-  height: 500px;
   width: 100vw;
   margin-left: -6vw;
   display: flex;
@@ -9,6 +8,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   gap: 24px;
+  margin-top: 3vh;
   &.first {
     background-image: url('W_AccentCover_first.jpg');
   }
@@ -16,7 +16,22 @@
     background-image: url('W_AccentCover_ama.jpg');
   }
   h1 {
-    color: var(--accent_green);
+    color: var(--first_gray);
+    width: 900px;
+    text-align: center;
+    line-height: 80%;
+  }
+  h3 {
+    width: 800px;
+    text-align: center;
+    color: var(--first_gray);
+    font-weight: 400;
+  }
+  .A_Button {
+    width: 14vw;
+    h3 {
+      color: var(--five_gray);
+    }
   }
 }
 .W_CardBlock {
@@ -32,22 +47,23 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  h4 {
-    color: var(--first_gray);
-  }
+  color: var(--first_gray);
 }
 .W_TitleWith {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  margin-top: 3vh;
+  margin-top: 6vh;
   h1 {
     color: var(--accent_green);
   }
   h4 {
     color: var(--first_gray);
     text-align: center;
+  }
+  h4 + div {
+    gap: 36px;
   }
   a {
     color: var(--first_gray);
