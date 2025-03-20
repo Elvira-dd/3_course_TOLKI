@@ -82,3 +82,14 @@
   gap: 16px;
   margin-top: 10px;
 }
+.C_ChartCard_Info {
+  display: flex;
+  flex-direction: column;
+  width: 35vw;
+  height: 100px;
+}
+.C_ChartList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

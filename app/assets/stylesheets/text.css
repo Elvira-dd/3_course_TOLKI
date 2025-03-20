@@ -56,6 +56,14 @@ p {
   &.bold {
     font-weight: 600;
   }
+  &.two_stroke {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничиваем до 2 строк */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
 }
 a {
   font-size: 24px;

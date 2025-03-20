@@ -1,18 +1,13 @@
 <%= link_to podcast_path(podcast) do %>
 <div class="M_PodcastCard">
-    <div class="A_Likeble_Cover" style="background-image: url('<%= asset_path(podcast.cover) %>');">
-        <div class="Q_Like withBg"></div>
+    <div class="A_PodcastCover" style="background-image: url('<%= asset_path(podcast.cover) %>');">
     </div>
-    <h2><%= podcast.name %></h2>
-    <div class="C_TagsLine">
-        <% if podcast.themes.any? %>
-        <% podcast.themes.each do |theme| %>
-        <div class="A_Tag">
-            <h5><%= theme.name %></h5>
+    <p class="bold"><%= podcast.name %></p>
+    <p class="small two_stroke"><%= podcast.description %></p>
+    <div style="display: flex; align-items: center; gap:8px">
+        <div class="Q_Icon users">
         </div>
-        <% end %>
-        <% end %>
+        <p class="small"> 1566 слушателей </p>
     </div>
-    <p><%= podcast.description %></p>
 </div>
 <% end %>

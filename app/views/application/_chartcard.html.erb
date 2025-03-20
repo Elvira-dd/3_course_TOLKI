@@ -1,0 +1,26 @@
+<div class="M_ChartCard">
+    <h2><%= position %>. </h2>
+    <%= image_tag issue.podcast.cover, alt: issue.podcast.name, class: "SmallPodcastCoverImage" %>
+    <div class="C_ChartCard_Info">
+        <h4> <%= issue.name %> </h4>
+        <div class="PodcastThemes">
+            <% issue.podcast.themes.each do |theme| %>
+            <%= link_to theme_path(theme) do %>
+            <div class="A_Tag mini">
+                <h5><%= theme.name %></h5>
+            </div>
+            <%end%>
+            <% end %>
+        </div>
+    </div>
+    <div class="C_LinksLine">
+        <% issue.podcast.external_links.each do |link| %>
+        <div class="A_Link mini">
+            <a href="<%= link['url'] %>" target="_blank"><%= link['service'] %></a>
+        </div>
+        <% end %>
+    </div>
+    <div style="margin-left:17vw">
+        <div class="Q_Icon more"> </div>
+    </div>
+</div>

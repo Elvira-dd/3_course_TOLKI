@@ -5,7 +5,7 @@ text_path = Rails.root.join('db', 'raw_text.txt')
 def create_sentence
   sentence_words = []
 
-  (10..30).to_a.sample.times do
+  (5..15).to_a.sample.times do
     sentence_words << @words.sample
   end
 
@@ -14,7 +14,7 @@ end
 def create_content
   sentence_words = []
 
-  (30..80).to_a.sample.times do
+  (10..80).to_a.sample.times do
     sentence_words << @words.sample
   end
 
@@ -31,8 +31,8 @@ def create_title
     end
   
     sentence = sentence_words.join(' ').capitalize + '.'
-  end
-  def create_name
+end
+def create_name
     sentence_words = []
   
     (1..3).to_a.sample.times do
@@ -40,9 +40,9 @@ def create_title
     end
   
     sentence = sentence_words.join(' ').capitalize
-  end
+end
 
-  def create_tag_text
+def create_tag_text
     sentence_words = []
   
     (1..2).to_a.sample.times do
@@ -62,7 +62,7 @@ def create_title
   def seed
     reset_db
     create_users(16)
-    create_podcast(10)
+    create_podcast(35)
     create_issues(3..10)
     create_themes_and_assign_to_podcasts(20) 
     create_post(1..4)
@@ -97,6 +97,7 @@ def create_title
   end
 
   def create_podcast(quantity)
+
     authors = Author.includes(:user).where(users: { is_author: true })
     return if authors.empty?
   
@@ -104,11 +105,13 @@ def create_title
       podcast = Podcast.create!(
         name: create_name,
         description: create_sentence,
-        cover: "cover_test.png",
+        # cover: "podcast_covers/podcastCover_#{rand(1..35)}.jpg",
+
         average_rating: "Средняя оценка: #{random_rating}/100",
         external_links: generate_random_links
       )
-  
+  # Теперь у нас есть podcast.id, обновляем обложку
+  podcast.update!(cover: "podcast_covers/podcastCover_#{podcast.id}.jpg")
       # Выбираем случайное количество авторов от 1 до 3
       authors_to_assign = authors.sample(rand(1..3))
   
@@ -118,9 +121,6 @@ def create_title
       puts "Podcast with id #{podcast.id} created with authors: #{authors_to_assign.map(&:id).join(', ')}"
     end
   end
-  
-  # Метод для генерации случайных ссылок
-  
   
 
   def create_issues(quantity)

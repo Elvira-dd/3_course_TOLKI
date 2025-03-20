@@ -39,6 +39,27 @@
             <% end %>
         </div>
     </div>
+    <div class="W_ToggleList">
+        <h3 class="toggle-button active" data-id="all">ВСЕ</h3>
+        <h3 class="toggle-button" data-id="new">НОВОЕ</h3>
+        <h3 class="toggle-button" data-id="chart">ЧАРТ</h3>
+        <h3 class="toggle-button" data-id="selections">ПОДБОРКИ</h3>
+    </div>
+
+    <div class="W_Content">
+        <div class="toggle-content" data-id="all">
+            <p>Контент для "ВСЕ"</p>
+        </div>
+        <div class="toggle-content hidden" data-id="new">
+            <p>Контент для "НОВОЕ"</p>
+        </div>
+        <div class="toggle-content hidden" data-id="chart">
+            <p>Контент для "ЧАРТ"</p>
+        </div>
+        <div class="toggle-content hidden" data-id="selections">
+            <p>Контент для "ПОДБОРКИ"</p>
+        </div>
+    </div>
     <div class="">
         <div class="W_ListBlock_Title">
             <h2> Подборка лучших научных подкастов </h2>
@@ -54,7 +75,7 @@
     </div>
     <div class="">
         <div class="W_ListBlock_Title">
-            <h2> Подборка лучших научных подкастов </h2>
+            <h2> Все о реальной любви </h2>
             <%= link_to recommendation_path do %>
             <h4>посмотреть все </h4>
             <%end%>
@@ -66,25 +87,27 @@
         </div>
     </div>
     <div class="W_CardBlock">
-        <h2>Сегодня в топе эти авторы: </h2>
-
-    </div>
-    <div class="W_AccentCover ama">
-        <h1 class="stroke">Ask me anything сессия с «<%= @ama_podcast.name %>» </h1>
-        <div class="A_Button Primary">
-            <h2>поучавствовать в сессии</h2>
-        </div>
-    </div>
-    <div class="W_CardBlock">
         <div class="W_ListBlock_Title">
             <h2>Свежие выпуск подкаста <%= @new_podcast.name %></h2>
             <%= link_to podcast_path(@new_podcast) do %>
-            <h4>посмотреть все выпуски</h4>
+            <h4>посмотреть все новые выпуски</h4>
             <% end %>
         </div>
         <%= render partial: "issuecard_secondary", locals: { issue: @latest_issue_for_new_podcast } %>
     </div>
-
+    <div class="W_ChartBlock">
+        <div class="W_ListBlock_Title">
+            <h2>Чарт выпусков</h2>
+            <%= link_to recommendation_path do %>
+            <h4>посмотреть все</h4>
+            <% end %>
+        </div>
+        <div class="C_ChartList">
+            <% @chart_podcasts.each_with_index do |issue, index| %>
+            <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+            <% end %>
+        </div>
+    </div>
     <div class="W_CardBlock">
         <div class="W_ListBlock_Title">
             <h2>Тематики</h2>
