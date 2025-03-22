@@ -126,6 +126,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  .gray {
+    color: var(--second_gray);
+  }
 }
 .W_IssueFullCard_Footer {
   .Footer {
@@ -205,4 +208,18 @@
 .W_ToggleList .toggle-button.active {
   opacity: 1;
   color: var(--accent_green);
+}
+
+.W_AuthorSmallCard {
+  .AuthorsSmallCardsAvatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+  }
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+.W_TitleWithSmallCard + div {
+  margin-top: 40px;
 }

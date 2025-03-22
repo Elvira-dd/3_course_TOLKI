@@ -64,6 +64,9 @@ p {
     text-overflow: ellipsis;
     white-space: normal;
   }
+  &.gray {
+    color: var(--second_gray);
+  }
 }
 a {
   font-size: 24px;

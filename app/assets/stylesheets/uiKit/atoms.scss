@@ -44,7 +44,7 @@
   }
 }
 .A_Tag {
-  background-color: var(--four_gray);
+  background-color: var(--three_gray);
   padding: 12px 20px;
   width: fit-content;
   border-radius: 8px;
@@ -175,7 +175,6 @@
 
 .SearchContainer {
   display: flex;
-
   background: #d1d1d1;
   border-radius: 30px;
   padding: 10px 15px;
@@ -183,6 +182,13 @@
   form {
     display: flex;
     align-items: center;
+  }
+  &.mini {
+    width: 15vw;
+    border-radius: 12px;
+    .SearchInput {
+      width: 12vw;
+    }
   }
 }
 
@@ -198,6 +204,7 @@
 .SearchInput::placeholder {
   font-size: 16px;
   color: var(--five_gray);
+  opacity: 0.6;
 }
 
 .SearchButton {

@@ -104,6 +104,27 @@
   justify-content: space-between;
   align-items: top;
 }
+.M_UserCommentCard {
+  .UserAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+  }
+  .UserTitle {
+    width: 100%;
+  }
+  display: flex;
+  padding: 18px;
+  border-radius: 8px;
+  background-color: var(--three_gray);
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: top;
+  gap: 12px;
+  div + p {
+    margin-top: 12px;
+  }
+}
 .CommentFeedback {
   height: min-content;
   display: flex;

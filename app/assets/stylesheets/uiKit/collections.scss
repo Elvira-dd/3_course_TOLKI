@@ -75,7 +75,6 @@
   gap: 16px;
   margin-top: 48px;
 }
-
 .C_LinksLine {
   display: flex;
   flex-direction: row;
@@ -92,4 +91,13 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+.C_AuthorsSmallCards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--four_gray);
+  border-radius: 8px;
+  margin-top: 3vh;
 }

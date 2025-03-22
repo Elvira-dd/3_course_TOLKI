@@ -9,6 +9,15 @@
     </div>
 
     <div class="ButtonList">
+        <div class="SearchContainer mini">
+            <%= form_with url: search_path, method: :get, local: true do %>
+            <input type="text" name="query" placeholder="Название подкаста" class="SearchInput">
+            <button type="submit" class="SearchButton">
+                <div class="Q_Icon search"> </div>
+            </button>
+            <% end %>
+        </div>
+
         <% if user_signed_in? %>
         <%= link_to main_favorite_path do %>
         <div class="Q_Like">

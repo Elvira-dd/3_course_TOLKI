@@ -2,20 +2,73 @@
   title: "Лучшие рекомендации подкастов",
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
-<div class="W_TitleWith Themes">
-    <h1>Лента для вас</h1>
-    <div class="C_ThemesLine">
-        <% @themes.each do |theme| %>
-        <%= link_to theme_path(theme) do %>
-        <div class="A_Theme">
-            <h5><%= theme.name %> </h5>
-        </div>
-        <% end %>
-        <% end %>
+
+<div class="O_BodyMainPage">
+    <div class="W_AccentCover">
+        <h1 class="double" style="margin-top:80px">Обсудим подкаст?</h1>
+        <h3> Для нас важно каждое мнение о подкаст-контенте, <br>присоединяйся к нашему обсуждению! </h3>
     </div>
-</div>
-<div class="C_PodcastCardsBlock">
-    <% @podcasts_top.each do |podcast| %>
-    <%= render partial: "podcastcard", locals: { podcast: podcast } %>
-    <% end %>
+    <div class="W_ToggleList">
+        <h3 class="toggle-button active" data-id="all">ДЛЯ ВАС</h3>
+        <h3 class="toggle-button" data-id="new">ПОДПИСКИ</h3>
+    </div>
+
+    <div class="W_Content">
+        <div class="toggle-content" data-id="all">
+            <p>Контент для "ВСЕ"</p>
+        </div>
+        <div class="toggle-content hidden" data-id="new">
+            <p>Контент для "НОВОЕ"</p>
+        </div>
+    </div>
+    <div class="O_LentaPosts">
+        <div class="W_DiscussFeed">
+            <h2> Лента обсуждений </h2>
+            <div class="C_Discuss">
+                <% @feed.each do |item| %>
+                <% if item.is_a?(Issue) %>
+                <%= render partial: "showissuecard", locals: { issue: item } %>
+                <% elsif item.is_a?(Post) %>
+                <%= render partial: "postcard", locals: { post: item } %>
+                <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div class="W_PopularFeed">
+            <div class="W_TitleWithSmallCard">
+                <h3> Популярные авторы </h3>
+                <div class="C_AuthorsSmallCards">
+                    <% @popular_authors.each do |author| %>
+                    <div class="W_AuthorSmallCard">
+                        <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
+                        <div>
+                            <h4 style="font-weight: 500"> <%= author.user.profile.name %> </h4>
+                            <p class="small"> знаток подкастов <%= author.user.profile.level %> уровня </p>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+            <div class="W_TitleWithSmallCard">
+                <h3> Самый обсуждаемый подкаст на сегодня </h3>
+                <div class="C_AuthorsSmallCards">
+                    <div class="W_AuthorSmallCard">
+                        <%= image_tag @popular_podcast.cover, alt: @popular_podcast.name, class: "AuthorsSmallCardsAvatar" %>
+                        <div>
+                            <h4 style="font-weight: 500"> Подкаст «<%= @popular_podcast.name %>» </h4>
+                            <div class="PodcastThemes">
+                                <% @popular_podcast.themes.each do |theme| %>
+                                <%= link_to theme_path(theme) do %>
+                                <div class="A_Tag mini">
+                                    <h5><%= theme.name %></h5>
+                                </div>
+                                <%end%>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
