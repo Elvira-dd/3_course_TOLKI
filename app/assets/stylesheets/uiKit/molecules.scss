@@ -31,12 +31,43 @@
 }
 
 .M_IssueCard {
+  width: 88vw;
   .IssueCoverImage {
-    width: 100%;
-    height: auto; /* Устанавливаем фиксированную высоту */
-    object-fit: cover; /* Делаем обрезку изображений */
+    width: 88vw;
+    height: auto;
+    object-fit: cover;
   }
-
+  &.Audio {
+    width: 40vw;
+    padding: 24px;
+    background-color: var(--four_gray);
+    margin-left: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    border-radius: 8px;
+    .IssueCoverImage {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      object-position: center;
+    }
+    .Title {
+      height: 250px;
+      flex-direction: column;
+      margin-top: 0px;
+      align-items: flex-start;
+      .AdditionalInfo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        gap: 1.5vw;
+      }
+    }
+  }
   .Title {
     display: flex;
     justify-content: space-between;
@@ -195,8 +226,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 69vw;
     h1 {
-      color: var(--accent_green);
+      color: var(--first_gray);
     }
 
     color: var(--second_gray);
@@ -207,6 +239,16 @@
       width: 60%;
       margin-bottom: 16px;
     }
+    .Title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      div {
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+      }
+    }
   }
   .PodcastAuthorAvatar {
     width: 40px;
@@ -215,6 +257,7 @@
   .PodcastCover {
     width: 250px;
     height: 250px;
+    border-radius: 12px;
   }
   .PodcastAuthorAvatar {
     border-radius: 50px;

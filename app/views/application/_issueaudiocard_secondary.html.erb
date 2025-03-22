@@ -1,0 +1,20 @@
+<div class="M_IssueCard Secondary Audio">
+    <% if issue.cover.present? %>
+    <%= image_tag issue.cover, alt: issue.name, class: "IssueCoverImage" %>
+    <% else %>
+    <p>Изображение не доступно</p>
+    <% end %>
+    <%= link_to podcast_path(issue.podcast_id) + "/issues/#{issue.id}" do %>
+    <div class="Title">
+        <h3><%= issue.name %></h3>
+        <p><%= issue.description %></p>
+        <div class="AdditionalInfo">
+            <div class="A_Button PrimaryMedium">
+                <h5>Обсудить </h5>
+            </div>
+            <p class="gray"><%= I18n.l(issue.created_at, format: "%d %B") %></p>
+            <p class="gray">1ч 2мин</p>
+        </div>
+    </div>
+    <% end %>
+</div>

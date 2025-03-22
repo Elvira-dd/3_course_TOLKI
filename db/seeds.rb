@@ -106,9 +106,9 @@ def create_tag_text
         name: create_name,
         description: create_sentence,
         # cover: "podcast_covers/podcastCover_#{rand(1..35)}.jpg",
-
         average_rating: "Средняя оценка: #{random_rating}/100",
-        external_links: generate_random_links
+        external_links: generate_random_links,
+        is_audio: rand(0..1) == 1
       )
   # Теперь у нас есть podcast.id, обновляем обложку
   podcast.update!(cover: "podcast_covers/podcastCover_#{podcast.id}.jpg")

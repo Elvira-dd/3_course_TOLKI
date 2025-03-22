@@ -14,6 +14,7 @@ class PodcastsController < ApplicationController
       @podcast = Podcast.find(params[:id])  
       @issues = @podcast.issues              
       @content_items = (@podcast.issues + @podcast.posts).sort_by(&:created_at)
+      @same_podcasts = Podcast.where(id:[5,7,9,15,20]).shuffle
     end
 
   # GET /podcasts/new

@@ -78,6 +78,10 @@
   gap: 40px;
 }
 .O_PodcastPage {
+  .W_ToggleList {
+    margin-top: 10vh;
+    justify-content: flex-start;
+  }
   color: var(--first_gray);
   a {
     color: var(--first_gray);
@@ -102,4 +106,33 @@
 }
 h2 + .C_Discuss {
   margin-top: 24px;
+}
+
+/* Small cards slider */
+.podcastsSlider {
+  margin-bottom: 100px;
+  max-width: 900px;
+  margin: 0 auto 100px;
+  overflow: hidden;
+}
+
+.slider {
+  width: 170vw;
+  height: 300px;
+  margin-left: -15vw;
+  .slider__item {
+    display: inline-flex !important;
+  }
+
+  /* Добавить отступы */
+  .slick-list {
+    padding: 0 20% 0 0;
+  }
+}
+.audio {
+  &.slider {
+    width: 335vw;
+    height: max-content;
+    margin-left: -89vw;
+  }
 }

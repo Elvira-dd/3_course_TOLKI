@@ -223,3 +223,30 @@
 .W_TitleWithSmallCard + div {
   margin-top: 40px;
 }
+
+.W_ReviewBlock {
+  .C_ReviewStars {
+    .Stars {
+      display: flex;
+      gap: 4px;
+      flex-direction: row;
+    }
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    align-items: center;
+    margin-top: 32px;
+  }
+  .C_ThemeReview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 32px;
+    .W_ThemeCountCard {
+      width: 10vw;
+      padding: 16px;
+      background-color: var(--four_gray);
+      border-radius: 8px;
+    }
+  }
+}

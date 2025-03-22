@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_17_135421) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_22_124707) do
   create_table "authors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_135421) do
     t.string "average_rating"
     t.json "external_links"
     t.integer "author_id"
+    t.boolean "is_audio"
     t.index ["author_id"], name: "index_podcasts_on_author_id"
   end
 

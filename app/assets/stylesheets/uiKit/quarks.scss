@@ -72,6 +72,14 @@
     width: 36px;
     height: 36px;
   }
+  &.star {
+    background-image: url('Q_Icon_star.svg');
+    width: 36px;
+    height: 36px;
+    &.fill {
+      background-image: url('Q_Icon_star_fill.svg');
+    }
+  }
 }
 
 .Q_Like {

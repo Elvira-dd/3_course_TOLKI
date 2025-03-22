@@ -10,7 +10,8 @@ h1 {
     font-weight: 600;
   }
   &.extra {
-    font-size: 64px;
+    font-size: 70px;
+    font-weight: 400;
   }
   &.double {
     font-size: 100px;

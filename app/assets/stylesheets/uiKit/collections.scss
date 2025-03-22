@@ -101,3 +101,13 @@
   border-radius: 8px;
   margin-top: 3vh;
 }
+.C_PodcastsSame {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.C_PodcastAll {
+  display: flex;
+  flex-direction: column;
+  gap: 8vh;
+}
