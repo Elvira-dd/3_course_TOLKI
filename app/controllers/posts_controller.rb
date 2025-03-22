@@ -5,7 +5,6 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-
     @posts = Post.all
   end
   def like 
@@ -43,6 +42,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])  
     @commentable = @post 
+    @user = current_user
   end
 
   # GET /posts/new
@@ -58,14 +58,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-  if @post.save
-    if current_user.posts.count == 1
-      UserMailer.with(user: current_user).welcome_email.deliver_now
-    end
-    redirect_to @post, notice: "Пост успешно создан!"
-  else
     render :new
-  end
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json
@@ -99,7 +92,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :hashtag, :user_id)
+      params.require(:post).permit(:title, :content, :hashtag, :author_id)
     end
-    
 end

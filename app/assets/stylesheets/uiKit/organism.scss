@@ -136,3 +136,30 @@ h2 + .C_Discuss {
     margin-left: -89vw;
   }
 }
+.O_IssuePage {
+  width: 70vw;
+  .PodcastPagePosts {
+    margin-top: 0;
+  }
+  .M_IssueCard {
+    width: 70vw;
+    h1 {
+      color: var(--first_gray);
+    }
+  }
+  .M_IssueTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+    }
+  }
+  .CommentFeedback {
+    color: var(--first_gray);
+  }
+}

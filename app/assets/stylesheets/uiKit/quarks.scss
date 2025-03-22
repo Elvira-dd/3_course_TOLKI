@@ -117,6 +117,10 @@
   &.dislike {
     transform: rotate(180deg);
   }
+  &.big {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .Q_Menu {

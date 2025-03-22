@@ -353,8 +353,9 @@
   gap: 16px;
   margin-bottom: 5vh;
   .PodcastCover {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
+    border-radius: 40px;
   }
   a {
     color: var(--first_gray);
@@ -416,5 +417,39 @@
   h4 {
     color: var(--first_gray);
     font-weight: 500;
+  }
+}
+
+.M_CommentForm {
+  .ProfileAvatarImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    #comment_content {
+      width: 57vw;
+      background-color: var(--background_gray);
+      border: 0px;
+      border-bottom: 2px var(--second_gray) solid;
+      align-content: center;
+      resize: none;
+      color: var((--first_gray));
+    }
+    input[type='submit'] {
+      margin-bottom: 0;
+    }
+    #comment_content::placeholder {
+      font-family: 'FormaDJR';
+      font-size: 16px;
+    }
   }
 }

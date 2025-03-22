@@ -12,7 +12,6 @@ class Ability
     return unless user.present?
     can :read, Podcast
     can :read, Issue
-    can :manage, Post, user: user
     can :manage, Comment, user: user
 
     if user.persisted? 

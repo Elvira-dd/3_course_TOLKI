@@ -10,65 +10,57 @@ like_text = "Like (#{likes_count})"
 if current_user && @post.likes.where(user_id: current_user.id).count > 0
   like_text = "Unlike (#{likes_count})"
 end
+if current_user.present? 
+  user_liked = @post.likes.exists?(user_id: current_user.id)
+  user_disliked = @post.dislikes.exists?(user_id: current_user.id)
+else
+  user_liked = false
+  user_disliked = false
+end
 %>
 
 <div class="O_IssuePage">
     <!-- Блок заголовка подкаста -->
+    <%= link_to podcast_path(@post.podcast) do %>
     <div class="M_IssueTitle">
-        <%= link_to podcast_path(@post.podcast) do %>
-        <%= image_tag @post.podcast.cover, alt: @post.podcast.cover, class: "PodcastCover" if @post.podcast.cover.present? %>
 
-        <div class="PodcastText">
+        <div>
+            <%= image_tag @post.podcast.cover, alt: @post.podcast.cover, class: "PodcastCover" if @post.podcast.cover.present? %>
             <h3> Подкаст «<%= @post.podcast.name%>»</h3>
-            <%end%>
-            <div class="PodcastAuthors">
-                <% @post.podcast.authors.each do |author| %>
-                <div class="PodcastAuthorCard">
-                    <%= image_tag author.user.profile.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
-                    <div class="AuthorCard">
-                        <h5><%= author.user.profile.name%> </h5>
-                        <p class="small"><%= author.exten_bio %> </p>
-                    </div>
-                </div>
-                <% end %>
-            </div>
         </div>
+        <p><%= @post.created_at.strftime("%d.%m.%Y") %></p>
+
     </div>
+    <%end%>
 
     <div class="M_IssueCard Main">
         <h1> <%= @post.title %></h1>
-
-        <p><%= @post.created_at.strftime("%d.%m.%Y") %></p>
     </div>
 
     <!-- Секция рецензий -->
     <div class="PodcastPagePosts">
-        <h2>Рецензии</h2>
-        <div class="A_Button Primary">
-            <h2> написать рецензию </h2>
-        </div>
-        <div>
+        <div class="CommentFeedback">
             <div>
-                <div class="CommentFeedback">
-                    <div>
-                        <%= link_to like_post_path(@post), class: "like-button" do %>
-                        <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
-                        <% end %>
-                        <span class="like-count"><%= @post.likes.count %></span>
-                    </div>
-                    <div>
-                        <%= link_to dislike_post_path(@post), class: "dislike-button" do %>
-                        <%= image_tag "Q_HandLike.svg", alt: "Dislike", class: "Q_HandLike dislike" %>
-                        <% end %>
-                        <span class="dislike-count"><%= @post.dislikes.count %></span>
-                    </div>
-                </div>
-                <div class="W_CommentsBlock">
-                    <ul>
-                        <%= render partial: "comments/comment", collection: @post.comments.not_replies, as: :comment, locals: { commentable: @post } %>
-                    </ul>
-                </div>
-
+                <%= link_to like_post_path(@post), class: "Q_HandLike big #{'active' if user_liked}" do %>
+                <% end %>
+                <span class="like-count"><%= @post.likes.count %></span>
+            </div>
+            <div>
+                <%= link_to dislike_post_path(@post), class: "Q_HandLike big dislike #{'active' if user_disliked}" do %>
+                <% end %>
+                <span class="dislike-count"><%= @post.dislikes.count %></span>
+            </div>
+        </div>
+        <div class="W_DiscussBlockPost">
+            <h1> 154 комментария </h1>
+            <div class="M_CommentForm">
+                <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+                <%= render 'comments/form', commentable: @post %>
+            </div>
+            <div class="W_CommentsBlock">
+                <ul>
+                    <%= render partial: "comments/comment", collection: @post.comments.not_replies, as: :comment, locals: { commentable: @post } %>
+                </ul>
             </div>
         </div>
     </div>

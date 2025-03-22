@@ -77,12 +77,23 @@ class CommentsController < ApplicationController
 
   # Определяем, к какому объекту (Post или Issue) относится комментарий
   def set_commentable
-    if action_name != 'like' # Если это не запрос на лайк
-      if params[:commentable_type] && params[:commentable_id]
-        @commentable = params[:commentable_type].constantize.find(params[:commentable_id])
-      else
-        head :unprocessable_entity
+    return if %w[like dislike].include?(action_name) # Пропускаем для лайков и дизлайков
+  
+    if params[:comment].present? && params[:comment][:commentable_type].present? && params[:comment][:commentable_id].present?
+      begin
+        @commentable = params[:comment][:commentable_type].constantize.find_by(id: params[:comment][:commentable_id])
+  
+        unless @commentable
+          Rails.logger.warn "Commentable not found: #{params[:comment][:commentable_type]} with ID #{params[:comment][:commentable_id]}"
+          return head :not_found
+        end
+      rescue NameError => e
+        Rails.logger.error "Invalid commentable_type: #{params[:comment][:commentable_type]}"
+        return head :unprocessable_entity
       end
+    else
+      Rails.logger.warn "Missing commentable_type or commentable_id in params: #{params[:comment].inspect}"
+      return head :unprocessable_entity
     end
   end
 
@@ -93,6 +104,6 @@ class CommentsController < ApplicationController
 
   # Разрешенные параметры
   def comment_params
-    params.require(:comment).permit(:content, :comment_id)
+    params.require(:comment).permit(:content, :comment_id, :commentable_type, :commentable_id)
   end
 end
