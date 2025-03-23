@@ -6,6 +6,7 @@ h1 {
   line-height: 110%;
   letter-spacing: 0.7px;
   font-weight: 500;
+  color: var(--first_gray);
   &.bold {
     font-weight: 600;
   }
@@ -27,30 +28,35 @@ h2 {
   line-height: 110%;
   letter-spacing: 0.7px;
   font-weight: 500;
+  color: var(--first_gray);
 }
 h3 {
   font-size: 24px;
   line-height: 110%;
   letter-spacing: 0.25px;
   font-weight: 500;
+  color: var(--first_gray);
 }
 h4 {
   font-size: 20px;
   line-height: 135%;
   letter-spacing: 0.25px;
   font-weight: 400;
+  color: var(--first_gray);
 }
 h5 {
   font-size: 16px;
   line-height: 110%;
   letter-spacing: 0.25px;
   font-weight: 500;
+  color: var(--first_gray);
 }
 p {
   font-size: 16px;
   line-height: 110%;
   letter-spacing: 0.25px;
   font-weight: 400;
+  color: var(--first_gray);
   &.small {
     font-size: 12px;
   }

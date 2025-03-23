@@ -19,8 +19,8 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    -webkit-line-clamp: 2; /* Ограничиваем до 2 строк */
-    text-overflow: ellipsis; /* Добавляем многоточие, если текст не помещается */
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
   }
 }
 .C_PodcastCardsBlock {
@@ -38,8 +38,8 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    -webkit-line-clamp: 2; /* Ограничиваем до 2 строк */
-    text-overflow: ellipsis; /* Добавляем многоточие, если текст не помещается */
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
   }
 }
 .C_TagsLine {
@@ -110,4 +110,9 @@
   display: flex;
   flex-direction: column;
   gap: 8vh;
+}
+.C_IssueTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

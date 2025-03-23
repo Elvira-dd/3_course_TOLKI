@@ -5,10 +5,13 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
+    @comment = Comment.find(params[:id])
+    @user = current_user
     @comment = @commentable.comments.new
   end
   def show
     @comment = Comment.find(params[:id])
+    @user = current_user
     @commentable = @comment.commentable
   end
   # POST /comments

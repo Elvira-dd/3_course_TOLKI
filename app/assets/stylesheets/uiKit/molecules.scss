@@ -31,9 +31,9 @@
 }
 
 .M_IssueCard {
-  width: 88vw;
+  width: 55vw;
   .IssueCoverImage {
-    width: 88vw;
+    width: 100%;
     height: auto;
     object-fit: cover;
   }
@@ -83,7 +83,19 @@
     margin-bottom: 4vh;
     color: var(--first_gray);
     h1 {
-      color: var(--accent_green);
+      color: var(--first_gray);
+    }
+  }
+  &.MainAudio {
+    .IssueCoverImage {
+      width: 24vw;
+      height: 24vw;
+    }
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    h1 + p {
+      margin-top: 12px;
     }
   }
 }
@@ -172,7 +184,7 @@
   }
 }
 .M_CommentCard {
-  background-color: var(--three_gray);
+  background-color: var(--four_gray);
   margin-bottom: 10px;
   border-radius: 8px;
   padding: 16px;
@@ -197,6 +209,32 @@
     .UserAvatar {
       width: 32px;
       height: 32px;
+    }
+  }
+}
+.replies {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .M_CommentCard {
+    background-color: var(--three_gray);
+    margin-bottom: 0px;
+    .M_UserCard {
+      margin-bottom: 0px;
+    }
+  }
+  .replies {
+    .M_CommentCard {
+      background-color: var(--four_gray);
+    }
+    .replies {
+      .M_CommentCard {
+        background-color: var(--three_gray);
+      }
+      .M_CommentForm {
+        display: none;
+      }
     }
   }
 }
@@ -332,8 +370,6 @@
   right: 0;
 }
 .PodcastPagePosts {
-  margin-top: 10vh;
-
   .A_Button {
     width: fit-content;
     justify-content: center;
@@ -341,7 +377,6 @@
   }
   h2 {
     margin-bottom: 2vh;
-    color: var(--accent_green);
   }
   .O_PostFullCard_WithComments {
     margin-bottom: 4vh;
@@ -364,6 +399,11 @@
     border-radius: 50px;
     width: 40px;
     height: 40px;
+  }
+  + div {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
   }
 }
 
@@ -431,21 +471,25 @@
   align-items: center;
   gap: 18px;
   form {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 18px;
     #comment_content {
-      width: 57vw;
+      width: 100%;
       background-color: var(--background_gray);
       border: 0px;
       border-bottom: 2px var(--second_gray) solid;
       align-content: center;
       resize: none;
       color: var((--first_gray));
+      font-family: 'FormaDJR';
+      font-size: 16px;
     }
     input[type='submit'] {
       margin-bottom: 0;
+      border: 0;
     }
     #comment_content::placeholder {
       font-family: 'FormaDJR';

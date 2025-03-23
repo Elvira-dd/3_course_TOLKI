@@ -5,6 +5,7 @@ class Ability
 
   def initialize(user)
     can :read, Post
+    can :read, Comment
     can :read, Podcast
     can :read, Issue
     can :create, Subscription

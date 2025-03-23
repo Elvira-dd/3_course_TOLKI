@@ -10,10 +10,13 @@
   cursor: pointer;
   &.Primary {
     background-color: var(--accent_green);
-    color: var(--five_gray);
     font-size: 24px;
     font-weight: 500;
     h2 {
+      color: var(--five_gray);
+      margin-bottom: 0;
+    }
+    h3 {
       color: var(--five_gray);
       margin-bottom: 0;
     }
@@ -162,7 +165,7 @@
   height: min-content;
   a {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
   }
   &.mini {
     padding: 8px 24px;
@@ -212,4 +215,12 @@
   border: none;
   cursor: pointer;
   font-size: 18px;
+}
+.toggle-content {
+  .Issue {
+    display: flex;
+    flex-direction: column;
+    gap: 8vh;
+    margin-top: 8vh;
+  }
 }

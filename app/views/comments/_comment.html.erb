@@ -12,7 +12,7 @@ end
 %>
 
 
-<li class="M_CommentCard">
+<div class="M_CommentCard">
     <div class="M_UserCard">
         <% if comment.user.profile.avatar.present? %>
         <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" %>
@@ -36,11 +36,16 @@ end
                     <span class="dislike-count"><%= comment.dislikes.count %></span>
                 </div>
             </div>
+            <div class="M_CommentForm">
+                <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+                <%= render 'comments/form', commentable: comment.commentable, comment: comment %>
+            </div>
+            <% if comment.replies.any? %>
+            <div class="replies">
+                <%= render partial: "comments/comment", collection: comment.replies, as: :comment, locals: { commentable: commentable } %>
+            </div>
+            <% end %>
         </div>
     </div>
-    <% if comment.replies.any? %>
-    <ul class="replies">
-        <%= render partial: "comments/comment", collection: comment.replies, as: :comment, locals: { commentable: commentable } %>
-    </ul>
-    <% end %>
-</li>
+
+</div>

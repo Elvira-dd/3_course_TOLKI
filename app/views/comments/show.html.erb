@@ -1,5 +1,12 @@
 <p style="color: green"><%= notice %></p>
-<%= render @comment %>
+<%
+=begin%>
+<%= render partial: "comments/comment", locals: { comment: @comment, commentable: @comment.commentable } %>
+<%
+=end%>
+
+<%
+=begin%>
 <%
 likes_count = @comment.likes.count
 like_text = "Like (#{likes_count})"
@@ -8,9 +15,65 @@ if current_user && @comment.likes.where(user_id: current_user.id).count > 0
   like_text = "Unlike (#{likes_count})"
 end
 %>
+
 <div>
     <%= link_to like_text, like_comment_path(@comment), method: :post %>
     <%= link_to "Edit this comment", edit_comment_path(@comment) %> |
     <%= link_to "Back to comments", comments_path %>
     <%= button_to "Destroy this comment", @comment, method: :delete %>
+</div>
+
+<%
+=end%>
+
+<%
+likes_count = @comment.likes.count
+dislikes_count = @comment.dislikes.count
+
+if current_user.present? 
+  user_liked = @comment.likes.exists?(user_id: current_user.id)
+  user_disliked = @comment.dislikes.exists?(user_id: current_user.id)
+else
+  user_liked = false
+  user_disliked = false
+end
+%>
+
+
+<div class="M_CommentCard">
+    <div class="M_UserCard">
+        <% if @comment.user.profile.avatar.present? %>
+        <%= image_tag @comment.user.profile.avatar, alt: @comment.user.profile.name, class: "UserAvatar" %>
+        <% end %>
+        <div class="UserTitle">
+            <h5><%= @comment.user.profile.name %></h5>
+            <div style="display:flex; justify-content:space-between">
+                <p class="small"> знаток подкастов <%= @comment.user.profile.level %> уровня </p>
+                <p class="small"> <%= @comment.created_at.strftime("%d.%m.%Y") %> </p>
+            </div>
+            <p><%= @comment.content %></p>
+            <div class="CommentFeedback">
+                <div>
+                    <%= link_to like_comment_path(@comment), class: "Q_HandLike #{'active' if user_liked}" do %>
+                    <% end %>
+                    <span class="like-count"><%= @comment.likes.count %></span>
+                </div>
+                <div>
+                    <%= link_to dislike_comment_path(@comment), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
+                    <% end %>
+                    <span class="dislike-count"><%= @comment.dislikes.count %></span>
+                </div>
+            </div>
+            <div class="M_CommentForm">
+                <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+                <%= render 'comments/form', commentable: @comment.commentable, comment: Comment.new %>
+            </div>
+            <% if @comment.replies.any? %>
+            <div class="replies">
+                <%= render partial: "comments/comment", collection: @comment.replies, as: :comment, locals: { commentable: @comment.commentable } %>
+            </div>
+            <% end %>
+        </div>
+    </div>
+
 </div>

@@ -1,6 +1,7 @@
 <%= form_with(model: [commentable, Comment.new], local: true) do |form| %>
 <%= form.hidden_field :commentable_type, value: commentable.class.name %>
 <%= form.hidden_field :commentable_id, value: commentable.id %>
+<%= form.hidden_field :comment_id, value: comment&.id %>
 
 <%= form.text_area :content, placeholder: "Оставьте комментарий..." %>
 <%= form.submit "Отправить", class: "A_Button PrimaryMedium" %>

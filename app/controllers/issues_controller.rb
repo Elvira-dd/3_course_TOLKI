@@ -49,8 +49,13 @@ end
 
   # GET /issues/1 or /issues/1.json
   def show
-    @issue = Issue.find(params[:id])  
-    @commentable = @issue 
+    @issue = Issue.find_by(id: params[:id])  
+  if @issue.nil?
+    Rails.logger.error "Issue with ID #{params[:id]} not found"
+    return head :not_found
+  end
+  @commentable = @issue
+  @user = current_user
   end
 
   # GET /issues/new
@@ -103,7 +108,13 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
-      @issue = Issue.find(params[:id])
+      Rails.logger.info "Trying to find Issue with ID #{params[:id]}"
+  @issue = Issue.find_by(id: params[:id])
+
+  unless @issue
+    Rails.logger.error "Issue not found!"
+    return head :not_found
+  end
     end
 
     # Only allow a list of trusted parameters through.

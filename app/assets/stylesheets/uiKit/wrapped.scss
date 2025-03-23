@@ -181,6 +181,12 @@
 }
 .W_LinksLine_Title {
   margin-top: 24px;
+  &.hor {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+  }
 }
 
 .W_ToggleList {

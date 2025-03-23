@@ -24,11 +24,23 @@ class User < ApplicationRecord
   end
 
   def create_profile
+    # Получаем все файлы с аватарами
+    avatar_files = Dir.entries(Rails.root.join('app', 'assets', 'images', 'profile_avatars')).select { |file| file.match?(/\.png$/) }
+
+    # Если в папке есть аватары, выбираем случайный
+    if avatar_files.any?
+      random_avatar = avatar_files.sample
+      avatar_path = "profile_avatars/#{random_avatar}"
+    else
+      avatar_path = "default_avatar.png"
+    end
+
+    # Создаем профиль пользователя с выбранным аватаром
     Profile.create!(
       user: self,
       name: "Default User #{id}",
       bio: "This is the default bio for user #{email}.",
-      avatar: "default_avatar.png",
+      avatar: avatar_path,
       level: random_rating
     )
   end
