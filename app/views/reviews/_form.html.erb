@@ -1,0 +1,135 @@
+<%
+=begin%>
+<%= form_with(model: [@podcast, @review], local: true) do |form| %>
+<div>
+    <%= form.label :rating, "Оценка (от 1 до 5)" %>
+    <%= form.number_field :rating, min: 1, max: 5, required: true %>
+</div>
+
+<div>
+    <%= form.label :content, "Отзыв" %>
+    <%= form.text_area :content, required: true %>
+</div>
+
+<div>
+    <h3>Выберите теги:</h3>
+    <% Review::TAG_OPTIONS.each do |tag| %>
+    <label>
+        <%= check_box_tag "review[tags][]", tag, @review.tags.include?(tag) %>
+        <%= tag %>
+    </label>
+    <% end %>
+</div>
+
+<%= form.submit "Отправить", class: "A_Button PrimaryMedium" %>
+<% end %>
+<%
+=end%>
+
+<%= form_with(model: [@podcast, @review], local: true) do |form| %>
+<div class="O_ReviewForm">
+    <!-- Пользовательская информация -->
+    <div class="M_UserCard">
+        <%= image_tag @review.user.profile.avatar, alt: @review.user.profile.name, class: "UserAvatar" %>
+        <div class="UserTitle">
+            <h4><%= @review.user.profile.name %></h4>
+            <p class="small"> знаток подкастов <%= @review.user.profile.level %> уровня </p>
+        </div>
+    </div>
+
+    <!-- Оценка (звезды) -->
+    <div class="ReviewDetails_Title">
+        <h4> Поставьте свою оценку </h4>
+        <div class="Stars">
+            <div class="Q_Icon star" data-value="1"></div>
+            <div class="Q_Icon star" data-value="2"></div>
+            <div class="Q_Icon star" data-value="3"></div>
+            <div class="Q_Icon star" data-value="4"></div>
+            <div class="Q_Icon star" data-value="5"></div>
+        </div>
+        <%= form.hidden_field :rating, id: 'review_rating', value: @review.rating %>
+    </div>
+
+    <!-- Отзывы -->
+
+    <%= form.text_area :content, required: true, class:"Review_TextField", placeholder: "Опишите плюсы и минусы подкаста" %>
+    <!-- Теги -->
+    <div class="ReviewTags">
+        <h4>Что вам особенно понравилось?</h4>
+        <div class="ReviewTags_Items">
+            <% Review::TAG_OPTIONS.each_with_index do |tag, index| %>
+            <div class="ReviewTag" data-tag="<%= tag %>">
+                <%= check_box_tag "review[tags][]", tag, @review.tags.include?(tag), class: "review_tag_checkbox", style: "display: none;" %>
+                <%= image_tag "review/TagCover_0#{index + 1}.png", alt: tag, class: "tag-image" %>
+                <p class="tag-text"><%= tag %></p>
+            </div>
+            <% end %>
+        </div>
+    </div>
+
+    <!-- Кнопка отправки -->
+    <%= form.submit "Отправить", class: "A_Button PrimaryMedium" %>
+</div>
+
+<!-- Вставляем JavaScript -->
+<!-- Вставляем JavaScript -->
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star');
+        const ratingField = document.getElementById('review_rating');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.getAttribute('data-value'));
+
+                // Обновляем стиль звезд
+                stars.forEach(star => {
+                    if (parseInt(star.getAttribute('data-value')) <= rating) {
+                        star.classList.add('selected'); // Закрашиваем
+                    } else {
+                        star.classList.remove('selected'); // Убираем закраску
+                    }
+                });
+
+                // Обновляем скрытое поле с рейтингом
+                ratingField.value = rating;
+            });
+
+            // Наведение на звезды
+            star.addEventListener('mouseover', function() {
+                const rating = parseInt(this.getAttribute('data-value'));
+                stars.forEach(star => {
+                    if (parseInt(star.getAttribute('data-value')) <= rating) {
+                        star.classList.add('hover'); // Изменяем цвет при наведении
+                    } else {
+                        star.classList.remove('hover');
+                    }
+                });
+            });
+
+            // Убираем эффект наведения
+            star.addEventListener('mouseout', function() {
+                stars.forEach(star => {
+                    star.classList.remove('hover');
+                });
+            });
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".ReviewTag").forEach(tag => {
+            tag.addEventListener("click", function() {
+                const checkbox = this.querySelector(".review_tag_checkbox");
+                const text = this.querySelector(".tag-text");
+
+                if (checkbox.checked) {
+                    checkbox.checked = false;
+                    this.classList.remove("selected"); // Убираем выделение
+                } else {
+                    checkbox.checked = true;
+                    this.classList.add("selected"); // Добавляем выделение
+                }
+            });
+        });
+    });
+</script>
+<% end %>

@@ -3,5 +3,6 @@ class Podcast < ApplicationRecord
     has_many :issues
     has_many :posts
     has_and_belongs_to_many :authors
+    has_many :reviews, dependent: :destroy
     has_and_belongs_to_many :themes
 end

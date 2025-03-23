@@ -183,3 +183,76 @@ h2 + .C_Discuss {
     width: 70vw;
   }
 }
+
+.O_ReviewForm {
+  width: 70vw;
+  background-color: var(--four_gray);
+  padding: 24px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  .M_UserCard {
+    justify-content: flex-start;
+    gap: 12px;
+    align-items: center;
+  }
+  .Stars {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+  }
+  .ReviewDetails_Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    h4 {
+      color: var(--accent_green);
+      font-weight: 500;
+    }
+  }
+  .Review_TextField {
+    background-color: var(--three_gray);
+    border: 0;
+    border-radius: 8px;
+    width: 68vw;
+    height: 140px;
+    resize: none;
+    color: var((--first_gray));
+    font-family: 'FormaDJR';
+    font-size: 16px;
+    padding: 12px;
+  }
+  .Review_TextField::placeholder {
+    font-family: 'FormaDJR';
+    font-size: 16px;
+    line-height: 110%;
+  }
+  .ReviewTags_Items {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    .ReviewTag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 8px;
+      &.selected {
+        p {
+          color: var(--accent_green);
+        }
+      }
+      .tag-image {
+        width: inherit;
+        .tag-text {
+        }
+      }
+      p {
+        text-align: center;
+      }
+    }
+  }
+}

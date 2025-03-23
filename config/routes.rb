@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   get 'my_profile', to: 'users#profile', as: :my_profile
   resources :subscriptions, only: [:create]
   resources :podcasts do 
+    resources :reviews, only: %i[new create edit update destroy]
     resources :issues, only: [:index, :show]
     resources :posts
     get 'issues', to: 'issues#issues_for_podcast', as: 'issues_for'

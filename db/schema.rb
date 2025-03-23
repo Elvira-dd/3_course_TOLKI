@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_22_124707) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_23_110716) do
   create_table "authors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -114,6 +114,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_22_124707) do
     t.string "level"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "podcast_id", null: false
+    t.integer "rating"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "tags", default: []
+    t.index ["podcast_id"], name: "index_reviews_on_podcast_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", null: false
@@ -160,5 +172,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_22_124707) do
   add_foreign_key "podcasts", "authors"
   add_foreign_key "posts", "authors"
   add_foreign_key "posts", "podcasts"
+  add_foreign_key "reviews", "podcasts"
+  add_foreign_key "reviews", "users"
   add_foreign_key "tags", "podcasts"
 end
