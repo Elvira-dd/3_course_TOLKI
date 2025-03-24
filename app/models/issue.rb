@@ -6,4 +6,9 @@ class Issue < ApplicationRecord
     has_many :dislikes, as: :dislikeable
 
     has_many :favorites, as: :favoritable, dependent: :destroy
+
+
+    has_many :playlist_items, dependent: :destroy
+  has_many :playlists, through: :playlist_items
+  
   end

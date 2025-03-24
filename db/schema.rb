@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_24_075108) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_24_081132) do
   create_table "authors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -79,6 +79,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_24_075108) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "playlist_items", force: :cascade do |t|
+    t.integer "playlist_id", null: false
+    t.integer "issue_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["issue_id"], name: "index_playlist_items_on_issue_id"
+    t.index ["playlist_id"], name: "index_playlist_items_on_playlist_id"
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id"
   end
 
   create_table "podcasts", force: :cascade do |t|
@@ -180,6 +197,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_24_075108) do
   add_foreign_key "favorites", "users"
   add_foreign_key "issues", "podcasts"
   add_foreign_key "likes", "users"
+  add_foreign_key "playlist_items", "issues"
+  add_foreign_key "playlist_items", "playlists"
+  add_foreign_key "playlists", "users"
   add_foreign_key "podcasts", "authors"
   add_foreign_key "posts", "authors"
   add_foreign_key "posts", "podcasts"

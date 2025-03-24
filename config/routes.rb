@@ -50,6 +50,15 @@ Rails.application.routes.draw do
   get "recommendation", to: "recommendation#index"
   get 'main/favorite', to: 'favorites#index'
 
+  resources :playlists do
+    member do
+      get 'add_issue/:issue_id', to: 'playlists#add_issue', as: :add_issue
+      get 'remove_issue/:issue_id', to: 'playlists#remove_issue', as: :remove_issue
+    end
+  end
+
+  get 'user_playlists', to: 'playlists#user_playlists'
+
   resources :favorites, only: [:show, :index] do
     post :toggle, on: :collection
   end

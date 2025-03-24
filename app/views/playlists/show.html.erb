@@ -1,0 +1,43 @@
+<h1><%= @playlist.name %></h1>
+
+<p>Владелец: <%= @playlist.user.email %></p>
+
+<h2>Выпуски в плейлисте</h2>
+<ul>
+    <% @playlist.issues.each do |issue| %>
+    <li>
+        <%= link_to issue.name, issue_path(issue) %>
+        (<%= link_to "Удалить", remove_issue_playlist_path(@playlist, issue_id: issue.id), method: :delete, data: { confirm: "Удалить выпуск?" } %>)
+    </li>
+    <% end %>
+</ul>
+
+<h2>Добавить выпуск</h2>
+<ul>
+    <% Issue.where.not(id: @playlist.issues.ids).each do |issue| %>
+    <li>
+        <%= link_to issue.name, add_issue_playlist_path(@playlist, issue_id: issue.id), method: :post %>
+    </li>
+    <% end %>
+</ul>
+
+<%= javascript_tag do %>
+document.addEventListener("DOMContentLoaded", function() {
+// Получаем все кнопки для добавления выпуска в плейлист
+document.querySelectorAll('.add-to-playlist-button').forEach(button => {
+button.addEventListener('click', function() {
+const playlistId = this.dataset.playlistId;
+const issueId = this.dataset.issueId;
+
+// Отправляем запрос для добавления выпуска в плейлист
+fetch(`/playlists/${playlistId}/add_issue/${issueId}`, {
+method: "POST", // Используем POST
+headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content }
+})
+.then(response => response.json())
+.then(data => alert(data.message || "Добавлено в плейлист!"))
+.catch(error => console.error("Ошибка:", error));
+});
+});
+});
+<% end %>

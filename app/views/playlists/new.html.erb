@@ -1,0 +1,10 @@
+<h1>Создать новый плейлист</h1>
+
+<%= form_with(model: @playlist) do |form| %>
+<div>
+    <%= form.label :name, "Название плейлиста" %>
+    <%= form.text_field :name, required: true %>
+</div>
+
+<%= form.submit "Создать", class: "btn btn-success" %>
+<% end %>
