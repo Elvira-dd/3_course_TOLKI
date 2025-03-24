@@ -4,4 +4,6 @@ class Issue < ApplicationRecord
 
     has_many :likes, as: :likeable
     has_many :dislikes, as: :dislikeable
+
+    has_many :favorites, as: :favoritable, dependent: :destroy
   end

@@ -14,6 +14,11 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_one :author
 
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_podcasts, through: :favorites, source: :favoritable, source_type: 'Podcast'
+  has_many :favorite_issues, through: :favorites, source: :favoritable, source_type: 'Issue'
+  
+
   after_create :create_profile_and_author
 
   private

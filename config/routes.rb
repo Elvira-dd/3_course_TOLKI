@@ -48,7 +48,11 @@ Rails.application.routes.draw do
   get "main/favorite"
   get "promo/index"
   get "recommendation", to: "recommendation#index"
+  get 'main/favorite', to: 'favorites#index'
 
+  resources :favorites, only: [:show, :index] do
+    post :toggle, on: :collection
+  end
   resources :themes
   resources :issues do
     resources :comments, only: [:new, :create, :edit, :update, :destroy, :show]

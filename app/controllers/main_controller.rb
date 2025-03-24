@@ -1,4 +1,8 @@
 class MainController < ApplicationController
+
+  before_action :authenticate_user!, only: :favorite
+
+  
   def index
     @podcasts = Podcast.all
     @science_podcasts = Podcast.where(id: [2, 6, 4, 7, 13])
@@ -11,6 +15,11 @@ class MainController < ApplicationController
     @ama_podcast = Podcast.find_by(id: 2)
     @themes = Theme.where(id: [2, 6, 4, 7,8,9,10])
     @chart_podcasts = Issue.where(id: [15,47,8,32])
+  end
+  def favorite
+
+    @favorite_podcasts = current_user.favorite_podcasts || []
+    @favorite_issues = current_user.favorite_issues || []
   end
 
 end

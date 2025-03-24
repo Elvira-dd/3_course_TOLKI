@@ -1,0 +1,15 @@
+<h1>Избранное</h1>
+
+<h2>Подкасты</h2>
+<ul>
+  <% @favorite_podcasts.each do |podcast| %>
+    <li><%= link_to podcast.name, podcast_path(podcast) %></li>
+  <% end %>
+</ul>
+
+<h2>Выпуски</h2>
+<ul>
+  <% @favorite_issues.each do |issue| %>
+    <li><%= link_to issue.name, podcast_issue_path(issue.podcast, issue) %></li>
+  <% end %>
+</ul>

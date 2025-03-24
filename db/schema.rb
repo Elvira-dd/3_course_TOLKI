@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_23_110716) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_24_075108) do
   create_table "authors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -49,6 +49,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_110716) do
     t.datetime "updated_at", null: false
     t.index ["dislikeable_type", "dislikeable_id"], name: "index_dislikes_on_dislikeable"
     t.index ["user_id"], name: "index_dislikes_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "favoritable_type", null: false
+    t.integer "favoritable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -167,6 +177,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_110716) do
 
   add_foreign_key "authors", "users"
   add_foreign_key "dislikes", "users"
+  add_foreign_key "favorites", "users"
   add_foreign_key "issues", "podcasts"
   add_foreign_key "likes", "users"
   add_foreign_key "podcasts", "authors"
