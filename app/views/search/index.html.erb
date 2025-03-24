@@ -1,11 +1,71 @@
-<h2>Результаты поиска</h2>
+<h1>Вот такое нашли для вас</h1>
 
-<% if @results.any? %>
-<ul>
-    <% @results.each do |podcast| %>
-    <li><%= link_to podcast.name, podcast_path(podcast) %></li>
-    <% end %>
-</ul>
-<% else %>
-<p>Ничего не найдено.</p>
-<% end %>
+
+<div class="C_SearchResultTop">
+    <div class="firstblock">
+        <!-- Посты -->
+        <% posts = @results.select { |r| r.is_a?(Post) } %>
+        <% if posts.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2>Посты</h2>
+            </div>
+            <div class="C_Discuss">
+                <% posts.each do |post| %>
+                <%= render partial: "postcard", locals: { post: post } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+
+
+
+        <!-- Выпуски -->
+
+        <% issues = @results.select { |r| r.is_a?(Issue) } %>
+        <% if issues.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2>Выпуски</h2>
+            </div>
+            <div class="C_ChartList">
+                <% issues.each.with_index(1) do |issue, index| %>
+                <%= render partial: "chartcard", locals: { issue: issue, position: index } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+    <div class="secondblock">
+        <!-- Подкасты -->
+        <% podcasts = @results.select { |r| r.is_a?(Podcast) } %>
+        <% if podcasts.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2>Подкасты</h2>
+            </div>
+            <div class="C_AuthorsCards">
+                <% podcasts.each do |podcast| %>
+                <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+
+
+        <!-- Авторы -->
+        <% authors = @results.select { |r| r.is_a?(Author) } %>
+        <% if authors.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2>Авторы</h2>
+            </div>
+            <div class="C_AuthorsCards">
+                <% authors.each do |author| %>
+                <%= render partial: "authorcard", locals: { author: author } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>

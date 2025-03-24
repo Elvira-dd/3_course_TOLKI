@@ -280,3 +280,22 @@ h2 + .C_Discuss {
   z-index: -1;
   background-position: center;
 }
+
+.search-tag {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-tag:hover {
+  background-color: var(--accent_green);
+  h5 {
+    color: var(--bg_black);
+  }
+}
+
+.search-tag.active {
+  background-color: var(--accent_green);
+  h5 {
+    color: var(--bg_black);
+  }
+}

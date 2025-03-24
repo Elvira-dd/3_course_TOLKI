@@ -119,3 +119,33 @@
 .C_PostCardsList {
   margin-bottom: 8vh;
 }
+.C_SearchResultTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .firstblock {
+    .C_Discuss {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    width: 65vw;
+    .M_ChartCard {
+      height: max-content;
+      .C_LinksLine {
+        height: 100px;
+        align-items: flex-start;
+        margin-top: 0px;
+        gap: 8px;
+        width: 18vw;
+        flex-wrap: wrap;
+      }
+      .C_LinksLine + div {
+        margin-left: 1vw;
+      }
+    }
+  }
+  .secondblock {
+    width: 20vw;
+  }
+}

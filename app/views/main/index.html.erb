@@ -8,7 +8,7 @@
         <div class="Q_Logo long"> </div>
         <h1 class="double">Лучшие подкасты только у нас!</h1>
         <h3> У нас собрана лучшая коллекция подкастов на любой вкус, собранная исходя из отзывов и мнений реальных слушателей </h3>
-        <%= link_to (user_signed_in? ? new_post_path : new_user_session_path) do %>
+        <%= link_to recommendation_path do %>
         <div class="A_Button Primary">
             <h3>К поиску</h3>
         </div>
@@ -17,22 +17,27 @@
     <div class="W_TitleWith">
         <h4> Что конкретно вы ищите?</h4>
         <div class="C_TagsLine">
-            <div class="A_Tag">
-                <h5>Пост </h5>
+            <div class="A_Tag search-tag active" data-type="all" style="display:none">
+                <h5>Все</h5>
             </div>
-            <div class="A_Tag">
-                <h5>Подкаст </h5>
+            <div class="A_Tag search-tag" data-type="posts">
+                <h5>Пост</h5>
             </div>
-            <div class="A_Tag">
-                <h5>Выпуск </h5>
+            <div class="A_Tag search-tag" data-type="podcasts">
+                <h5>Подкаст</h5>
             </div>
-            <div class="A_Tag">
-                <h5>Автор </h5>
+            <div class="A_Tag search-tag" data-type="issues">
+                <h5>Выпуск</h5>
+            </div>
+            <div class="A_Tag search-tag" data-type="authors">
+                <h5>Автор</h5>
             </div>
         </div>
+
         <div class="SearchContainer">
-            <%= form_with url: search_path, method: :get, local: true do %>
-            <input type="text" name="query" placeholder="Напиши название подкаста или выпуска или вставь ссылку" class="SearchInput">
+            <%= form_with url: search_path, method: :get, local: true, id: "search-form" do %>
+            <input type="text" name="query" placeholder="Напиши название или вставь ссылку" class="SearchInput">
+            <input type="hidden" name="type" id="search-type" value="all">
             <button type="submit" class="SearchButton">
                 <div class="Q_Icon search"> </div>
             </button>
@@ -173,3 +178,23 @@
     <div class="O_BgMainPage">
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tags = document.querySelectorAll(".search-tag");
+        const searchTypeInput = document.getElementById("search-type");
+
+        tags.forEach(tag => {
+            tag.addEventListener("click", function() {
+                // Убираем активный класс у всех тегов
+                tags.forEach(t => t.classList.remove("active"));
+
+                // Добавляем активный класс к выбранному тегу
+                this.classList.add("active");
+
+                // Обновляем скрытое поле
+                searchTypeInput.value = this.getAttribute("data-type");
+            });
+        });
+    });
+</script>
