@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
       @comment.likes.create(user_id: current_user.id)
     end
   
-    redirect_to @comment.commentable  # Перенаправляем на пост или другой ресурс
+    redirect_back(fallback_location: root_path)
   end
 
   def dislike
@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
       @comment.dislikes.create(user_id: current_user.id)
     end
 
-    redirect_to @comment.commentable  # Перенаправляем на пост или другой ресурс
+    redirect_back(fallback_location: root_path)  # Перенаправляем на пост или другой ресурс
   end
 
   # GET /comments/1/edit

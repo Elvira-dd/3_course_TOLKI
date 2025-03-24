@@ -17,6 +17,7 @@ class PodcastsController < ApplicationController
       @same_podcasts = Podcast.where(id:[5,7,9,15,20]).shuffle
       @reviews = @podcast.reviews
       @review = @podcast.reviews.new(user: current_user)
+      @favorited_podcasts = current_user.favorite_podcasts.pluck(:id)
     end
 
   # GET /podcasts/new

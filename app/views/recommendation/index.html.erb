@@ -67,7 +67,43 @@
             </div>
         </div>
         <div class="toggle-content hidden" data-id="new">
-            <p>Контент для "НОВОЕ"</p>
+            <div class="O_LentaPosts">
+                <div class="W_DiscussFeed">
+                    <h2>Ваши любимые подкасты</h2>
+
+                    <% if @subs_feed.empty? %>
+                    <p>Сначала подпишитесь на подкаст</p>
+                    <% else %>
+                    <div class="C_Discuss">
+                        <% @subs_feed.each do |item| %>
+                        <% if item.is_a?(Issue) %>
+                        <%= render partial: "showissuecard", locals: { issue: item } %>
+                        <% elsif item.is_a?(Post) %>
+                        <%= render partial: "postcard", locals: { post: item } %>
+                        <% end %>
+                        <% end %>
+                    </div>
+                    <% end %>
+                </div>
+                <div class="W_PopularFeed">
+                    <div class="W_TitleWithSmallCard">
+                        <h3> Интересные вам авторы </h3>
+                        <div class="C_AuthorsSmallCards">
+                            <% @subs_authors.each do |author| %>
+                            <div class="W_AuthorSmallCard">
+                                <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
+                                <div>
+                                    <h4 style="font-weight: 500"> <%= author.user.profile.name %> </h4>
+                                    <p class="small"> знаток подкастов <%= author.user.profile.level %> уровня </p>
+                                </div>
+                            </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="O_BgRecPage">
     </div>
 </div>

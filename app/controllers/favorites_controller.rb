@@ -5,6 +5,8 @@ class FavoritesController < ApplicationController
     def index
         @favorite_podcasts = current_user.favorite_podcasts
         @favorite_issues = current_user.favorite_issues
+        @favorited_podcasts = @favorite_podcasts.pluck(:id)
+        @favorited_issues = @favorite_issues.pluck(:id)
         render 'main/favorite'
       end
   
@@ -15,10 +17,8 @@ class FavoritesController < ApplicationController
   
       if favorite
         favorite.destroy
-        flash[:notice] = "Удалено из избранного"
       else
         current_user.favorites.create!(favoritable: @favoritable)
-        flash[:notice] = "Добавлено в избранное"
       end
   
       redirect_back fallback_location: root_path

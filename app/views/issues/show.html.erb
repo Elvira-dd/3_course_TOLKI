@@ -26,8 +26,10 @@
             </div>
         </div>
         <div>
-            <div class="Q_Like">
+            <%= link_to toggle_favorite_issue_path(@issue.id, type: "Issue"), method: :get, class: "favorite-button" do %>
+            <div class="Q_Like <%= 'accent' if @favorited_issues.include?(@issue.id) %>">
             </div>
+            <% end %>
             <div class="Q_Icon more">
             </div>
         </div>

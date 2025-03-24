@@ -27,7 +27,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :issues
+    resources :issues do
+    member do
+      get 'toggle_favorite', to: 'favorites#toggle'
+    end
+  end
     resources :podcasts do 
       resources :issues 
       get 'issues', to: 'issues#issues_for_podcast', as: 'issues_for'
@@ -69,11 +73,18 @@ Rails.application.routes.draw do
       get "like"
       get "dislike"
     end
+    member do
+      get 'toggle_favorite', to: 'favorites#toggle'
+    end
   end
   resources :users
   get 'my_profile', to: 'users#profile', as: :my_profile
   resources :subscriptions, only: [:create]
   resources :podcasts do 
+    member do
+      get 'toggle_favorite', to: 'favorites#toggle'
+    end
+
     resources :reviews, only: %i[new create edit update destroy]
     resources :issues, only: [:index, :show]
     resources :posts

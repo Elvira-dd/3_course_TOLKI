@@ -256,3 +256,27 @@ h2 + .C_Discuss {
     }
   }
 }
+
+.O_BgMainPage {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  margin-top: -14vh;
+  margin-left: -6vw;
+  background-image: url('bg_main_page.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  background-position: center;
+}
+.O_BgRecPage {
+  position: absolute;
+  width: 100vw;
+  height: 45vh;
+  margin-left: -6vw;
+  background-image: url('bg_for_rec.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  background-position: center;
+}

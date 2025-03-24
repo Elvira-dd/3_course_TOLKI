@@ -19,8 +19,10 @@
                 <div class="Title">
                     <h1> Подкаст «<%= @podcast.name%>»</h1>
                     <div>
-                        <div class="Q_Like">
+                        <%= link_to toggle_favorite_podcast_path(@podcast.id, type: "Podcast"), method: :get, class: "favorite-button" do %>
+                        <div class="Q_Like <%= 'accent' if @favorited_podcasts.include?(@podcast.id) %>">
                         </div>
+                        <% end %>
                         <div class="Q_Icon more">
                         </div>
                     </div>

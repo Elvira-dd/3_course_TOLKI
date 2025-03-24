@@ -5,5 +5,10 @@ class RecommendationController < ApplicationController
     @popular_authors = Author.where(id: [1,3,4])
     @popular_podcast = Podcast.find(17)
     @feed = (Issue.where(id: [3, 4, 5, 6, 11, 8, 9]).to_a + Post.where(id: [2, 3, 4, 5]).to_a).shuffle
+    @subs_podcast = current_user.favorite_podcasts
+    @subs_feed = Post.where(podcast_id: @subs_podcast.pluck(:id)) + Issue.where(podcast_id: @subs_podcast.pluck(:id))
+    
+    # Получаем авторов всех подкастов пользователя
+    @subs_authors = @subs_podcast.map(&:authors).flatten.uniq
   end
 end

@@ -42,6 +42,20 @@
   h2 {
     color: var(--first_gray);
   }
+  .M_IssueCard {
+    width: 100%;
+    img {
+      border-radius: 12px;
+    }
+  }
+}
+.O_IssuePage {
+  .M_IssueCard {
+    width: 100%;
+    img {
+      border-radius: 12px;
+    }
+  }
 }
 .W_ListBlock_Title {
   display: flex;

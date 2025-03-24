@@ -48,81 +48,128 @@
 
     <div class="W_Content">
         <div class="toggle-content" data-id="all">
-            <p>Контент для "ВСЕ"</p>
+            <div class="C_PostCardsList">
+                <div class="W_ListBlock_Title">
+                    <h2> Подборка лучших научных подкастов </h2>
+                    <%= link_to recommendation_path do %>
+                    <h4>посмотреть все </h4>
+                    <%end%>
+                </div>
+                <div class="C_AuthorsCards">
+                    <% @science_podcasts.each do |podcast| %>
+                    <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="C_PostCardsList">
+                <div class="W_ListBlock_Title">
+                    <h2> Все о реальной любви </h2>
+                    <%= link_to recommendation_path do %>
+                    <h4>посмотреть все </h4>
+                    <%end%>
+                </div>
+                <div class="C_AuthorsCards">
+                    <% @love_podcasts.each do |podcast| %>
+                    <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="W_CardBlock">
+                <div class="W_ListBlock_Title">
+                    <h2>Свежие выпуск подкаста <%= @new_podcast.name %></h2>
+                    <%= link_to podcast_path(@new_podcast) do %>
+                    <h4>посмотреть все новые выпуски</h4>
+                    <% end %>
+                </div>
+                <%= render partial: "issuecard_secondary", locals: { issue: @latest_issue_for_new_podcast } %>
+            </div>
+            <div class="W_ChartBlock">
+                <div class="W_ListBlock_Title">
+                    <h2>Чарт выпусков</h2>
+                    <%= link_to recommendation_path do %>
+                    <h4>посмотреть все</h4>
+                    <% end %>
+                </div>
+                <div class="C_ChartList">
+                    <% @chart_podcasts.each_with_index do |issue, index| %>
+                    <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="W_CardBlock">
+                <div class="W_ListBlock_Title">
+                    <h2>Тематики</h2>
+                    <%= link_to recommendation_path do %>
+                    <h4>посмотреть все</h4>
+                    <% end %>
+                </div>
+                <div class="C_ThemeCards">
+                    <% if @themes.any? %>
+                    <% @themes.each do |theme| %>
+                    <%= render partial: "themecard", locals: { theme: theme } %>
+                    <% end %>
+                    <% else %>
+                    <p>Темы пока не созданы.</p>
+                    <% end %>
+                </div>
+            </div>
         </div>
+
         <div class="toggle-content hidden" data-id="new">
-            <p>Контент для "НОВОЕ"</p>
+            <div class="W_CardBlock">
+                <div class="W_ListBlock_Title">
+                    <h2>Свежие выпуск подкаста <%= @new_podcast.name %></h2>
+                    <%= link_to podcast_path(@new_podcast) do %>
+                    <h4>посмотреть все новые выпуски</h4>
+                    <% end %>
+                </div>
+                <%= render partial: "issuecard_secondary", locals: { issue: @latest_issue_for_new_podcast } %>
+            </div>
         </div>
         <div class="toggle-content hidden" data-id="chart">
-            <p>Контент для "ЧАРТ"</p>
+            <div class="W_ChartBlock">
+                <div class="W_ListBlock_Title">
+                    <h2>Чарт выпусков</h2>
+                    <%= link_to recommendation_path do %>
+                    <h4>посмотреть все</h4>
+                    <% end %>
+                </div>
+                <div class="C_ChartList">
+                    <% @chart_podcasts.each_with_index do |issue, index| %>
+                    <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+                    <% end %>
+                </div>
+            </div>
         </div>
         <div class="toggle-content hidden" data-id="selections">
-            <p>Контент для "ПОДБОРКИ"</p>
+            <div class="C_PostCardsList">
+                <div class="W_ListBlock_Title">
+                    <h2> Подборка лучших научных подкастов </h2>
+                    <%= link_to recommendation_path do %>
+                    <h4>посмотреть все </h4>
+                    <%end%>
+                </div>
+                <div class="C_AuthorsCards">
+                    <% @science_podcasts.each do |podcast| %>
+                    <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="C_PostCardsList">
+                <div class="W_ListBlock_Title">
+                    <h2> Все о реальной любви </h2>
+                    <%= link_to recommendation_path do %>
+                    <h4>посмотреть все </h4>
+                    <%end%>
+                </div>
+                <div class="C_AuthorsCards">
+                    <% @love_podcasts.each do |podcast| %>
+                    <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                    <% end %>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="">
-        <div class="W_ListBlock_Title">
-            <h2> Подборка лучших научных подкастов </h2>
-            <%= link_to recommendation_path do %>
-            <h4>посмотреть все </h4>
-            <%end%>
-        </div>
-        <div class="C_AuthorsCards">
-            <% @science_podcasts.each do |podcast| %>
-            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
-            <% end %>
-        </div>
-    </div>
-    <div class="">
-        <div class="W_ListBlock_Title">
-            <h2> Все о реальной любви </h2>
-            <%= link_to recommendation_path do %>
-            <h4>посмотреть все </h4>
-            <%end%>
-        </div>
-        <div class="C_AuthorsCards">
-            <% @love_podcasts.each do |podcast| %>
-            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
-            <% end %>
-        </div>
-    </div>
-    <div class="W_CardBlock">
-        <div class="W_ListBlock_Title">
-            <h2>Свежие выпуск подкаста <%= @new_podcast.name %></h2>
-            <%= link_to podcast_path(@new_podcast) do %>
-            <h4>посмотреть все новые выпуски</h4>
-            <% end %>
-        </div>
-        <%= render partial: "issuecard_secondary", locals: { issue: @latest_issue_for_new_podcast } %>
-    </div>
-    <div class="W_ChartBlock">
-        <div class="W_ListBlock_Title">
-            <h2>Чарт выпусков</h2>
-            <%= link_to recommendation_path do %>
-            <h4>посмотреть все</h4>
-            <% end %>
-        </div>
-        <div class="C_ChartList">
-            <% @chart_podcasts.each_with_index do |issue, index| %>
-            <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
-            <% end %>
-        </div>
-    </div>
-    <div class="W_CardBlock">
-        <div class="W_ListBlock_Title">
-            <h2>Тематики</h2>
-            <%= link_to recommendation_path do %>
-            <h4>посмотреть все</h4>
-            <% end %>
-        </div>
-        <div class="C_ThemeCards">
-            <% if @themes.any? %>
-            <% @themes.each do |theme| %>
-            <%= render partial: "themecard", locals: { theme: theme } %>
-            <% end %>
-            <% else %>
-            <p>Темы пока не созданы.</p>
-            <% end %>
-        </div>
+    <div class="O_BgMainPage">
     </div>
 </div>
