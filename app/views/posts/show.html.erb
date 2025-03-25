@@ -52,7 +52,7 @@ end
             </div>
         </div>
         <div class="W_DiscussBlockPost">
-            <h1> 154 комментария </h1>
+            <h1> <%= @post.comments.count %> комментариев </h1>
             <div class="M_CommentForm">
                 <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
                 <%= render 'comments/form', commentable: @post, comment: Comment.new %>

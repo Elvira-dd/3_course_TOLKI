@@ -20,10 +20,13 @@
                     <h1> Подкаст «<%= @podcast.name%>»</h1>
                     <div>
                         <%= link_to toggle_favorite_podcast_path(@podcast.id, type: "Podcast"), method: :get, class: "favorite-button" do %>
+
                         <div class="Q_Like <%= 'accent' if @favorited_podcasts.include?(@podcast.id) %>">
                         </div>
                         <% end %>
-                        <div class="Q_Icon more">
+
+
+                        <div class=" Q_Icon more">
                         </div>
                     </div>
                 </div>
@@ -177,9 +180,17 @@
             <div class="W_FeedbackBlock">
                 <h2> Отзывы слушателей </h2>
                 <div class="C_Feedbacks">
+                    <% if current_user.present? %>
                     <div class="W_FeedbackCard">
                         <%= render "reviews/form" %>
                     </div>
+                    <% end %>
+                </div>
+                <div class="W_ReviewCards">
+                    <% @reviews.each do |review| %>
+                    <% if review.content.present? %>
+                    <%= render partial: "reviewcard", locals: { review: review } %>
+                    <% end %> <% end %>
                 </div>
             </div>
             <div class="W_SamePodcasts">

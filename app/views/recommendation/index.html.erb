@@ -1,23 +1,21 @@
-<% set_meta_tags(
-  title: "Лучшие рекомендации подкастов",
-  keywords: "Подкасты, Рецензии, Информация"
-) %>
-
 <div class="O_BodyMainPage">
     <div class="W_AccentCover">
         <h1 class="double" style="margin-top:80px">Обсудим подкаст?</h1>
-        <h3> Для нас важно каждое мнение о подкаст-контенте, <br>присоединяйся к нашему обсуждению! </h3>
+        <h3>Для нас важно каждое мнение о подкаст-контенте,<br> присоединяйся к нашему обсуждению!</h3>
     </div>
+
     <div class="W_ToggleList">
-        <h3 class="toggle-button active" data-id="all">ДЛЯ ВАС</h3>
+        <h3 class="toggle-button active" data-id="all">РЕКОМЕНДАЦИИ</h3>
+        <% if user_signed_in? %>
         <h3 class="toggle-button" data-id="new">ПОДПИСКИ</h3>
+        <% end %>
     </div>
 
     <div class="W_Content">
         <div class="toggle-content" data-id="all">
             <div class="O_LentaPosts">
                 <div class="W_DiscussFeed">
-                    <h2> Лента обсуждений </h2>
+                    <h2>Лента обсуждений</h2>
                     <div class="C_Discuss">
                         <% @feed.each do |item| %>
                         <% if item.is_a?(Issue) %>
@@ -30,33 +28,34 @@
                 </div>
                 <div class="W_PopularFeed">
                     <div class="W_TitleWithSmallCard">
-                        <h3> Популярные авторы </h3>
+                        <h3>Популярные авторы</h3>
                         <div class="C_AuthorsSmallCards">
                             <% @popular_authors.each do |author| %>
                             <div class="W_AuthorSmallCard">
                                 <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
                                 <div>
-                                    <h4 style="font-weight: 500"> <%= author.user.profile.name %> </h4>
-                                    <p class="small"> знаток подкастов <%= author.user.profile.level %> уровня </p>
+                                    <h4 style="font-weight: 500"><%= author.user.profile.name %></h4>
+                                    <p class="small">Знаток подкастов <%= author.user.profile.level %> уровня</p>
                                 </div>
                             </div>
                             <% end %>
                         </div>
                     </div>
+
                     <div class="W_TitleWithSmallCard">
-                        <h3> Самый обсуждаемый подкаст на сегодня </h3>
+                        <h3>Самый обсуждаемый подкаст на сегодня</h3>
                         <div class="C_AuthorsSmallCards">
                             <div class="W_AuthorSmallCard">
                                 <%= image_tag @popular_podcast.cover, alt: @popular_podcast.name, class: "AuthorsSmallCardsAvatar" %>
                                 <div>
-                                    <h4 style="font-weight: 500"> Подкаст «<%= @popular_podcast.name %>» </h4>
+                                    <h4 style="font-weight: 500">Подкаст «<%= @popular_podcast.name %>»</h4>
                                     <div class="PodcastThemes">
                                         <% @popular_podcast.themes.each do |theme| %>
                                         <%= link_to theme_path(theme) do %>
                                         <div class="A_Tag mini">
                                             <h5><%= theme.name %></h5>
                                         </div>
-                                        <%end%>
+                                        <% end %>
                                         <% end %>
                                     </div>
                                 </div>
@@ -66,6 +65,8 @@
                 </div>
             </div>
         </div>
+
+        <% if user_signed_in? %>
         <div class="toggle-content hidden" data-id="new">
             <div class="O_LentaPosts">
                 <div class="W_DiscussFeed">
@@ -85,16 +86,17 @@
                     </div>
                     <% end %>
                 </div>
+
                 <div class="W_PopularFeed">
                     <div class="W_TitleWithSmallCard">
-                        <h3> Интересные вам авторы </h3>
+                        <h3>Интересные вам авторы</h3>
                         <div class="C_AuthorsSmallCards">
                             <% @subs_authors.each do |author| %>
                             <div class="W_AuthorSmallCard">
                                 <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
                                 <div>
-                                    <h4 style="font-weight: 500"> <%= author.user.profile.name %> </h4>
-                                    <p class="small"> знаток подкастов <%= author.user.profile.level %> уровня </p>
+                                    <h4 style="font-weight: 500"><%= author.user.profile.name %></h4>
+                                    <p class="small">Знаток подкастов <%= author.user.profile.level %> уровня</p>
                                 </div>
                             </div>
                             <% end %>
@@ -103,7 +105,9 @@
                 </div>
             </div>
         </div>
+        <% end %>
     </div>
+
     <div class="O_BgRecPage">
     </div>
 </div>

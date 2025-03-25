@@ -54,6 +54,7 @@ def seed
   create_themes_and_assign_to_podcasts(20)
   create_post(1..4)
   create_comments(1..6)
+  create_reviews(50)
 
   3.times { create_comment_replies }
 end
@@ -140,6 +141,30 @@ def create_post(quantity)
     end
   end
 end
+def create_reviews(quantity)
+  users = User.all
+  podcasts = Podcast.all
+  tag_options = ["Интересная тема обсуждений", "Хорошая динамика беседы", "Глубокий анализ материала", "Структура повествования", "Оригинальность, инсайды", "Доступность, понятность"]
+
+  return if users.empty? || podcasts.empty?
+
+  quantity.times do
+    user = users.sample
+    podcast = podcasts.sample
+    rating = rand(1..5) # Оценки от 1 до 5
+    tags = tag_options.sample(rand(1..3)) # Случайное количество тегов
+
+    review = Review.create!(
+      user: user,
+      podcast: podcast,
+      rating: rating,
+      content: create_content,
+      tags: tags
+    )
+    
+    puts "Review with id #{review.id} created by User #{user.id} for Podcast #{podcast.id} with rating #{rating}"
+  end
+end
 
 def create_comments(quantity)
   commentable_records = (Post.all + Issue.all)
@@ -179,3 +204,5 @@ def create_themes_and_assign_to_podcasts(theme_count)
     puts "Assigned themes to podcast with id #{podcast.id}"
   end
 end
+
+seed

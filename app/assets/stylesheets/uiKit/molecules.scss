@@ -500,3 +500,36 @@
     }
   }
 }
+
+.M_ReviewCard {
+  padding: 24px;
+  width: 360px;
+  background-color: var(--four_gray);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  .M_UserCard {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+  }
+  .C_ReviewTitle {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .Stars {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+  .Tags_Line {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}

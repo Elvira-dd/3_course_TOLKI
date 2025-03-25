@@ -2,7 +2,9 @@
     <h2><%= position %>. </h2>
     <%= image_tag issue.podcast.cover, alt: issue.podcast.name, class: "SmallPodcastCoverImage" %>
     <div class="C_ChartCard_Info">
+        <%= link_to podcast_issue_path(issue.podcast, issue) do %>
         <h4> <%= issue.name %> </h4>
+        <% end%>
         <div class="PodcastThemes">
             <% issue.podcast.themes.each do |theme| %>
             <%= link_to theme_path(theme) do %>

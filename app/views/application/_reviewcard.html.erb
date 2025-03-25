@@ -1,0 +1,39 @@
+<div class="M_ReviewCard">
+    <div class="M_UserCard">
+        <% if review.user.profile.avatar.present? %>
+        <%= image_tag review.user.profile.avatar, alt: review.user.profile.name, class: "UserAvatar" %>
+        <% end %>
+        <div class="C_ReviewTitle">
+            <div style="display:flex; gap:2px; flex-direction:column">
+                <h5><%= review.user.profile.name %></h5>
+                <p class="small"> знаток подкастов <%= review.user.profile.level %> уровня </p>
+            </div>
+            <p class="gray small">
+                <% if review.created_at.present? %>
+                <%= I18n.l(review.created_at, format: "%d %B") %>
+                <% else %>
+                Дата не указана
+                <% end %>
+            </p>
+        </div>
+    </div>
+
+    <!-- Рейтинг в виде звезд -->
+    <div class="Stars">
+        <% (1..5).each do |star| %>
+        <div class="Q_Icon star <%= 'selected' if review.rating.present? && star <= review.rating %>" data-value="<%= star %>"></div>
+        <% end %>
+    </div>
+
+    <!-- Вывод тегов -->
+    <div class="Tags_Line">
+        <% review.tags.each do |tag| %>
+        <div class="A_Tag">
+            <p class="tag-text"><%= tag %></p>
+        </div>
+        <% end %>
+    </div>
+
+    <!-- Текст рецензии -->
+    <p><%= review.content %></p>
+</div>

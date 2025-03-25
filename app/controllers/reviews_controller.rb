@@ -6,6 +6,9 @@ class ReviewsController < ApplicationController
     def new
       @review = @podcast.reviews.new
     end
+    def show 
+      @review = Review.find(params[:id])
+    end
   
     def create
       @review = @podcast.reviews.new(review_params)

@@ -1,10 +1,15 @@
 <%
 likes_count = issue.likes.count
 dislikes_count = issue.dislikes.count
-user_liked = issue.likes.exists?(user_id: current_user.id)
-user_disliked = issue.dislikes.exists?(user_id: current_user.id)
-%>
 
+if current_user.present?
+  user_liked = issue.likes.exists?(user_id: current_user.id)
+  user_disliked = issue.dislikes.exists?(user_id: current_user.id)
+else
+  user_liked = false
+  user_disliked = false
+end
+%>
 <div class="O_PostFullCard_WithComments">
     <div class="M_PostFullCard">
         <div class="M_UserCard">
@@ -23,23 +28,28 @@ user_disliked = issue.dislikes.exists?(user_id: current_user.id)
                 </div>
             </div>
         </div>
-        <%= image_tag issue.cover, alt: issue.name, class: "IssueCover" if issue.cover.present? %>
+        <div class=" <%= 'audio' if issue.podcast.is_audio %>">
+            <%= image_tag issue.cover, alt: issue.name, class: "IssueCover #{'audio' if issue.podcast.is_audio}" if issue.cover.present? %>
 
-        <div class="A_Content">
-            <h1><%= issue.name %></h1>
-            <p> <%= issue.description %> </p>
+            <div class="A_Content">
+                <h1><%= issue.name %></h1>
+                <p> <%= issue.description %> </p>
+            </div>
         </div>
-
         <div class="W_IssueFullCard_Footer">
             <div class="Footer">
                 <div class="CommentFeedback">
                     <div>
-                        <%= link_to like_issue_path(issue), class: "Q_HandLike #{'active' if user_liked}" do %>
+                        <%= link_to user_signed_in? ? like_issue_path(issue) : new_user_registration_path, 
+                        method: (user_signed_in? ? :post : :get), 
+                        class: "Q_HandLike #{'active' if user_liked}" do %>
                         <% end %>
                         <span class="like-count"><%= issue.likes.count %></span>
                     </div>
                     <div>
-                        <%= link_to dislike_issue_path(issue), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
+                        <%= link_to user_signed_in? ? dislike_issue_path(issue) : new_user_registration_path, 
+                        method: (user_signed_in? ? :post : :get), 
+                        class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
                         <% end %>
                         <span class="dislike-count"><%= issue.dislikes.count %></span>
                     </div>

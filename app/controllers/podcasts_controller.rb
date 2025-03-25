@@ -2,23 +2,22 @@ class PodcastsController < ApplicationController
   load_and_authorize_resource
   before_action :set_podcast, only: %i[show edit update destroy]
 
-  # GET /podcasts or /podcasts.json
   def index
     @podcasts = Podcast.all
     @issues = Issue.all
   end
 
-  # GET /podcasts/1 or /podcasts/1.json
+  def show
+    @podcast = Podcast.find(params[:id])  
+    @issues = @podcast.issues              
+    @content_items = (@podcast.issues + @podcast.posts).sort_by(&:created_at)
+    @same_podcasts = Podcast.where(id:[5,7,9,15,20]).shuffle
+    @reviews = @podcast.reviews
+    @review = user_signed_in? ? @podcast.reviews.new(user: current_user) : nil
 
-    def show
-      @podcast = Podcast.find(params[:id])  
-      @issues = @podcast.issues              
-      @content_items = (@podcast.issues + @podcast.posts).sort_by(&:created_at)
-      @same_podcasts = Podcast.where(id:[5,7,9,15,20]).shuffle
-      @reviews = @podcast.reviews
-      @review = @podcast.reviews.new(user: current_user)
-      @favorited_podcasts = current_user.favorite_podcasts.pluck(:id)
-    end
+    # Загружаем избранные подкасты только для авторизованных пользователей
+    @favorited_podcasts = current_user.favorite_podcasts.pluck(:id) if user_signed_in?
+  end
 
   # GET /podcasts/new
   def new

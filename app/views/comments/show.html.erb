@@ -1,31 +1,3 @@
-<p style="color: green"><%= notice %></p>
-<%
-=begin%>
-<%= render partial: "comments/comment", locals: { comment: @comment, commentable: @comment.commentable } %>
-<%
-=end%>
-
-<%
-=begin%>
-<%
-likes_count = @comment.likes.count
-like_text = "Like (#{likes_count})"
-
-if current_user && @comment.likes.where(user_id: current_user.id).count > 0
-  like_text = "Unlike (#{likes_count})"
-end
-%>
-
-<div>
-    <%= link_to like_text, like_comment_path(@comment), method: :post %>
-    <%= link_to "Edit this comment", edit_comment_path(@comment) %> |
-    <%= link_to "Back to comments", comments_path %>
-    <%= button_to "Destroy this comment", @comment, method: :delete %>
-</div>
-
-<%
-=end%>
-
 <%
 likes_count = @comment.likes.count
 dislikes_count = @comment.dislikes.count
@@ -51,6 +23,7 @@ end
                 <p class="small"> знаток подкастов <%= @comment.user.profile.level %> уровня </p>
                 <p class="small"> <%= @comment.created_at.strftime("%d.%m.%Y") %> </p>
             </div>
+
             <p><%= @comment.content %></p>
             <div class="CommentFeedback">
                 <div>

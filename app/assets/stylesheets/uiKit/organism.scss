@@ -71,6 +71,25 @@
     color: var(--first_gray);
     margin-bottom: 12px;
   }
+  .IssueCover {
+    width: 100%;
+    border-radius: 12px;
+    &.audio {
+      width: 20vw;
+      height: 20vw;
+    }
+  }
+  .IssueCover + .A_Content {
+    margin-top: 4vh;
+  }
+  .M_UserCard + .audio {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    .A_Content {
+      margin-top: 0;
+    }
+  }
 }
 .O_Profile {
   display: flex;

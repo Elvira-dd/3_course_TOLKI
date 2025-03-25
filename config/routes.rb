@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       get 'remove_issue/:issue_id', to: 'playlists#remove_issue', as: :remove_issue
     end
   end
+  resources :reviews, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   get 'user_playlists', to: 'playlists#user_playlists'
 
@@ -85,7 +86,7 @@ Rails.application.routes.draw do
       get 'toggle_favorite', to: 'favorites#toggle'
     end
 
-    resources :reviews, only: %i[new create edit update destroy]
+    resources :reviews, only: %i[new create edit update destroy show]
     resources :issues, only: [:index, :show]
     resources :posts
     get 'issues', to: 'issues#issues_for_podcast', as: 'issues_for'

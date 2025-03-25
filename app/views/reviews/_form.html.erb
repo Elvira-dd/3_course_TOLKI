@@ -1,31 +1,3 @@
-<%
-=begin%>
-<%= form_with(model: [@podcast, @review], local: true) do |form| %>
-<div>
-    <%= form.label :rating, "Оценка (от 1 до 5)" %>
-    <%= form.number_field :rating, min: 1, max: 5, required: true %>
-</div>
-
-<div>
-    <%= form.label :content, "Отзыв" %>
-    <%= form.text_area :content, required: true %>
-</div>
-
-<div>
-    <h3>Выберите теги:</h3>
-    <% Review::TAG_OPTIONS.each do |tag| %>
-    <label>
-        <%= check_box_tag "review[tags][]", tag, @review.tags.include?(tag) %>
-        <%= tag %>
-    </label>
-    <% end %>
-</div>
-
-<%= form.submit "Отправить", class: "A_Button PrimaryMedium" %>
-<% end %>
-<%
-=end%>
-
 <%= form_with(model: [@podcast, @review], local: true) do |form| %>
 <div class="O_ReviewForm">
     <!-- Пользовательская информация -->
