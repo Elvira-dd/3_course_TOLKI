@@ -56,6 +56,7 @@ end
     return head :not_found
   end
   @commentable = @issue
+  @reviews = @issue.podcast.reviews.limit(3)
   @user = current_user
   end
 

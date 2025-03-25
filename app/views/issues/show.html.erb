@@ -145,7 +145,11 @@
                 <div class="W_FeedbackBlock">
                     <h2> Отзывы слушателей </h2>
                     <div class="C_Feedbacks">
-                        <div class="W_FeedbackCard">
+                        <div class="W_ReviewCards">
+                            <% @reviews.each do |review| %>
+                            <% if review.content.present? %>
+                            <%= render partial: "reviewcard", locals: { review: review } %>
+                            <% end %> <% end %>
                         </div>
                     </div>
                 </div>
