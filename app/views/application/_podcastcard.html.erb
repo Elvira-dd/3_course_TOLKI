@@ -1,6 +1,6 @@
 <%= link_to podcast_path(podcast) do %>
 <div class="M_PodcastCard">
-    <div class="A_PodcastCover" style="background-image: url('<%= asset_path(podcast.cover) %>');">
+    <div class="A_PodcastCover" style="background-image: url('<%= podcast.cover.attached? ? url_for(podcast.cover) : 'fallback_image.jpg' %>');">
     </div>
     <p class="bold"><%= podcast.name %></p>
     <p class="small two_stroke"><%= podcast.description %></p>

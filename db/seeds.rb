@@ -92,7 +92,14 @@ def create_podcast(quantity)
 
     cover_files = Dir.entries('app/assets/images/podcast_covers').select { |file| file.match?(/\.jpg$/) }
     random_cover = cover_files.sample
-    podcast.update!(cover: "podcast_covers/#{random_cover}")
+
+    if random_cover
+      podcast.cover.attach(
+        io: File.open(Rails.root.join("app/assets/images/podcast_covers/#{random_cover}")),
+        filename: random_cover,
+        content_type: "image/jpeg"
+      )
+    end
 
     authors_to_assign = authors.sample(rand(1..3))
     podcast.authors << authors_to_assign
@@ -111,17 +118,19 @@ def create_issues(quantity)
         link: "https://example.com/#{SecureRandom.hex(4)}"
       )
 
-      cover_files = if issue.podcast.is_audio
-                      Dir.entries(Rails.root.join('app', 'assets', 'images', 'audioissue_cover')).select { |file| file.match?(/\.jpg$/) }
-                    else
-                      Dir.entries(Rails.root.join('app', 'assets', 'images', 'issue_cover')).select { |file| file.match?(/\.jpg$/) }
-                    end
+      cover_dir = podcast.is_audio ? 'audioissue_cover' : 'issue_cover'
+      cover_path = Rails.root.join('app', 'assets', 'images', cover_dir)
+      cover_files = Dir.entries(cover_path).select { |f| f.match?(/\.jpg$/) }
 
-      if cover_files.empty?
-        puts "No cover files found"
-      else
+      if cover_files.present?
         random_cover = cover_files.sample
-        issue.update!(cover: issue.podcast.is_audio ? "audioissue_cover/#{random_cover}" : "issue_cover/#{random_cover}")
+        issue.cover.attach(
+          io: File.open(File.join(cover_path, random_cover)),
+          filename: random_cover,
+          content_type: 'image/jpeg'
+        )
+      else
+        puts "No cover files found in #{cover_path}"
       end
     end
   end

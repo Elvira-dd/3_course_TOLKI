@@ -1,1 +1,1 @@
-json.extract! @issue, :id, :name, :link, :cover, :created_at, :podcast_id
+json.extract! @issue, :id, :name, :link, :cover_url, :created_at, :podcast_id
