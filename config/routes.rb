@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   namespace :api, format: "json" do
     namespace :v1 do
       resources :podcasts, only: [:index, :show] do
-        resources :issues, only: [:index, :show]  # Вложенные маршруты
+        resources :issues, only: [:index, :show] 
+        resources :posts, only: [:index, :show] # Вложенные маршруты
       end
       resources :issues, only: [:index, :show]
       resources :posts, only: [:index, :show, :create]

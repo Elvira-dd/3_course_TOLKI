@@ -53,7 +53,7 @@ def seed
   create_issues(3..10)
   create_themes_and_assign_to_podcasts(20)
   create_post(1..4)
-  create_comments(1..6)
+  create_comments(1..3)
   create_reviews(50)
 
   3.times { create_comment_replies }

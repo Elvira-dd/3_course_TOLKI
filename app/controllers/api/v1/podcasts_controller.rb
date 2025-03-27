@@ -10,4 +10,5 @@ class Api::V1::PodcastsController < ApplicationController
     @podcast = Podcast.find(params[:id])  # Загружаем один подкаст
     render 'api/v1/podcasts/show', locals: { podcast: @podcast, url_for: method(:url_for) }
   end
+  
 end
