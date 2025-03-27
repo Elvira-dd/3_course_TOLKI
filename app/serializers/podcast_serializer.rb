@@ -1,10 +1,9 @@
 class PodcastSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :average_rating, :cover, :cover_url, :external_links, :is_audio
+  attributes :id, :name, :description, :created_at, :average_rating, :cover_url, :external_links, :is_audio
 
-  has_many :issues, serializer: IssueSerializer
-
-  def cover
-    object.cover.attached? ? object.cover.filename.to_s : nil
+  # Ссылка на связанные issues
+  def issues_url
+    api_v1_podcast_issues_url(object.id)  # Это создаст URL для получения issues подкаста
   end
 
   def cover_url
