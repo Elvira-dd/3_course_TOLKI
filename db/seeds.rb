@@ -21,14 +21,20 @@ def random_rating
 end
 
 def create_title
+  long_words = @words.select { |word| word.length > 2 } 
+  return "Default" if long_words.empty? 
+  
   sentence_words = []
-  (2..10).to_a.sample.times { sentence_words << @words.sample }
+  (2..6).to_a.sample.times { sentence_words << long_words.sample }
   sentence_words.join(' ').capitalize
 end
 
 def create_name
+  long_words = @words.select { |word| word.length > 2 } 
+  return "Default" if long_words.empty? 
+  
   sentence_words = []
-  (1..3).to_a.sample.times { sentence_words << @words.sample }
+  (1..3).to_a.sample.times { sentence_words << long_words.sample }
   sentence_words.join(' ').capitalize
 end
 

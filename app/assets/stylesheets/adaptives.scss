@@ -24,6 +24,8 @@
 /* Адаптивные стили для экранов с шириной до 480px (например, мобильные телефоны) */
 @media screen and (max-width: 480px) {
   h1 {
+    .dounble {
+    }
     font-size: 32px;
     font-weight: 500;
   }
@@ -43,11 +45,16 @@
     h1 {
       width: 80%;
       text-align: center;
+      font-size: 34px !important;
     }
     .A_Button {
-      width: auto;
+      width: 270px;
     }
   }
+  .W_TitleWith h4 + div {
+    gap: 6px;
+  }
+
   .AuthorAvatarImage {
     width: 165px !important;
     height: 165px !important;
@@ -60,6 +67,9 @@
   .A_Likeble_Cover {
     width: 200px;
     height: 200px;
+  }
+  .A_Tag {
+    padding: 10px 16px;
   }
   .C_PodcastCards {
     justify-content: flex-start;
@@ -107,7 +117,70 @@
       }
     }
   }
+  .O_Menu .LinksList {
+    gap: 12px;
+    .Q_Logo {
+      &.long {
+        width: 70px;
+        height: 30px;
+      }
+    }
+  }
+  .W_AccentCover h3 {
+    width: 300px;
+    font-size: 16px;
+  }
   .O_Footer .InerBlock .TextBlock {
     width: 38vw;
+  }
+  .O_Menu {
+    .SearchContainer {
+      display: none;
+    }
+  }
+  .SearchContainer {
+    width: 80vw;
+    .SearchInput {
+      width: 71vw;
+    }
+  }
+  .W_ToggleList {
+    gap: 20px;
+  }
+  .A_PodcastCover {
+    width: 42vw;
+    height: 42vw;
+  }
+  .C_AuthorsCards {
+    margin-left: 0vw;
+  }
+  .M_ChartCard {
+    gap: 6px;
+    .C_LinksLine {
+      display: none;
+    }
+    .PodcastThemes {
+      display: none;
+    }
+  }
+  .Q_Icon {
+    &.more {
+      width: 22px;
+      height: 22px;
+      background-size: contain;
+    }
+  }
+  .C_ChartCard_Info {
+    width: 46vw;
+  }
+  .M_ChartCard .C_LinksLine + div {
+    margin-left: 1vw;
+  }
+  .M_ThemeCard .ThemeCoverImage {
+    width: 155px;
+    height: 155px;
+  }
+  .C_ThemeCards {
+    gap: 18px;
   }
 }

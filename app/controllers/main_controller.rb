@@ -10,7 +10,7 @@ class MainController < ApplicationController
     @authors = Author.all
     @issues = Issue.all
     @profile_top = Author.where(id: [ 1, 2, 3,4])
-    @new_podcast = Podcast.find_by(id: 8)
+    @new_podcast = Podcast.find_by(id: 11)
     @latest_issue_for_new_podcast = @new_podcast.issues.order(created_at: :desc).first
     @ama_podcast = Podcast.find_by(id: 2)
     @themes = Theme.where(id: [2, 6, 4, 7,8,9,10])

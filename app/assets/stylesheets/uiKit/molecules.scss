@@ -571,8 +571,19 @@
   .PodcastList {
     margin-top: 16px;
     margin-bottom: 32px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
   }
   .IssueList {
     margin-top: 16px;
   }
+}
+.A_Tag.mini h5 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
 }
