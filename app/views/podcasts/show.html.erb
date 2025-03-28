@@ -19,6 +19,9 @@
                 <div class="Title">
                     <h1> Подкаст «<%= @podcast.name%>»</h1>
                     <div>
+                        <div class="A_Button SecondaryMedium">
+                            <h5> Это ваш подкаст?</h5>
+                        </div>
                         <%= link_to toggle_favorite_podcast_path(@podcast.id, type: "Podcast"), method: :get, class: "favorite-button" do %>
 
                         <div class="Q_Like <%= 'accent' if @favorited_podcasts.include?(@podcast.id) %>">
@@ -172,8 +175,8 @@
                         <p> Структура повествования</p>
                     </div>
                 </div>
-                <div class="A_Button Primary" style="width:auto; justify-content:center; margin-top:32px">
-                    <%= link_to "Оценить подкаст", "#", class: "open-review-form-btn" %>
+                <div class="A_Button Primary" style="width:auto; justify-content:center; margin-top:32px; ">
+                    <%= link_to "Оценить подкаст", "#", class: "open-review-form-btn", style:"color:var(--bg_black)" %>
                 </div>
 
             </div>

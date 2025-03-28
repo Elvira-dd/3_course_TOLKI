@@ -3,13 +3,17 @@
 <h2>Подкасты</h2>
 <ul>
   <% @favorite_podcasts.each do |podcast| %>
-    <li><%= link_to podcast.name, podcast_path(podcast) %></li>
+    <%= link_to podcast.name, podcast_path(podcast) do %>
+      <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+        <% end %>
   <% end %>
 </ul>
 
 <h2>Выпуски</h2>
 <ul>
   <% @favorite_issues.each do |issue| %>
-    <li><%= link_to issue.name, podcast_issue_path(issue.podcast, issue) %></li>
+    <%= link_to issue.name, podcast_issue_path(issue.podcast, issue) do %>
+      <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+      <% end %>
   <% end %>
 </ul>

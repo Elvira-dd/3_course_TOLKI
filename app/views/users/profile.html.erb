@@ -31,23 +31,40 @@
             </div>
         </div>
     </div>
-    <div class="C_SectionList">
-        <div class="A_section Big">
-            <h1> <%= @reviewed_podcasts_count %> </h1>
-            <p> подкастов оценено </p>
-        </div>
-        <div class="A_section Big">
-            <h1> <%= @posts_count %> </h1>
-            <p> написанных рецензий </p>
-        </div>
-        <div class="A_section Big">
-            <h1> <%= @days_in_app %> </h1>
-            <p> дней в приложении </p>
-        </div>
-    </div>
+
     <div class="W_ProfilePlaylistBlock">
+        <h1>Плейлист </h1>
+        <div class="C_ProfilePlaylist">
+            <div class="M_PlaylistCard">
+                <%= image_tag "PlayListTestCover.png", alt: "ALT", class: "PlaylistCover" %>
+                <p>Подкасты с селебами</p>
+            </div>
+            <div class="M_PlaylistCard">
+                <%= image_tag "PlayListTestCover.png", alt: "ALT", class: "PlaylistCover" %>
+                <p>Создать романтическое настроение</p>
+            </div>
+            <div class="M_PlaylistCard">
+                <%= image_tag "PlayListTestCover.png", alt: "ALT", class: "PlaylistCover" %>
+                <p>Подкасты с селебами</p>
+            </div>
+            <div class="M_PlaylistCard">
+                <%= image_tag "PlayListTestCover.png", alt: "ALT", class: "PlaylistCover" %>
+                <p>Создать романтическое настроение</p>
+            </div>
+            <div class="M_PlaylistCard">
+                <%= image_tag "PlayListAdd.png", alt: "ALT", class: "PlaylistCover" %>
+                <p>Создать романтическое настроение</p>
+            </div>
+        </div>
     </div>
-    <h1 style="color: var(--accent_green)">Рецензии </h1>
+    <div class="W_ToggleList">
+        <h3 class="toggle-button active" data-id="all">ВСЕ</h3>
+        <h3 class="toggle-button" data-id="new">КОММЕНТАРИИ</h3>
+        <h3 class="toggle-button" data-id="chart">ОТЗЫВЫ</h3>
+        <h3 class="toggle-button" data-id="selections">ЛАЙКИ</h3>
+    </div>
+
+    <h1>Ваши комментарии под постом </h1>
 
     <div class="W_ProfilePostsCards">
         <% @comments.each do |comment| %>
@@ -91,5 +108,13 @@ end
             </div>
         </div>
         <% end %>
+    </div>
+    <h1>Ваши отзывы </h1>
+    <div class="W_ReviewBlock">
+        <div class="C_ReviewStars" style="align-items:flex-start;margin-top:0px">
+            <% @reviews.each do |review| %>
+            <%= render partial: "reviewcard", locals: { review: review } %>
+            <%end%>
+        </div>
     </div>
 </div>

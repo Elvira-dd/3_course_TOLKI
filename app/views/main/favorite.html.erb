@@ -1,23 +1,29 @@
-<h1>Ваши избранные подкасты и выпуски</h1>
+<div class="O_Favorite">
+    <h1>Ваши избранные</h1>
 
-<h2>Подкасты</h2>
-<% if @favorite_podcasts.any? %>
-<ul>
-    <% @favorite_podcasts.each do |podcast| %>
-    <li><%= link_to podcast.name, podcast_path(podcast) %></li>
+    <h2>Подкасты</h2>
+    <% if @favorite_podcasts.any? %>
+    <div class="PodcastList">
+        <% @favorite_podcasts.each do |podcast| %>
+        <%= link_to podcast_path(podcast) do %>
+        <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+        <% end %>
+        <% end %>
+    </div>
+    <% else %>
+    <p>У вас пока нет избранных подкастов.</p>
     <% end %>
-</ul>
-<% else %>
-<p>У вас пока нет избранных подкастов.</p>
-<% end %>
 
-<h2>Выпуски</h2>
-<% if @favorite_issues.any? %>
-<ul>
-    <% @favorite_issues.each do |issue| %>
-    <li><%= link_to issue.name, podcast_issue_path(issue.podcast, issue) %></li>
+    <h2>Выпуски</h2>
+    <% if @favorite_issues.any? %>
+    <div class="IssueList">
+        <% @favorite_issues.each_with_index do |issue, index| %>
+        <%= link_to podcast_issue_path(issue.podcast, issue) do %>
+        <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+        <% end %>
+        <% end %>
+    </div>
+    <% else %>
+    <p>У вас пока нет избранных выпусков.</p>
     <% end %>
-</ul>
-<% else %>
-<p>У вас пока нет избранных выпусков.</p>
-<% end %>
+</div>

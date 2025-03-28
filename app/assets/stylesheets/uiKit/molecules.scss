@@ -36,6 +36,7 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+    border-radius: 8px;
   }
   &.Audio {
     width: 40vw;
@@ -531,5 +532,47 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 6px;
+  }
+}
+
+.W_ProfilePlaylistBlock {
+  h1 {
+    margin-bottom: 24px;
+    margin-top: 48px;
+  }
+  .C_ProfilePlaylist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .M_PlaylistCard {
+      width: 16vw;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      .PlaylistCover {
+        width: 16vw;
+        height: 16vw;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+.O_Favorite {
+  .M_ChartCard {
+    a {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+  h1 + h2 {
+    margin-top: 48px;
+  }
+  .PodcastList {
+    margin-top: 16px;
+    margin-bottom: 32px;
+  }
+  .IssueList {
+    margin-top: 16px;
   }
 }

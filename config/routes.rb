@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: "json" do
     namespace :v1 do
+      
       resources :podcasts, only: [:index, :show] do
         resources :issues, only: [:index, :show] 
         resources :posts, only: [:index, :show] # Вложенные маршруты
@@ -20,8 +21,14 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :show, :create]
       resources :authors, only: [:index, :show]
       resources :themes, only: [:index, :show]
-      resources :users, only: [:index, :show]
-      resources :profiles, only: [:index, :show]
+      resources :users, only: [:index, :show] do
+        collection do
+        get "me", to: 'users#me'
+        end
+    end
+      resources :profiles, only: [:index, :show] 
+      
+     
   
       devise_scope :user do 
         post "sign_up", to: "registrations#create"

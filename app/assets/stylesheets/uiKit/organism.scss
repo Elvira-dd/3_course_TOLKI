@@ -95,6 +95,13 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  .W_ToggleList {
+    margin-top: 5vh;
+    justify-content: flex-start;
+  }
+  .W_ProfilePostsCards {
+    gap: 8px;
+  }
 }
 .O_PodcastPage {
   .W_ToggleList {
