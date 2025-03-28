@@ -14,7 +14,9 @@ Rails.application.routes.draw do
         resources :issues, only: [:index, :show] 
         resources :posts, only: [:index, :show] # Вложенные маршруты
       end
-      resources :issues, only: [:index, :show]
+      resources :issues, only: [:index, :show] do
+        resources :comments, only: [:create]
+      end
       resources :posts, only: [:index, :show, :create]
       resources :authors, only: [:index, :show]
       resources :themes, only: [:index, :show]
