@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 #
-gem "carrierwave", "~> 3.0"
+gem "carrierwave", "~> 3.1"
 gem "russian"
 gem "meta-tags"
 gem "sassc"
