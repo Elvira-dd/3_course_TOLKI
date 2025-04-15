@@ -1,10 +1,86 @@
-<h1>Вот такое нашли для вас</h1>
+<% set_meta_tags(
+  title: "Результаты поиска",
+  description: "Посты для проекта Tolki",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
 
+<% posts    = @results.select { |r| r.is_a?(Post) } %>
+<% issues   = @results.select { |r| r.is_a?(Issue) } %>
+<% podcasts = @results.select { |r| r.is_a?(Podcast) } %>
+<% authors  = @results.select { |r| r.is_a?(Author) } %>
+
+<% if posts.empty? && issues.empty? && podcasts.empty? && authors.empty? %>
+<div class="C_NoResultsMessage">
+    <h1>Похоже этого у нас ещё нет,</h1>
+    <h1>но вот что мы рекомендуем:</h1>
+</div>
+
+<!-- Дополнительно выводим   элементы -->
+<% if @rec_posts.any? || @rec_issues.any? || @rec_podcasts.any? || @rec_authors.any? %>
 
 <div class="C_SearchResultTop">
     <div class="firstblock">
-        <!-- Посты -->
-        <% posts = @results.select { |r| r.is_a?(Post) } %>
+        <% if @rec_posts.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2>Посты</h2>
+            </div>
+            <div class="C_Discuss">
+                <% @rec_posts.each do |post| %>
+                <%= render partial: "postcard", locals: { post: post } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+
+        <% if @rec_issues.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2> Выпуски</h2>
+            </div>
+            <div class="C_ChartList">
+                <% @rec_issues.each.with_index(1) do |issue, index| %>
+                <%= render partial: "chartcard", locals: { issue: issue, position: index } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+
+    <div class="secondblock">
+        <% if @rec_podcasts.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2> Подкасты</h2>
+            </div>
+            <div class="C_AuthorsCards">
+                <% @rec_podcasts.each do |podcast| %>
+                <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+
+        <% if @rec_authors.any? %>
+        <div class="C_PostCardsList">
+            <div class="W_ListBlock_Title">
+                <h2> Авторы</h2>
+            </div>
+            <div class="C_AuthorsCards">
+                <% @rec_authors.each do |author| %>
+                <%= render partial: "authorcard", locals: { author: author } %>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+<% end %>
+
+<% else %>
+<h1>Вот такое нашли для вас</h1>
+<div class="C_SearchResultTop">
+    <div class="firstblock">
         <% if posts.any? %>
         <div class="C_PostCardsList">
             <div class="W_ListBlock_Title">
@@ -18,11 +94,6 @@
         </div>
         <% end %>
 
-
-
-        <!-- Выпуски -->
-
-        <% issues = @results.select { |r| r.is_a?(Issue) } %>
         <% if issues.any? %>
         <div class="C_PostCardsList">
             <div class="W_ListBlock_Title">
@@ -36,9 +107,8 @@
         </div>
         <% end %>
     </div>
+
     <div class="secondblock">
-        <!-- Подкасты -->
-        <% podcasts = @results.select { |r| r.is_a?(Podcast) } %>
         <% if podcasts.any? %>
         <div class="C_PostCardsList">
             <div class="W_ListBlock_Title">
@@ -52,9 +122,6 @@
         </div>
         <% end %>
 
-
-        <!-- Авторы -->
-        <% authors = @results.select { |r| r.is_a?(Author) } %>
         <% if authors.any? %>
         <div class="C_PostCardsList">
             <div class="W_ListBlock_Title">
@@ -69,3 +136,4 @@
         <% end %>
     </div>
 </div>
+<% end %>

@@ -1,5 +1,5 @@
 <% set_meta_tags(
-  title: "Подкаст #{@issue.podcast.name} | выпуск #{@issue.name} ",
+  title: "#{@issue.podcast.name} | выпуск #{@issue.name} ",
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
 <div class="O_IssuePage">
@@ -158,10 +158,12 @@
                     <h2>Обсуждение</h2>
                     <div>
                         <div>
+                            <% if user_signed_in? %>
                             <div class="M_CommentForm">
                                 <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
-                                <%= render 'comments/form', commentable: @issue,  comment: Comment.new  %>
+                                <%= render 'comments/form', commentable: @issue, comment: Comment.new %>
                             </div>
+                            <% end %>
                             <div class="W_CommentsBlock">
                                 <ul>
                                     <%= render partial: "comments/comment", collection: @issue.comments.not_replies, as: :comment, locals: { commentable: @issue } %>

@@ -17,20 +17,20 @@
             <%= image_tag @podcast.cover, alt: @podcast.cover, class: "PodcastCover" if @podcast.cover.present? %>
             <div class="PodcastText">
                 <div class="Title">
-                    <h1> Подкаст «<%= @podcast.name%>»</h1>
+                    <h1> Подкаст «<%= @podcast.name %>»</h1>
                     <div>
-                        <div class="A_Button SecondaryMedium">
-                            <h5> Это ваш подкаст?</h5>
+                        <div id="extra-button-wrapper" style="display: none;">
+                            <div class="A_Button SecondaryMedium">
+                                <h5> Это ваш подкаст?</h5>
+                            </div>
                         </div>
-                        <%= link_to toggle_favorite_podcast_path(@podcast.id, type: "Podcast"), method: :get, class: "favorite-button" do %>
 
-                        <div class="Q_Like <%= 'accent' if @favorited_podcasts.include?(@podcast.id) %>">
+                        <%= link_to toggle_favorite_podcast_path(@podcast.id, type: "Podcast"), method: :get, class: "favorite-button" do %>
+                        <div class="Q_Like <%= 'accent' if @favorited_podcasts&.include?(@podcast.id) %>">
                         </div>
                         <% end %>
 
-
-                        <div class=" Q_Icon more">
-                        </div>
+                        <div class="Q_Icon more" id="toggle-button"></div>
                     </div>
                 </div>
                 <p><%= @podcast.description%> </p>
@@ -256,4 +256,4 @@ scroll = setTimeout(function(){scrollCount=0;}, 200);
 if(scrollCount) return 0;
 scrollCount=1;
 
-if (e.originalEvent.deltaY < 0) { $(this).slick('slickNext'); } else { $(this).slick('slickPrev'); } }); }); $(document).ready(function() { $('.slider').slick({ slidesToShow: 4, slidesToScroll: 1, infinite: true }); }); <% end %>
+if (e.originalEvent.deltaY < 0) { $(this).slick('slickNext'); } else { $(this).slick('slickPrev'); } }); }); $(document).ready(function() { $('.slider').slick({ slidesToShow: 4, slidesToScroll: 1, infinite: true }); }); document.addEventListener('DOMContentLoaded', function () { const toggleButton=document.getElementById('toggle-button'); const extraWrapper=document.getElementById('extra-button-wrapper'); toggleButton.addEventListener('click', function () { if (extraWrapper.style.display==='none' ) { extraWrapper.style.display='inline-block' ; } else { extraWrapper.style.display='none' ; } }); }); <% end %>

@@ -1,3 +1,7 @@
+<% set_meta_tags(
+  title: "Плейлист «#{@playlist.name}» пользователя #{@playlist.user.profile.name} ",
+keywords: "Подкасты, Рецензии, Информация"
+) %>
 <h1><%= @playlist.name %></h1>
 
 <p>Владелец: <%= @playlist.user.email %></p>

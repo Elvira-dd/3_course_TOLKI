@@ -3,6 +3,11 @@ class SearchController < ApplicationController
     @query = params[:query].downcase
     @type = params[:type]
 
+    @rec_posts = Post.where(id: [2, 6, 4, 7, 13])
+    @rec_podcasts = Podcast.where(id: [2, 6, 4, 7, 13])
+    @rec_authors = Author.where(id: [4, 1, 2])
+    @rec_issues = Issue.where(id: [2, 6, 4, 7, 13])
+
     case @type
     when "posts"
       @results = Post.where("LOWER(title) LIKE ?", "%#{@query}%")

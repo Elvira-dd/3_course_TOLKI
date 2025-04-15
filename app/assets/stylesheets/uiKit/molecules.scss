@@ -286,6 +286,15 @@
         display: flex;
         flex-direction: row;
         gap: 24px;
+        .A_Button {
+          width: max-content;
+          height: min-content;
+        }
+        #extra-button-wrapper {
+          position: absolute;
+          margin-top: 55px;
+          right: 30px;
+        }
       }
     }
   }
