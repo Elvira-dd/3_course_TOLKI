@@ -175,9 +175,7 @@
                         <p> Структура повествования</p>
                     </div>
                 </div>
-                <div class="A_Button Primary" style="width:auto; justify-content:center; margin-top:32px; ">
-                    <%= link_to "Оценить подкаст", "#", class: "open-review-form-btn", style:"color:var(--bg_black)" %>
-                </div>
+
 
             </div>
             <div class="W_FeedbackBlock">
@@ -222,7 +220,14 @@
             <p>Контент для "ВСЕ"</p>
         </div>
         <div class="toggle-content hidden" data-id="new">
-            <p>Контент для "НОВОЕ"</p>
+            <div class="C_AllIssues">
+                <% @issues.each do |issue| %>
+
+                <%= render partial: "issuecard_secondary", locals: { issue: issue } %>
+
+                <% end %>
+
+            </div>
         </div>
         <div class="toggle-content hidden" data-id="chart">
             <p>Контент для "ЧАРТ"</p>

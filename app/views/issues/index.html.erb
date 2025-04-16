@@ -1,9 +1,23 @@
-<h1>Выпуски подкаста "<%= @podcast.name %>"</h1>
+<% set_meta_tags(
+  title: "Выпуски подкаста #{@podcast.name}",
+  keywords: "Подкасты, Рецензии, Информация"
+) %>
 
-<ul>
+<%= link_to 'javascript:history.back()' do %>
+<div style="display:flex; flex-direction: row; align-items: center;
+    gap: 12px">
+    <div class="Q_Arrow backWhite">
+    </div>
+    <h4> К подкасту </h4>
+</div>
+<% end %>
+
+
+<div class="C_AllIssues">
     <% @issues.each do |issue| %>
-    <li>
-        <strong><%= issue.name %></strong> - <%= link_to "Просмотр", issue_path(issue) %>
-    </li>
+
+    <%= render partial: "issuecard_secondary", locals: { issue: issue } %>
+
     <% end %>
-</ul>
+
+</div>

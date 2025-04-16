@@ -36,6 +36,12 @@
     margin-left: 1230px;
     z-index: 1000;
   }
+  &.backWhite {
+    background-image: url('Q_Arrow_back_white.svg');
+    background-size: contain;
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .Q_Icon {

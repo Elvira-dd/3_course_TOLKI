@@ -166,3 +166,25 @@
 .C_NoResultsMessage {
   margin-bottom: 4vh;
 }
+
+.C_AllIssues {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 18px;
+  margin-top: 32px;
+  .M_IssueCard {
+    width: 28vw;
+    .Title {
+      margin-top: 6px;
+    }
+    h3 {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      -webkit-line-clamp: 1;
+      text-overflow: ellipsis;
+    }
+  }
+}

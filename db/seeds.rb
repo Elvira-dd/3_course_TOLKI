@@ -56,9 +56,8 @@ def seed
   reset_db
   create_users(16)
   create_podcast(35)
-  create_issues(3..10)
+  create_issues_and_posts(10)
   create_themes_and_assign_to_podcasts(20)
-  create_post(1..4)
   create_comments(1..3)
   create_reviews(50)
 
@@ -113,46 +112,50 @@ def create_podcast(quantity)
   end
 end
 
-def create_issues(quantity)
-  Podcast.all.each do |podcast|
-    puts "Creating issues for podcast with id #{podcast.id}"
+def create_issues_and_posts(quantity)
+  podcasts = Podcast.all
+  authors = Author.all
 
-    quantity.to_a.sample.times do
-      issue = podcast.issues.create!(
-        name: "Выпуск #{create_title}",
-        description: create_sentence,
-        link: "https://example.com/#{SecureRandom.hex(4)}"
-      )
+  podcasts.each do |podcast|
+    puts "Creating mixed content for podcast with id #{podcast.id}"
 
-      cover_dir = podcast.is_audio ? 'audioissue_cover' : 'issue_cover'
-      cover_path = Rails.root.join('app', 'assets', 'images', cover_dir)
-      cover_files = Dir.entries(cover_path).select { |f| f.match?(/\.jpg$/) }
+    # Сформируем массив из символов :post и :issue в случайном порядке
+    types = Array.new(quantity) { [:post, :issue].sample }
 
-      if cover_files.present?
-        random_cover = cover_files.sample
-        issue.cover.attach(
-          io: File.open(File.join(cover_path, random_cover)),
-          filename: random_cover,
-          content_type: 'image/jpeg'
+    types.each do |type|
+      if type == :post
+        author = authors.sample
+        post = podcast.posts.create!(
+          title: create_title,
+          content: create_content,
+          hashtag: create_title,
+          author: author
         )
+        puts "Post with id #{post.id} created for Podcast #{podcast.id}"
       else
-        puts "No cover files found in #{cover_path}"
-      end
-    end
-  end
-end
+        issue = podcast.issues.create!(
+          name: "Выпуск #{create_title}",
+          description: create_sentence,
+          link: "https://example.com/#{SecureRandom.hex(4)}"
+        )
 
-def create_post(quantity)
-  Podcast.all.each do |podcast|
-    quantity.to_a.sample.times do
-      author = Author.all.sample
-      post = podcast.posts.create!(
-        title: create_title,
-        content: create_content,
-        hashtag: create_title,
-        author: author
-      )
-      puts "Post with id #{post.id} just created for Podcast with id #{podcast.id}"
+        cover_dir = podcast.is_audio ? 'audioissue_cover' : 'issue_cover'
+        cover_path = Rails.root.join('app', 'assets', 'images', cover_dir)
+        cover_files = Dir.entries(cover_path).select { |f| f.match?(/\.jpg$/) }
+
+        if cover_files.present?
+          random_cover = cover_files.sample
+          issue.cover.attach(
+            io: File.open(File.join(cover_path, random_cover)),
+            filename: random_cover,
+            content_type: 'image/jpeg'
+          )
+        else
+          puts "No cover files found in #{cover_path}"
+        end
+
+        puts "Issue with id #{issue.id} created for Podcast #{podcast.id}"
+      end
     end
   end
 end
