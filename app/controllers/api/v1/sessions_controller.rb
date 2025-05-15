@@ -2,6 +2,8 @@ class Api::V1::SessionsController < Devise::SessionsController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
   skip_before_action :verify_signed_out_user, only: :destroy
   before_action :load_user, only: :create
+    before_action :set_active_storage_host
+
 
   def create
     if @user.valid_password?(sign_in_params[:password])
@@ -43,7 +45,40 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
   end
 
+def me
+  payload = decrypt_payload
+
+  if payload
+    user = User.includes(:profile, :author, profile: { avatar_attachment: :blob }).find_by(jti: payload[0]['jti'])
+
+    if user
+      render json: {
+        id: user.id,
+        email: user.email,
+        profile: user.profile ? {
+          name: user.profile.name,
+          bio: user.profile.bio,
+          level: user.profile.level,
+          avatar_url: user.profile.avatar.attached? ? url_for(user.profile.avatar) : nil
+        } : nil,
+        author: user.author ? {
+          id: user.author.id,
+          exten_bio: user.author.exten_bio
+        } : nil,
+        is_author: user.author.present?
+      }, status: :ok
+    else
+      render json: { error: "User not found" }, status: :unauthorized
+    end
+  else
+    render json: { error: "Invalid or missing token" }, status: :unauthorized
+  end
+end
+
   private
+def set_active_storage_host
+    ActiveStorage::Current.url_options = { host: request.base_url }
+  end
 
   def sign_in_params
     params.permit(:email, :password, :format, session: {})
