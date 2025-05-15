@@ -304,7 +304,18 @@ Devise.setup do |config|
   # Note: These might become the new default in future versions of Devise.
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
-
+config.jwt do |jwt|
+ jwt.secret = Rails.application.credentials[:devise_jwt_secret_key] || ENV['DEVISE_JWT_SECRET_KEY']
+  jwt.dispatch_requests = [
+    ['POST', %r{^/users/sign_in$}]
+  ]
+  jwt.revocation_requests = [
+    ['DELETE', %r{^/users/sign_out$}]
+  ]
+  jwt.request_formats = {
+    user: [:json] 
+  }
+end
   # ==> Configuration for :registerable
 
   # When set to false, does not sign a user in automatically after their password is

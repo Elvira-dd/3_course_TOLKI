@@ -17,6 +17,10 @@ class User < ApplicationRecord
   has_many :favorite_issues, through: :favorites, source: :favoritable, source_type: 'Issue'
 
   after_create :create_profile_and_author
+  
+  def jwt_payload
+  super.merge({ scope: 'user' })
+end
 
   private
 
