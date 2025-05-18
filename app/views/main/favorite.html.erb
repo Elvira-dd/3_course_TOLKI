@@ -6,29 +6,30 @@
 <div class="O_Favorite">
     <h1>Ваши избранные</h1>
 
-    <h2>Подкасты</h2>
-    <% if @favorite_podcasts.any? %>
-    <div class="PodcastList">
-        <% @favorite_podcasts.each do |podcast| %>
-        <%= link_to podcast_path(podcast) do %>
-        <%= render partial: "podcastcard", locals: { podcast: podcast } %>
-        <% end %>
-        <% end %>
+    <div>
+        <div class="W_ToggleList">
+            <h3 class="toggle-button active" data-id="podcast">ПОДКАСТЫ</h3>
+            <h3 class="toggle-button" data-id="issues">ВЫПУСКИ</h3>
+        </div>
+        <div class="toggle-content" data-id="podcast">
+            <div class="PodcastList">
+                <% @favorite_podcasts.each do |podcast| %>
+                <%= link_to podcast_path(podcast) do %>
+                <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div class="toggle-content hidden" data-id="issues">
+            <div class="C_ChartList">
+                <% @favorite_issues.each_with_index do |issue, index| %>
+                <%= link_to podcast_issue_path(issue.podcast, issue) do %>
+                <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+                <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div class="toggle-content hidden" data-id="authors">
+        </div>
     </div>
-    <% else %>
-    <p>У вас пока нет избранных подкастов.</p>
-    <% end %>
-
-    <h2>Выпуски</h2>
-    <% if @favorite_issues.any? %>
-    <div class="IssueList">
-        <% @favorite_issues.each_with_index do |issue, index| %>
-        <%= link_to podcast_issue_path(issue.podcast, issue) do %>
-        <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
-        <% end %>
-        <% end %>
-    </div>
-    <% else %>
-    <p>У вас пока нет избранных выпусков.</p>
-    <% end %>
 </div>

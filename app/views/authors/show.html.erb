@@ -3,26 +3,96 @@
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
 
-<h1> <%= @author.user.profile.name %>
-</h1>
 
 
-<p>
-    <strong>Description:</strong>
-    <%= @author.exten_bio %>
-</p>
+<div class="O_Profile">
+    <div class="M_ProfileCardOpened">
+        <div style="display:flex; gap:16px">
+            <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+            <div class="ProfileTitle">
 
+                <h1> <%= @user.profile.name %> </h1>
+                <p> Знаток подкастов <%= @user.profile.level %> уровня </p>
 
-<div>
-    <%= link_to "Edit this author", edit_author_path(@author) %> |
-    <%= link_to "Back to authors", authors_path %>
+                <div class="C_SectionList">
+                    <div class="A_section Small">
+                        <h4> 453 подписчика </h4>
+                    </div>
+                    <div class="A_section Small">
+                        <h4> 27 подписок </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <%= button_to "Destroy this author", @author, method: :delete %>
-</div>
-
-<h2>Подкасты автора:</h2>
-<ul>
-    <div class="podcasts-list">
-        <%= render partial: "podcastcard", collection: @podcasts, as: :podcast %>
     </div>
-</ul>
+    <div class="W_ProfilePlaylistBlock">
+        <h1>Подкасты </h1>
+        <div class="C_AuthorsCards">
+            <% @podcasts.each do |podcast| %>
+            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+            <% end %>
+        </div>
+    </div>
+    <div class="W_ToggleList">
+        <h3 class="toggle-button active" data-id="all">ВСЕ</h3>
+        <h3 class="toggle-button" data-id="new">КОММЕНТАРИИ</h3>
+        <h3 class="toggle-button" data-id="chart">ОТЗЫВЫ</h3>
+        <h3 class="toggle-button" data-id="selections">ЛАЙКИ</h3>
+    </div>
+
+    <h1>Ваши комментарии под постом </h1>
+
+    <div class="W_ProfilePostsCards">
+        <% @comments.each do |comment| %>
+        <%
+likes_count = comment.likes.count
+dislikes_count = comment.dislikes.count
+
+if current_user.present? 
+  user_liked = comment.likes.exists?(user_id: current_user.id)
+  user_disliked = comment.dislikes.exists?(user_id: current_user.id)
+else
+  user_liked = false
+  user_disliked = false
+end
+%>
+        <div class="M_CommentCard">
+            <div class="M_UserCard">
+                <% if comment.user.profile.avatar.present? %>
+                <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" %>
+                <% end %>
+                <div class="UserTitle">
+                    <h5><%= comment.user.profile.name %></h5>
+                    <div style="display:flex; justify-content:space-between">
+                        <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
+                        <p class="small"> <%= comment.created_at.strftime("%d.%m.%Y") %> </p>
+                    </div>
+                    <p><%= comment.content %></p>
+                    <div class="CommentFeedback">
+                        <div>
+                            <%= link_to like_comment_path(comment), class: "Q_HandLike #{'active' if user_liked}" do %>
+                            <% end %>
+                            <span class="like-count"><%= comment.likes.count %></span>
+                        </div>
+                        <div>
+                            <%= link_to dislike_comment_path(comment), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
+                            <% end %>
+                            <span class="dislike-count"><%= comment.dislikes.count %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+    <h1>Ваши отзывы </h1>
+    <div class="W_ReviewBlock">
+        <div class="C_ReviewStars" style="align-items:flex-start;margin-top:0px">
+            <% @reviews.each do |review| %>
+            <%= render partial: "reviewcard", locals: { review: review } %>
+            <%end%>
+        </div>
+    </div>
+</div>
+</div>

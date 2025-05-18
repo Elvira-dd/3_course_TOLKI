@@ -27,8 +27,8 @@
             <%= button_to destroy_user_session_path, method: :delete, class: "A_Button SecondaryMedium white" do %>
             <h5> Выйти </h5>
             <% end %>
-            <div class="Q_Icon setting">
-            </div>
+            <%= link_to edit_profile_path(@user.id), class: "Q_Icon setting" do %>
+            <% end %>
         </div>
     </div>
 

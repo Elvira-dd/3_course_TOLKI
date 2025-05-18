@@ -180,13 +180,6 @@
             </div>
             <div class="W_FeedbackBlock">
                 <h2> Отзывы слушателей </h2>
-                <div class="C_Feedbacks">
-                    <% if current_user.present? %>
-                    <div class="W_FeedbackCard">
-                        <%= render "reviews/form" %>
-                    </div>
-                    <% end %>
-                </div>
                 <div class="W_ReviewCards">
                     <% @reviews.each do |review| %>
                     <% if review.content.present? %>
@@ -194,30 +187,48 @@
                     <% end %> <% end %>
                 </div>
             </div>
-            <div class="W_SamePodcasts">
-                <h2> Похожее </h2>
-                <div class="C_PodcastsSame">
-                    <% @same_podcasts.each do |podcast| %>
-                    <%= render partial: "podcastcard", locals: { podcast: podcast } %>
-                    <% end%>
+            <div class="Feed_Add">
+                <div class="1Column">
+                    <div class="C_Feedbacks">
+                        <% if current_user.present? %>
+                        <div class="W_FeedbackCard">
+                            <%= render "reviews/form" %>
+                        </div>
+                        <% end %>
+                    </div>
+
+                    <div class="W_SamePodcasts">
+                        <h2> Похожее </h2>
+                        <div class="C_PodcastsSame">
+                            <% @same_podcasts.each do |podcast| %>
+                            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+                            <% end%>
+                        </div>
+                    </div>
+                    <!-- Секция постов -->
+                    <div class="O_LentaPosts">
+                        <div class="W_DiscussFeed">
+
+                            <h2>Лента авторов</h2>
+                            <div class="C_Discuss">
+                                <% @content_items.each do |item| %>
+                                <% if item.is_a?(Issue) %>
+                                <%= render partial: "showissuecard", locals: { issue: item } %>
+                                <% elsif item.is_a?(Post) %>
+                                <%= render partial: "postcard", locals: { post: item } %>
+                                <% end %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            <!-- Секция постов -->
-            <div class="O_LentaPosts">
-                <div class="W_DiscussFeed">
-                    <h2>Лента авторов</h2>
-                    <div class="C_Discuss">
-                        <% @content_items.each do |item| %>
-                        <% if item.is_a?(Issue) %>
-                        <%= render partial: "showissuecard", locals: { issue: item } %>
-                        <% elsif item.is_a?(Post) %>
-                        <%= render partial: "postcard", locals: { post: item } %>
-                        <% end %>
-                        <% end %>
+
+                <div class="2Column">
+                    <div class="AdvertBlock">
                     </div>
                 </div>
             </div>
-            <p>Контент для "ВСЕ"</p>
         </div>
         <div class="toggle-content hidden" data-id="new">
             <div class="C_AllIssues">
@@ -236,6 +247,9 @@
             <p>Контент для "ПОДБОРКИ"</p>
         </div>
     </div>
+
+</div>
+
 </div>
 <%= javascript_tag do %>
 $(document).ready(function() {

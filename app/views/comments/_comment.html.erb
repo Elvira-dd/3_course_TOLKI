@@ -39,7 +39,7 @@ end
             <% if user_signed_in? %>
             <div class="M_CommentForm">
                 <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
-                <%= render 'comments/form', commentable: @issue, comment: Comment.new %>
+                <%= render 'comments/form', commentable: commentable, comment: Comment.new %>
             </div>
             <% end %>
             <% if comment.replies.any? %>

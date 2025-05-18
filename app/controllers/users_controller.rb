@@ -12,5 +12,10 @@ class UsersController < ApplicationController
 
   def show
     @users = Profile.where.not(user: current_user)
+    @user = User.find(params[:id])
+ @comments = @user.comments.where(comment_id: nil)
+    @reviews = @user.reviews
+
+  @days_in_app = (Date.today - @user.created_at.to_date).to_i
   end
 end

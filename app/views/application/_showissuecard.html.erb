@@ -15,7 +15,9 @@ end
         <div class="M_UserCard">
             <div class="UserInfo">
                 <%= image_tag issue.podcast.cover, alt: issue.podcast.name, class: "UserAvatar" if issue.podcast.cover.present? %>
+                <%= link_to podcast_path(issue.podcast) do %>
                 <h3>Подкаст «<%= issue.podcast.name %>»</h3>
+                <% end%>
             </div>
             <div class="W_IssueInfo_Podcast">
                 <% if issue.created_at %>
@@ -75,10 +77,12 @@ end
                 <% end %>
                 <div class="UserTitle">
                     <div style="display:flex; justify-content:space-between; align-items: center">
+                        <%= link_to user_path(comment.user) do %>
                         <div>
                             <h5><%= comment.user.profile.name %></h5>
                             <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
                         </div>
+                        <%end%>
                         <div style="display:flex; justify-content:space-between">
                             <p class="gray"><%= I18n.l(comment.created_at, format: "%d %B") %></p>
                         </div>

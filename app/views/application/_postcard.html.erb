@@ -2,7 +2,13 @@
 likes_count = post.likes.count
 dislikes_count = post.dislikes.count
 
-
+if current_user.present?
+  user_liked = post.likes.exists?(user_id: current_user.id)
+  user_disliked = post.dislikes.exists?(user_id: current_user.id)
+else
+  user_liked = false
+  user_disliked = false
+end
 %>
 
 <div class="O_PostFullCard_WithComments">
@@ -33,18 +39,21 @@ dislikes_count = post.dislikes.count
             <div class="Footer">
                 <div class="CommentFeedback">
                     <div>
-                        <%= link_to like_post_path(post), class: "like-button" do %>
-                        <%= image_tag "Q_HandLike.svg", alt: "Like", class: "like-icon" %>
+                        <%= link_to user_signed_in? ? like_post_path(post) : new_user_registration_path, 
+                        method: (user_signed_in? ? :post : :get), 
+                        class: "Q_HandLike #{'active' if user_liked}" do %>
                         <% end %>
                         <span class="like-count"><%= post.likes.count %></span>
                     </div>
                     <div>
-                        <%= link_to dislike_post_path(post), class: "dislike-button" do %>
-                        <%= image_tag "Q_HandLike.svg", alt: "Dislike", class: "Q_HandLike dislike" %>
+                        <%= link_to user_signed_in? ? dislike_post_path(post) : new_user_registration_path, 
+                        method: (user_signed_in? ? :post : :get), 
+                        class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
                         <% end %>
                         <span class="dislike-count"><%= post.dislikes.count %></span>
                     </div>
                 </div>
+
                 <%= link_to post_path(post) do %>
                 <div class="A_Button PrimaryMedium">
                     <h5>Перейти в обсуждение</h5>
@@ -64,10 +73,12 @@ dislikes_count = post.dislikes.count
                 <% end %>
                 <div class="UserTitle">
                     <div style="display:flex; justify-content:space-between; align-items: center">
+                        <%= link_to user_path(comment.user) do %>
                         <div>
                             <h5><%= comment.user.profile.name %></h5>
                             <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
                         </div>
+                        <%end%>
                         <div style="display:flex; justify-content:space-between">
                             <p class="gray"><%= I18n.l(comment.created_at, format: "%d %B") %></p>
                         </div>

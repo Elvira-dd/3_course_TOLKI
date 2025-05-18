@@ -284,3 +284,30 @@
   flex-direction: row;
   gap: 24px;
 }
+.W_SamePodcasts {
+  width: 64vw;
+  .C_PodcastsSame {
+    margin-top: 16px;
+    .M_PodcastCard {
+      .A_PodcastCover {
+        width: 15vw;
+        height: 15vw;
+      }
+    }
+  }
+}
+.Feed_Add {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.AdvertBlock {
+  position: sticky;
+  top: 50px;
+}
+.W_BackLink {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+}

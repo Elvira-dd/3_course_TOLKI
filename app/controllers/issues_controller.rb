@@ -50,7 +50,7 @@ end
   # GET /issues/1 or /issues/1.json
   def show
     @issue = Issue.find_by(id: params[:id])  
-    @favorited_issues = current_user&.favorite_podcasts&.pluck(:id) || []
+    @favorited_issues = current_user.favorite_podcasts.pluck(:id) if user_signed_in?
 
   if @issue.nil?
     Rails.logger.error "Issue with ID #{params[:id]} not found"

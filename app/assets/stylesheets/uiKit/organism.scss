@@ -164,6 +164,9 @@ h2 + .C_Discuss {
 }
 .O_PostPage {
   width: 70vw;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   .PodcastPagePosts {
     margin-top: 0;
   }
@@ -191,6 +194,9 @@ h2 + .C_Discuss {
 }
 
 .O_IssuePage {
+  .W_BackLink {
+    margin-bottom: 32px;
+  }
   .PodcastCover {
     width: 100px;
     height: 100px;
@@ -211,9 +217,9 @@ h2 + .C_Discuss {
 }
 
 .O_ReviewForm {
-  width: 70vw;
+  width: 60vw;
   background-color: var(--four_gray);
-  padding: 24px;
+  padding: 2vw;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -241,7 +247,7 @@ h2 + .C_Discuss {
     background-color: var(--three_gray);
     border: 0;
     border-radius: 8px;
-    width: 68vw;
+    width: 58vw;
     height: 140px;
     resize: none;
     color: var((--first_gray));

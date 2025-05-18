@@ -20,46 +20,48 @@ end
 %>
 
 <div class="O_PostPage">
-    <!-- Блок заголовка подкаста -->
+    <%= link_to :back do %>
+    <div class="W_BackLink">
+        <div class="Q_Arrow backWhite">
+        </div>
+        <h5> К подкасту </h5>
+    </div>
+    <%end%>
     <%= link_to podcast_path(@post.podcast) do %>
     <div class="M_IssueTitle">
-
         <div>
             <%= image_tag @post.podcast.cover, alt: @post.podcast.cover, class: "PodcastCover" if @post.podcast.cover.present? %>
             <h3> Подкаст «<%= @post.podcast.name%>»</h3>
         </div>
         <p><%= @post.created_at.strftime("%d.%m.%Y") %></p>
-
     </div>
     <%end%>
-
     <div class="M_IssueCard Main">
         <h1> <%= @post.title %></h1>
     </div>
-
-    <!-- Секция рецензий -->
-    <div class="PodcastPagePosts">
-        <div class="CommentFeedback">
-            <div>
-                <%= link_to like_post_path(@post), class: "Q_HandLike big #{'active' if user_liked}" do %>
-                <% end %>
-                <span class="like-count"><%= @post.likes.count %></span>
-            </div>
-            <div>
-                <%= link_to dislike_post_path(@post), class: "Q_HandLike big dislike #{'active' if user_disliked}" do %>
-                <% end %>
-                <span class="dislike-count"><%= @post.dislikes.count %></span>
-            </div>
+    <div class="CommentFeedback">
+        <div>
+            <%= link_to like_post_path(@post), class: "Q_HandLike big #{'active' if user_liked}" do %>
+            <% end %>
+            <span class="like-count"><%= @post.likes.count %></span>
         </div>
-        <div class="W_DiscussBlockPost">
-            <h1> <%= @post.comments.count %> комментариев </h1>
-            <div class="M_CommentForm">
-                <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
-                <%= render 'comments/form', commentable: @post, comment: Comment.new %>
-            </div>
-            <div class="W_CommentsBlock">
-                <%= render partial: "comments/comment", collection: @post.comments.not_replies, as: :comment, locals: { commentable: @post } %>
-            </div>
+        <div>
+            <%= link_to dislike_post_path(@post), class: "Q_HandLike big dislike #{'active' if user_disliked}" do %>
+            <% end %>
+            <span class="dislike-count"><%= @post.dislikes.count %></span>
+        </div>
+    </div>
+    <div class="W_DiscussBlockPost">
+        <h1> <%= @post.comments.count %> комментариев </h1>
+        <% if user_signed_in? %>
+        <div class="M_CommentForm">
+            <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+            <%= render 'comments/form', commentable: @commentable, comment: Comment.new %>
+        </div>
+        <% end %>
+        <div class="W_CommentsBlock">
+            <%= render partial: "comments/comment", collection: @post.comments.not_replies, as: :comment, locals: { commentable: @post } %>
+
         </div>
     </div>
 </div>

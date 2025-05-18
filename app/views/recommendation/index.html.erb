@@ -37,6 +37,7 @@
                         <h3>Популярные авторы</h3>
                         <div class="C_AuthorsSmallCards">
                             <% @popular_authors.each do |author| %>
+                            <%= link_to author_path(author) do %>
                             <div class="W_AuthorSmallCard">
                                 <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
                                 <div>
@@ -45,12 +46,14 @@
                                 </div>
                             </div>
                             <% end %>
+                            <% end %>
                         </div>
                     </div>
 
                     <div class="W_TitleWithSmallCard">
                         <h3>Самый обсуждаемый подкаст на сегодня</h3>
                         <div class="C_AuthorsSmallCards">
+                            <%= link_to podcast_path(@popular_podcast) do %>
                             <div class="W_AuthorSmallCard">
                                 <%= image_tag @popular_podcast.cover, alt: @popular_podcast.name, class: "AuthorsSmallCardsAvatar" %>
                                 <div>
@@ -66,7 +69,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <% end %>
                         </div>
+
                     </div>
                 </div>
             </div>

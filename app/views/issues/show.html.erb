@@ -3,8 +3,16 @@
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
 <div class="O_IssuePage">
+    <%= link_to :back do %>
+    <div class="W_BackLink">
+        <div class="Q_Arrow backWhite">
+        </div>
+        <h5> К подкасту </h5>
+    </div>
+    <%end%>
     <!-- Блок заголовка подкаста -->
     <div class="C_IssueTitle">
+
         <div class="M_IssueTitle">
             <%= link_to podcast_path(@issue.podcast) do %>
             <%= image_tag @issue.podcast.cover, alt: @issue.podcast.cover, class: "PodcastCover" if @issue.podcast.cover.present? %>
@@ -27,7 +35,7 @@
         </div>
         <div>
             <%= link_to toggle_favorite_issue_path(@issue.id, type: "Issue"), method: :get, class: "favorite-button" do %>
-            <div class="Q_Like <%= 'accent' if @favorited_issues.include?(@issue.id) %>">
+            <div class="Q_Like <%= 'accent' if @favorited_issues&.include?(@issue.id) %>">
             </div>
             <% end %>
             <div class="Q_Icon more">
@@ -186,3 +194,30 @@
         </div>
     </div>
 </div>
+
+
+<%= javascript_tag do %>
+$(document).ready(function() {
+/* Small card slider */
+$('.slider').slick({
+arrows: false,
+dots: false,
+infinite: true,
+initialSlide: 0,
+slidesToScroll: 1,
+slidesToShow: 3
+});
+
+const slider = $(".slider");
+var scrollCount = null;
+var scroll= null;
+
+slider.on('wheel', function(e) {
+e.preventDefault();
+
+clearTimeout(scroll);
+scroll = setTimeout(function(){scrollCount=0;}, 200);
+if(scrollCount) return 0;
+scrollCount=1;
+
+if (e.originalEvent.deltaY < 0) { $(this).slick('slickNext'); } else { $(this).slick('slickPrev'); } }); }); $(document).ready(function() { $('.slider').slick({ slidesToShow: 4, slidesToScroll: 1, infinite: true }); }); document.addEventListener('DOMContentLoaded', function () { const toggleButton=document.getElementById('toggle-button'); const extraWrapper=document.getElementById('extra-button-wrapper'); toggleButton.addEventListener('click', function () { if (extraWrapper.style.display==='none' ) { extraWrapper.style.display='inline-block' ; } else { extraWrapper.style.display='none' ; } }); }); <% end %>

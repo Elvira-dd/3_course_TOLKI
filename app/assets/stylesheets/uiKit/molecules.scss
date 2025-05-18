@@ -567,6 +567,14 @@
   }
 }
 .O_Favorite {
+  h1 + div {
+    margin-top: 32px;
+  }
+  div {
+    .W_ToggleList {
+      margin-bottom: 32px;
+    }
+  }
   .M_ChartCard {
     a {
       display: flex;
@@ -595,4 +603,11 @@
   text-overflow: ellipsis;
   max-width: 100%;
   display: block;
+}
+.AdvertBlock {
+  background-image: url('./IMG_Add.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 20vw;
+  height: 20vw;
 }
