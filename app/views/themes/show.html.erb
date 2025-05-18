@@ -2,15 +2,22 @@
   title: "Всякое на тему – #{@theme.name}",
   keywords: "Подкасты, Рецензии, Информация"
 ) %>
-<div class="W_ThemePageCover">
-    <div class="W_ThemeCover">
-        <%= image_tag @theme.cover %>
-        <h1> <%= @theme.name %></h1>
-    </div>
-    <p> <%= @theme.description %> </p>
-</div>
+<div class="O_ThemePage">
+    <%= link_to :back do %>
+    <div class="W_BackLink">
+        <div class="Q_Arrow backWhite">
+        </div>
 
-<div class="themePodcastsList">
+    </div>
+    <%end%>
+    <div class="W_ThemePageCover">
+        <div class="W_ThemeCover">
+            <%= image_tag @theme.cover %>
+            <h1> <%= @theme.name %></h1>
+        </div>
+        <p> <%= @theme.description %> </p>
+    </div>
+
     <% if @podcasts.any? %>
     <div class="C_ThemePodcastCards">
         <% @podcasts.each do |podcast| %>

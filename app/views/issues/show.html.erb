@@ -92,7 +92,6 @@
     <div class="W_ToggleList">
         <h3 class="toggle-button active" data-id="all">ВСЕ</h3>
         <h3 class="toggle-button" data-id="new">РЕЙТИНГ</h3>
-        <h3 class="toggle-button" data-id="chart">ОТЗЫВЫ</h3>
         <h3 class="toggle-button" data-id="selections">ОБСУЖДЕНИЯ</h3>
     </div>
     <div class="W_Content">
@@ -162,37 +161,123 @@
                     </div>
                 </div>
                 <!--ОБСУЖДЕНИЕ -->
-                <div class="W_DiscussBlockPost">
-                    <h2>Обсуждение</h2>
-                    <div>
+
+                <div class="Feed_Add">
+                    <div class="Column1">
+                        <h2>Обсуждение</h2>
                         <div>
-                            <% if user_signed_in? %>
-                            <div class="M_CommentForm">
-                                <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
-                                <%= render 'comments/form', commentable: @issue, comment: Comment.new %>
-                            </div>
-                            <% end %>
-                            <div class="W_CommentsBlock">
-                                <ul>
-                                    <%= render partial: "comments/comment", collection: @issue.comments.not_replies, as: :comment, locals: { commentable: @issue } %>
-                                </ul>
+                            <div>
+                                <% if user_signed_in? %>
+                                <div class="M_CommentForm">
+                                    <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+                                    <%= render 'comments/form', commentable: @issue, comment: Comment.new %>
+                                </div>
+                                <% end %>
+                                <div class="W_CommentsBlock">
+                                    <ul>
+                                        <%= render partial: "comments/comment", collection: @issue.comments.not_replies, as: :comment, locals: { commentable: @issue } %>
+                                    </ul>
+                                </div>
                             </div>
 
                         </div>
                     </div>
+                    <div class="Column2">
+                        <%= link_to "https://t.me/tolki_hse" do %>
+                        <div class="AdvertBlock">
+                        </div>
+                        <% end %>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="toggle-content hidden" data-id="new">
-            <p>Контент для "НОВОЕ"</p>
+    </div>
+    <div class="toggle-content hidden" data-id="new">
+        <div class="W_ReviewBlock">
+            <h2> Рейтинг подкаста </h2>
+            <div class="C_ReviewStars">
+                <div class="Stars">
+                    <div class="Q_Icon star fill">
+                    </div>
+                    <div class="Q_Icon star fill">
+                    </div>
+                    <div class="Q_Icon star fill">
+                    </div>
+                    <div class="Q_Icon star fill">
+                    </div>
+                    <div class="Q_Icon star ">
+                    </div>
+                </div>
+                <h1 style="font-size: 55px; color: var(--accent_green)"> 4.6 </h1>
+                <p class="mini"> Оценили 20459 <br> пользователей </p>
+            </div>
+            <div class="C_ThemeReview">
+                <div class="W_ThemeCountCard">
+                    <h1 class="extra"> 76% </h1>
+                    <p> Интересная тема обсуждений</p>
+                </div>
+                <div class="W_ThemeCountCard">
+                    <h1 class="extra"> 46% </h1>
+                    <p> Глубокий анализ материала</p>
+                </div>
+                <div class="W_ThemeCountCard">
+                    <h1 class="extra"> 8% </h1>
+                    <p> Хорошая динамика беседы</p>
+                </div>
+                <div class="W_ThemeCountCard">
+                    <h1 class="extra"> 40% </h1>
+                    <p> Доступность <br>
+                        и понятность</p>
+                </div>
+                <div class="W_ThemeCountCard">
+                    <h1 class="extra"> 79% </h1>
+                    <p> Оригинальность <br>
+                        и инсайды</p>
+                </div>
+                <div class="W_ThemeCountCard">
+                    <h1 class="extra"> 46% </h1>
+                    <p> Структура повествования</p>
+                </div>
+            </div>
+            <div class="A_Button Primary" style="width:auto; justify-content:center; margin-top:32px">
+                <h3>Оценить подкаст </h3>
+            </div>
+
         </div>
-        <div class="toggle-content hidden" data-id="chart">
-            <p>Контент для "ЧАРТ"</p>
-        </div>
-        <div class="toggle-content hidden" data-id="selections">
-            <p>Контент для "ПОДБОРКИ"</p>
+        <div class="W_FeedbackBlock">
+            <h2> Отзывы слушателей </h2>
+            <div class="C_Feedbacks">
+                <div class="W_ReviewCards">
+                    <% @reviews.each do |review| %>
+                    <% if review.content.present? %>
+                    <%= render partial: "reviewcard", locals: { review: review } %>
+                    <% end %> <% end %>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="toggle-content hidden" data-id="selections">
+        <div class="W_DiscussBlockPost">
+            <h2>Обсуждение</h2>
+            <div>
+                <div>
+                    <% if user_signed_in? %>
+                    <div class="M_CommentForm">
+                        <%= image_tag @user.profile.avatar, alt: @user.profile.name, class: "ProfileAvatarImage" if @user.profile.avatar.present? %>
+                        <%= render 'comments/form', commentable: @issue, comment: Comment.new %>
+                    </div>
+                    <% end %>
+                    <div class="W_CommentsBlock">
+                        <ul>
+                            <%= render partial: "comments/comment", collection: @issue.comments.not_replies, as: :comment, locals: { commentable: @issue } %>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 

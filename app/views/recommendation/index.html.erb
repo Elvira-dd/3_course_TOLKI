@@ -33,45 +33,47 @@
                     </div>
                 </div>
                 <div class="W_PopularFeed">
-                    <div class="W_TitleWithSmallCard">
-                        <h3>Популярные авторы</h3>
-                        <div class="C_AuthorsSmallCards">
-                            <% @popular_authors.each do |author| %>
-                            <%= link_to author_path(author) do %>
-                            <div class="W_AuthorSmallCard">
-                                <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
-                                <div>
-                                    <h4 style="font-weight: 500"><%= author.user.profile.name %></h4>
-                                    <p class="small">Знаток подкастов <%= author.user.profile.level %> уровня</p>
-                                </div>
-                            </div>
-                            <% end %>
-                            <% end %>
-                        </div>
-                    </div>
-
-                    <div class="W_TitleWithSmallCard">
-                        <h3>Самый обсуждаемый подкаст на сегодня</h3>
-                        <div class="C_AuthorsSmallCards">
-                            <%= link_to podcast_path(@popular_podcast) do %>
-                            <div class="W_AuthorSmallCard">
-                                <%= image_tag @popular_podcast.cover, alt: @popular_podcast.name, class: "AuthorsSmallCardsAvatar" %>
-                                <div>
-                                    <h4 style="font-weight: 500">Подкаст «<%= @popular_podcast.name %>»</h4>
-                                    <div class="PodcastThemes">
-                                        <% @popular_podcast.themes.each do |theme| %>
-                                        <%= link_to theme_path(theme) do %>
-                                        <div class="A_Tag mini">
-                                            <h5><%= theme.name %></h5>
-                                        </div>
-                                        <% end %>
-                                        <% end %>
+                    <div class="Sticky">
+                        <div class="W_TitleWithSmallCard">
+                            <h3>Популярные авторы</h3>
+                            <div class="C_AuthorsSmallCards">
+                                <% @popular_authors.each do |author| %>
+                                <%= link_to author_path(author) do %>
+                                <div class="W_AuthorSmallCard">
+                                    <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
+                                    <div>
+                                        <h4 style="font-weight: 500"><%= author.user.profile.name %></h4>
+                                        <p class="small">Знаток подкастов <%= author.user.profile.level %> уровня</p>
                                     </div>
                                 </div>
+                                <% end %>
+                                <% end %>
                             </div>
-                            <% end %>
                         </div>
 
+                        <div class="W_TitleWithSmallCard">
+                            <h3>Самый обсуждаемый подкаст на сегодня</h3>
+                            <div class="C_AuthorsSmallCards">
+                                <%= link_to podcast_path(@popular_podcast) do %>
+                                <div class="W_AuthorSmallCard">
+                                    <%= image_tag @popular_podcast.cover, alt: @popular_podcast.name, class: "AuthorsSmallCardsAvatar" %>
+                                    <div>
+                                        <h4 style="font-weight: 500">Подкаст «<%= @popular_podcast.name %>»</h4>
+                                        <div class="PodcastThemes">
+                                            <% @popular_podcast.themes.each do |theme| %>
+                                            <%= link_to theme_path(theme) do %>
+                                            <div class="A_Tag mini">
+                                                <h5><%= theme.name %></h5>
+                                            </div>
+                                            <% end %>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% end %>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,18 +101,21 @@
                 </div>
 
                 <div class="W_PopularFeed">
-                    <div class="W_TitleWithSmallCard">
-                        <h3>Интересные вам авторы</h3>
-                        <div class="C_AuthorsSmallCards">
-                            <% @subs_authors.each do |author| %>
-                            <div class="W_AuthorSmallCard">
-                                <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
-                                <div>
-                                    <h4 style="font-weight: 500"><%= author.user.profile.name %></h4>
-                                    <p class="small">Знаток подкастов <%= author.user.profile.level %> уровня</p>
+                    <div class="Sticky">
+                        <div class="W_TitleWithSmallCard">
+
+                            <h3>Интересные вам авторы</h3>
+                            <div class="C_AuthorsSmallCards">
+                                <% @subs_authors.each do |author| %>
+                                <div class="W_AuthorSmallCard">
+                                    <%= image_tag author.user.profile.avatar, alt: author.user.profile.name, class: "AuthorsSmallCardsAvatar" %>
+                                    <div>
+                                        <h4 style="font-weight: 500"><%= author.user.profile.name %></h4>
+                                        <p class="small">Знаток подкастов <%= author.user.profile.level %> уровня</p>
+                                    </div>
                                 </div>
+                                <% end %>
                             </div>
-                            <% end %>
                         </div>
                     </div>
                 </div>

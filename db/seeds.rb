@@ -159,29 +159,53 @@ def create_issues_and_posts(quantity)
     end
   end
 end
-def create_reviews(quantity)
-  users = User.all
-  podcasts = Podcast.all
-  tag_options = ["Интересная тема обсуждений", "Хорошая динамика беседы", "Глубокий анализ материала", "Структура повествования", "Оригинальность, инсайды", "Доступность, понятность"]
+def create_reviews(total_quantity)
+  users = User.all.to_a
+  podcasts = Podcast.all.to_a
+  tag_options = [
+    "Интересная тема обсуждений",
+    "Хорошая динамика беседы",
+    "Глубокий анализ материала",
+    "Структура повествования",
+    "Оригинальность, инсайды",
+    "Доступность, понятность"
+  ]
 
   return if users.empty? || podcasts.empty?
 
-  quantity.times do
+  # Сначала гарантируем минимум 3 отзыва на каждый подкаст
+  podcasts.each do |podcast|
+    existing_count = podcast.reviews.count
+    missing_count = [0, 3 - existing_count].max
+
+    missing_count.times do
+      user = users.sample
+      create_review_for(user, podcast, tag_options)
+    end
+  end
+
+  # Затем добавляем дополнительные случайные отзывы (если total_quantity больше)
+  remaining = total_quantity - (podcasts.count * 3)
+  remaining.times do
     user = users.sample
     podcast = podcasts.sample
-    rating = rand(1..5) # Оценки от 1 до 5
-    tags = tag_options.sample(rand(1..3)) # Случайное количество тегов
+    create_review_for(user, podcast, tag_options)
+  end if remaining > 0
+end
 
-    review = Review.create!(
-      user: user,
-      podcast: podcast,
-      rating: rating,
-      content: create_content,
-      tags: tags
-    )
-    
-    puts "Review with id #{review.id} created by User #{user.id} for Podcast #{podcast.id} with rating #{rating}"
-  end
+def create_review_for(user, podcast, tag_options)
+  rating = rand(1..5)
+  tags = tag_options.sample(rand(1..3))
+
+  review = Review.create!(
+    user: user,
+    podcast: podcast,
+    rating: rating,
+    content: create_content,
+    tags: tags
+  )
+
+  puts "Review #{review.id} created by User #{user.id} for Podcast #{podcast.id} (Rating: #{rating})"
 end
 
 def create_comments(quantity)

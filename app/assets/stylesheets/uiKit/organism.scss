@@ -92,6 +92,15 @@
   }
 }
 .O_Profile {
+  .C_ReviewProfile {
+    column-count: 3;
+    column-gap: 24px;
+  }
+  .M_ReviewCard {
+    break-inside: avoid;
+    margin-bottom: 24px;
+    width: 25vw;
+  }
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -113,6 +122,12 @@
     color: var(--first_gray);
   }
 }
+.Column1 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 64vw;
+}
 .O_LentaPosts {
   color: var(--first_gray);
   display: flex;
@@ -127,8 +142,14 @@
     }
   }
   .W_PopularFeed {
+    position: sticky;
+    top: 100px;
     width: 22vw;
   }
+}
+.Sticky {
+  position: sticky;
+  top: 50px;
 }
 h2 + .C_Discuss {
   margin-top: 24px;
@@ -210,9 +231,6 @@ h2 + .C_Discuss {
   .W_ToggleList {
     margin-top: 10vh;
     justify-content: flex-start;
-  }
-  .W_DiscussBlockPost {
-    width: 70vw;
   }
 }
 
@@ -329,5 +347,13 @@ h2 + .C_Discuss {
   background-color: var(--accent_green);
   h5 {
     color: var(--bg_black);
+  }
+}
+.O_ThemePage {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  .C_ThemePodcastCards {
+    margin-top: 20px;
   }
 }

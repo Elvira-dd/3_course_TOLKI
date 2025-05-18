@@ -483,6 +483,7 @@
   flex-direction: row;
   align-items: center;
   gap: 18px;
+  margin-top: 10px;
   form {
     width: 100%;
     display: flex;
@@ -567,6 +568,22 @@
   }
 }
 .O_Favorite {
+  .W_FavoriteBg {
+    background-image: url('./Fav_BG.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 84vw;
+    height: 24vh;
+    border-radius: 16px;
+    padding: 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    h1 {
+      color: var(--accent_green);
+    }
+    margin-bottom: 40px;
+  }
   h1 + div {
     margin-top: 32px;
   }

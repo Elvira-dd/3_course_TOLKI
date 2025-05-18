@@ -188,14 +188,14 @@
                 </div>
             </div>
             <div class="Feed_Add">
-                <div class="1Column">
+                <div class="Column1">
+                    <% if current_user.present? %>
                     <div class="C_Feedbacks">
-                        <% if current_user.present? %>
                         <div class="W_FeedbackCard">
                             <%= render "reviews/form" %>
                         </div>
-                        <% end %>
                     </div>
+                    <% end %>
 
                     <div class="W_SamePodcasts">
                         <h2> Похожее </h2>
@@ -225,8 +225,10 @@
                 </div>
 
                 <div class="2Column">
+                    <%= link_to "https://t.me/tolki_hse" do %>
                     <div class="AdvertBlock">
                     </div>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -241,10 +243,50 @@
             </div>
         </div>
         <div class="toggle-content hidden" data-id="chart">
-            <p>Контент для "ЧАРТ"</p>
+            <div class="W_FeedbackBlock">
+                <h2> Отзывы слушателей </h2>
+                <div class="W_ReviewCards">
+                    <% @reviews.each do |review| %>
+                    <% if review.content.present? %>
+                    <%= render partial: "reviewcard", locals: { review: review } %>
+                    <% end %> <% end %>
+                </div>
+                <% if current_user.present? %>
+                <div class="C_Feedbacks">
+                    <div class="W_FeedbackCard">
+                        <%= render "reviews/form" %>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+
         </div>
         <div class="toggle-content hidden" data-id="selections">
-            <p>Контент для "ПОДБОРКИ"</p>
+            <div class="Feed_Add">
+                <div class="Column1">
+                    <div class="O_LentaPosts">
+                        <div class="W_DiscussFeed">
+
+                            <h2>Лента авторов</h2>
+                            <div class="C_Discuss">
+                                <% @content_items.each do |item| %>
+                                <% if item.is_a?(Issue) %>
+                                <%= render partial: "showissuecard", locals: { issue: item } %>
+                                <% elsif item.is_a?(Post) %>
+                                <%= render partial: "postcard", locals: { post: item } %>
+                                <% end %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Column2">
+                    <%= link_to "https://t.me/tolki_hse" do %>
+                    <div class="AdvertBlock">
+                    </div>
+                    <% end %>
+                </div>
+            </div>
         </div>
     </div>
 

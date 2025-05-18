@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @reviews = @user.reviews
 
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
+  
   end
 
   def show

@@ -216,11 +216,9 @@
   cursor: pointer;
   font-size: 18px;
 }
-.toggle-content {
-  .Issue {
-    display: flex;
-    flex-direction: column;
-    gap: 8vh;
-    margin-top: 8vh;
-  }
+.Issue {
+  display: flex;
+  flex-direction: column;
+  gap: 8vh;
+  margin-top: 40px;
 }

@@ -35,10 +35,12 @@
     <div class="W_ProfilePlaylistBlock">
         <h1>Плейлист </h1>
         <div class="C_ProfilePlaylist">
+            <%= link_to playlist_path(1)do %>
             <div class="M_PlaylistCard">
                 <%= image_tag "PlayListTestCover.png", alt: "ALT", class: "PlaylistCover" %>
                 <p>Подкасты с селебами</p>
             </div>
+            <%end%>
             <div class="M_PlaylistCard">
                 <%= image_tag "PlayListTestCover.png", alt: "ALT", class: "PlaylistCover" %>
                 <p>Создать романтическое настроение</p>
@@ -58,17 +60,14 @@
         </div>
     </div>
     <div class="W_ToggleList">
-        <h3 class="toggle-button active" data-id="all">ВСЕ</h3>
-        <h3 class="toggle-button" data-id="new">КОММЕНТАРИИ</h3>
-        <h3 class="toggle-button" data-id="chart">ОТЗЫВЫ</h3>
-        <h3 class="toggle-button" data-id="selections">ЛАЙКИ</h3>
+        <h3 class="toggle-button active" data-id="comm">КОММЕНТАРИИ</h3>
+        <h3 class="toggle-button" data-id="review">ОТЗЫВЫ</h3>
     </div>
 
-    <h1>Ваши комментарии под постом </h1>
-
-    <div class="W_ProfilePostsCards">
-        <% @comments.each do |comment| %>
-        <%
+    <div class="toggle-content" data-id="comm">
+        <div class="W_ProfilePostsCards">
+            <% @comments.each do |comment| %>
+            <%
 likes_count = comment.likes.count
 dislikes_count = comment.dislikes.count
 
@@ -80,41 +79,45 @@ else
   user_disliked = false
 end
 %>
-        <div class="M_CommentCard">
-            <div class="M_UserCard">
-                <% if comment.user.profile.avatar.present? %>
-                <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" %>
-                <% end %>
-                <div class="UserTitle">
-                    <h5><%= comment.user.profile.name %></h5>
-                    <div style="display:flex; justify-content:space-between">
-                        <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
-                        <p class="small"> <%= comment.created_at.strftime("%d.%m.%Y") %> </p>
-                    </div>
-                    <p><%= comment.content %></p>
-                    <div class="CommentFeedback">
-                        <div>
-                            <%= link_to like_comment_path(comment), class: "Q_HandLike #{'active' if user_liked}" do %>
-                            <% end %>
-                            <span class="like-count"><%= comment.likes.count %></span>
+            <div class="M_CommentCard">
+                <div class="M_UserCard">
+                    <% if comment.user.profile.avatar.present? %>
+                    <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" %>
+                    <% end %>
+                    <div class="UserTitle">
+                        <h5><%= comment.user.profile.name %></h5>
+                        <div style="display:flex; justify-content:space-between">
+                            <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
+                            <p class="small"> <%= comment.created_at.strftime("%d.%m.%Y") %> </p>
                         </div>
-                        <div>
-                            <%= link_to dislike_comment_path(comment), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
-                            <% end %>
-                            <span class="dislike-count"><%= comment.dislikes.count %></span>
+                        <p><%= comment.content %></p>
+                        <div class="CommentFeedback">
+                            <div>
+                                <%= link_to like_comment_path(comment), class: "Q_HandLike #{'active' if user_liked}" do %>
+                                <% end %>
+                                <span class="like-count"><%= comment.likes.count %></span>
+                            </div>
+                            <div>
+                                <%= link_to dislike_comment_path(comment), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
+                                <% end %>
+                                <span class="dislike-count"><%= comment.dislikes.count %></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <% end %>
-    </div>
-    <h1>Ваши отзывы </h1>
-    <div class="W_ReviewBlock">
-        <div class="C_ReviewStars" style="align-items:flex-start;margin-top:0px">
-            <% @reviews.each do |review| %>
-            <%= render partial: "reviewcard", locals: { review: review } %>
-            <%end%>
+            <% end %>
         </div>
     </div>
+    <div class="toggle-content" data-id="review">
+        <div class="W_ReviewBlock">
+            <div class="C_ReviewProfile">
+                <% @reviews.each do |review| %>
+                <%= render partial: "reviewcard", locals: { review: review } %>
+                <%end%>
+            </div>
+        </div>
+    </div>
+
+
 </div>

@@ -311,3 +311,20 @@
   gap: 12px;
   align-items: center;
 }
+.W_FeedbackBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 60px;
+  .W_ReviewCards {
+    margin-top: 0px;
+  }
+}
+.toggle-content {
+  + div {
+    margin-top: 40px;
+    .Column2 {
+      margin-top: 60px;
+    }
+  }
+}
