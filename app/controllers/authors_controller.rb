@@ -9,8 +9,9 @@ class AuthorsController < ApplicationController
   # GET /authors/1 or /authors/1.json
   def show
     @author = Author.find(params[:id])
-    @podcasts = @author.podcasts
+    @podcasts = @author.podcasts.limit(5)
     @user = @author.user
+    @playlists = @user.playlists.limit(5)
      @comments = @user.comments.where(comment_id: nil)
     @reviews = @user.reviews
       @days_in_app = (Date.today - @user.created_at.to_date).to_i
@@ -52,7 +53,19 @@ class AuthorsController < ApplicationController
       end
     end
   end
+def add_issue
+  @playlist = Playlist.find(params[:playlist_id])
+  issue = Issue.find(params[:issue_id])
 
+  if @playlist.user == current_user && !@playlist.issues.include?(issue)
+    @playlist.issues << issue
+    flash[:notice] = "Выпуск добавлен"
+  else
+    flash[:alert] = "Ошибка при добавлении"
+  end
+
+  redirect_to playlist_path(@playlist)
+end
   # DELETE /authors/1 or /authors/1.json
   def destroy
     @author.destroy!

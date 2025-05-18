@@ -7,6 +7,8 @@ class PlaylistsController < ApplicationController
     end
   
     def show
+       @playlist = Playlist.find_by(id: params[:id])  
+       
     end
   
     def new
@@ -61,7 +63,7 @@ class PlaylistsController < ApplicationController
     private
   
     def set_playlist
-      @playlist = current_user.playlists.find(params[:id])
+  @playlist = Playlist.find(params[:id])
     end
   
     def playlist_params

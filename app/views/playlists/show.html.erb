@@ -2,46 +2,62 @@
   title: "Плейлист «#{@playlist.name}» пользователя #{@playlist.user.profile.name} ",
 keywords: "Подкасты, Рецензии, Информация"
 ) %>
-<h1><%= @playlist.name %></h1>
 
-<p>Владелец: <%= @playlist.user.email %></p>
+<div class="W_FavoriteBg" style="background-image: url('<%= asset_path("theme_cover/#{@playlist.cover}.png") %>');">
+    <h1><%= @playlist.name %></h1>
+</div>
 
-<h2>Выпуски в плейлисте</h2>
-<ul>
-    <% @playlist.issues.each do |issue| %>
-    <li>
-        <%= link_to issue.name, issue_path(issue) %>
-        (<%= link_to "Удалить", remove_issue_playlist_path(@playlist, issue_id: issue.id), method: :delete, data: { confirm: "Удалить выпуск?" } %>)
-    </li>
+
+<div class="M_UserCard" style="justify-content: flex-start; gap: 12px">
+    <% if @playlist.user.profile.avatar.present? %>
+    <%= image_tag @playlist.user.profile.avatar, alt: @playlist.user.profile.name, class: "UserAvatar" %>
     <% end %>
-</ul>
+    <div class="C_PLaylisttTitle">
+        <div style="display:flex; gap:2px; flex-direction:column">
+            <h4><%= @playlist.user.profile.name %></h4>
+            <p class="small"> знаток подкастов <%= @playlist.user.profile.level %> уровня </p>
+        </div>
+    </div>
+</div>
 
+<div class="C_ChartList">
+    <% @playlist.issues.each_with_index do |issue, index| %>
+    <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+    <% end %>
+</div>
+
+<% if @playlist.user == current_user %>
 <h2>Добавить выпуск</h2>
-<ul>
-    <% Issue.where.not(id: @playlist.issues.ids).each do |issue| %>
-    <li>
-        <%= link_to issue.name, add_issue_playlist_path(@playlist, issue_id: issue.id), method: :post %>
-    </li>
-    <% end %>
-</ul>
+
+<div>
+    <%= select_tag :issue_id, 
+          options_from_collection_for_select(Issue.where.not(id: @playlist.issues.ids), :id, :name),
+          prompt: "Выберите выпуск",
+          id: "issue_select" %>
+</div>
+
+<div>
+    <%= button_tag "Добавить", type: "button", id: "add_issue_button", data: { 
+  playlist_id: @playlist.id,
+  add_issue_url: add_issue_playlist_path(@playlist.id, issue_id: 'ISSUE_ID_PLACEHOLDER')
+} %>
+</div>
 
 <%= javascript_tag do %>
-document.addEventListener("DOMContentLoaded", function() {
-// Получаем все кнопки для добавления выпуска в плейлист
-document.querySelectorAll('.add-to-playlist-button').forEach(button => {
-button.addEventListener('click', function() {
-const playlistId = this.dataset.playlistId;
-const issueId = this.dataset.issueId;
+document.addEventListener("DOMContentLoaded", function () {
+const button = document.getElementById("add_issue_button");
+const select = document.getElementById("issue_select");
 
-// Отправляем запрос для добавления выпуска в плейлист
-fetch(`/playlists/${playlistId}/add_issue/${issueId}`, {
-method: "POST", // Используем POST
-headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content }
-})
-.then(response => response.json())
-.then(data => alert(data.message || "Добавлено в плейлист!"))
-.catch(error => console.error("Ошибка:", error));
+button.addEventListener("click", function () {
+const issueId = select.value;
+if (issueId) {
+let url = this.dataset.addIssueUrl.replace("ISSUE_ID_PLACEHOLDER", issueId);
+window.location.href = url;
+} else {
+alert("Выберите выпуск!");
+}
 });
 });
-});
+
+<% end %>
 <% end %>

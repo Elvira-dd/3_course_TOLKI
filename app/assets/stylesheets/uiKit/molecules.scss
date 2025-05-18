@@ -553,7 +553,7 @@
   .C_ProfilePlaylist {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 24px;
     .M_PlaylistCard {
       width: 16vw;
       display: flex;
@@ -567,23 +567,23 @@
     }
   }
 }
-.O_Favorite {
-  .W_FavoriteBg {
-    background-image: url('./Fav_BG.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 84vw;
-    height: 24vh;
-    border-radius: 16px;
-    padding: 2vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    h1 {
-      color: var(--accent_green);
-    }
-    margin-bottom: 40px;
+.W_FavoriteBg {
+  background-image: url('./Fav_BG.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 84vw;
+  height: 24vh;
+  border-radius: 16px;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  h1 {
+    color: var(--accent_green);
   }
+  margin-bottom: 40px;
+}
+.O_Favorite {
   h1 + div {
     margin-top: 32px;
   }
@@ -627,4 +627,9 @@
   background-size: contain;
   width: 20vw;
   height: 20vw;
+}
+
+.PlaylistCover {
+  object-fit: cover;
+  object-position: 76%;
 }

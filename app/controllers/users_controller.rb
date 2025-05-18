@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @reviews = @user.reviews
 
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
-  
+  @playlists = @user.playlists.limit(4)
   end
 
   def show
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
  @comments = @user.comments.where(comment_id: nil)
     @reviews = @user.reviews
-
+@playlists = @user.playlists.limit(4)
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
   end
 end

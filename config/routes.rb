@@ -69,7 +69,7 @@ Rails.application.routes.draw do
 
   resources :playlists do
     member do
-      get 'add_issue/:issue_id', to: 'playlists#add_issue', as: :add_issue
+    get 'add_issue/:issue_id', to: 'playlists#add_issue', as: :add_issue
       get 'remove_issue/:issue_id', to: 'playlists#remove_issue', as: :remove_issue
     end
   end

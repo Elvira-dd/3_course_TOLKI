@@ -60,6 +60,7 @@ def seed
   create_themes_and_assign_to_podcasts(20)
   create_comments(1..3)
   create_reviews(50)
+  create_playlists_with_items(40)
 
   3.times { create_comment_replies }
 end
@@ -244,6 +245,35 @@ def create_themes_and_assign_to_podcasts(theme_count)
   Podcast.all.each do |podcast|
     podcast.themes = themes.sample(rand(1..3))
     puts "Assigned themes to podcast with id #{podcast.id}"
+  end
+end
+
+def create_playlists_with_items(quantity)
+  users = User.all
+  issues = Issue.all
+  cover_options = ["theme_cover_1", "theme_cover_2"]
+
+  return if users.empty? || issues.empty?
+
+  quantity.times do
+    user = users.sample
+    playlist = Playlist.create!(
+      user: user,
+      name: "Плейлист пользователя #{user.id} ##{SecureRandom.hex(2)}",
+      cover: cover_options.sample # случайная обложка
+    )
+
+    issue_count = rand(2..10)
+    selected_issues = issues.sample(issue_count)
+
+    selected_issues.each do |issue|
+      PlaylistItem.create!(
+        playlist: playlist,
+        issue: issue
+      )
+    end
+
+    puts "Playlist #{playlist.id} created for User #{user.id} with #{issue_count} issues and cover #{playlist.cover}."
   end
 end
 
