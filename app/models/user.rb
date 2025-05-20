@@ -19,9 +19,8 @@ class User < ApplicationRecord
   after_create :create_profile_and_author
   
   def jwt_payload
-  super.merge({ scope: 'user' })
+  super.merge({ sub: id, scope: 'user' })  # ← добавляем sub
 end
-
   private
 
   def create_profile_and_author

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
      
   
       devise_scope :user do 
+        post 'comments', to: 'sessions#create_comment'
         post "sign_up", to: "registrations#create"
         post "sign_in", to: "sessions#create"
         post "sign_out", to: "sessions#destroy"

@@ -2,6 +2,19 @@ require_relative "boot"
 
 require "rails/all"
 
+# config/application.rb
+require 'warden'
+require_relative "../lib/middleware/jwt_auth_middleware" # обязательно!
+
+module Tolki
+  class Application < Rails::Application
+    config.load_defaults 7.2
+
+    # Здесь ты указываешь кастомный middleware ДО warden
+
+  end
+end
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

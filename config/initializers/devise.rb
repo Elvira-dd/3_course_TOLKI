@@ -305,15 +305,16 @@ Devise.setup do |config|
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
 config.jwt do |jwt|
- jwt.secret = Rails.application.credentials[:devise_jwt_secret_key] || ENV['DEVISE_JWT_SECRET_KEY']
+  jwt.secret = Rails.application.credentials[:devise_jwt_secret_key] || ENV['DEVISE_JWT_SECRET_KEY']
   jwt.dispatch_requests = [
-    ['POST', %r{^/users/sign_in$}]
+    ['POST', %r{^/api/v1/sign_in$}]
   ]
   jwt.revocation_requests = [
-    ['DELETE', %r{^/users/sign_out$}]
+    ['POST', %r{^/api/v1/sign_out$}]
   ]
+  # УБРАТЬ ЭТУ СТРОКУ:
   jwt.request_formats = {
-    user: [:json] 
+    user: [:json]
   }
 end
   # ==> Configuration for :registerable

@@ -1,6 +1,5 @@
-class Api::V1::CommentsController < ApplicationController
+class Api::V1::CommentsController < Api::V1::BaseController
   before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token
 
   before_action :set_commentable, only: [:create, :destroy, :like]
   before_action :set_comment, only: %i[edit update destroy like]
@@ -85,24 +84,13 @@ class Api::V1::CommentsController < ApplicationController
 
   # Определяем, к какому объекту (Post или Issue) относится комментарий
   def set_commentable
-    return if %w[like dislike].include?(action_name) # Пропускаем для лайков и дизлайков
-  
-    if params[:issue_id].present?
-      @commentable = Issue.find_by(id: params[:issue_id])
-    elsif params[:comment].present? && params[:comment][:commentable_type].present? && params[:comment][:commentable_id].present?
-      begin
-        @commentable = params[:comment][:commentable_type].constantize.find_by(id: params[:comment][:commentable_id])
-      rescue NameError
-        Rails.logger.error "Invalid commentable_type: #{params[:comment][:commentable_type]}"
-        return head :unprocessable_entity
-      end
-    end
-  
-    unless @commentable
-      Rails.logger.warn "Commentable not found: #{params[:commentable_type]} with ID #{params[:commentable_id]}"
-      return head :not_found
-    end
-  end
+  type = params[:comment][:commentable_type]
+  id = params[:issue_id] || params[:comment][:commentable_id]
+
+  @commentable = type.constantize.find_by(id: id)
+
+  head :not_found unless @commentable
+end
 
   # Находим комментарий
   def set_comment
