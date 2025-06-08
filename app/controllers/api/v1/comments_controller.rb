@@ -4,6 +4,12 @@ class Api::V1::CommentsController < Api::V1::BaseController
   before_action :set_commentable, only: [:create, :destroy, :like]
   before_action :set_comment, only: %i[edit update destroy like]
 
+  def index
+  @comments = Comment.all
+
+  render :index  
+end
+
   # GET /comments/new
   def new
     @comment = Comment.find(params[:id])

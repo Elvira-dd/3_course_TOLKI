@@ -10,7 +10,8 @@ Rails.application.routes.draw do
 
   namespace :api, format: "json" do
     namespace :v1 do
-      
+      patch 'me', to: 'sessions#update_me'
+      resources :comments, only: [:index]
       resources :podcasts, only: [:index, :show] do
         resources :issues, only: [:index, :show] 
         resources :posts, only: [:index, :show] # Вложенные маршруты
@@ -24,9 +25,10 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show] do
         collection do
         get "me", to: 'users#me'
+        
         end
     end
-      resources :profiles, only: [:index, :show] 
+      resources :profiles, only: [:index, :show, :update] 
       
      
   
