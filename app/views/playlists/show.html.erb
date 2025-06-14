@@ -2,46 +2,58 @@
   title: "Плейлист «#{@playlist.name}» пользователя #{@playlist.user.profile.name} ",
 keywords: "Подкасты, Рецензии, Информация"
 ) %>
-
-<div class="W_FavoriteBg" style="background-image: url('<%= asset_path("theme_cover/#{@playlist.cover}.png") %>');">
-    <h1><%= @playlist.name %></h1>
-</div>
-
-
-<div class="M_UserCard" style="justify-content: flex-start; gap: 12px">
-    <% if @playlist.user.profile.avatar.present? %>
-    <%= image_tag @playlist.user.profile.avatar, alt: @playlist.user.profile.name, class: "UserAvatar" %>
-    <% end %>
-    <div class="C_PLaylisttTitle">
-        <div style="display:flex; gap:2px; flex-direction:column">
-            <h4><%= @playlist.user.profile.name %></h4>
-            <p class="small"> знаток подкастов <%= @playlist.user.profile.level %> уровня </p>
+<div class="O_PlaylistPage">
+    <%= link_to :back do %>
+    <div class="W_BackLink">
+        <div class="Q_Arrow backWhite">
         </div>
     </div>
-</div>
+    <%end%>
+    <div class="W_FavoriteBg" style="background-image: url('<%= asset_path("theme_cover/#{@playlist.cover}.png") %>');">
+        <h1><%= @playlist.name %></h1>
+    </div>
 
-<div class="C_ChartList">
-    <% @playlist.issues.each_with_index do |issue, index| %>
-    <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
-    <% end %>
-</div>
 
-<% if @playlist.user == current_user %>
-<h2>Добавить выпуск</h2>
+    <div class="M_UserCard" style="justify-content: flex-start; gap: 12px">
+        <% if @playlist.user.profile.avatar.present? %>
+        <%= image_tag @playlist.user.profile.avatar, alt: @playlist.user.profile.name, class: "UserAvatar" %>
+        <% end %>
+        <div class="C_PLaylisttTitle">
+            <div style="display:flex; gap:2px; flex-direction:column">
+                <h4><%= @playlist.user.profile.name %></h4>
+                <p class="small"> знаток подкастов <%= @playlist.user.profile.level %> уровня </p>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <%= select_tag :issue_id, 
+    <% if @playlist.user == current_user %>
+    <div class="C_PlaylistAddBlock">
+        <div>
+            <%= select_tag :issue_id, 
           options_from_collection_for_select(Issue.where.not(id: @playlist.issues.ids), :id, :name),
-          prompt: "Выберите выпуск",
-          id: "issue_select" %>
-</div>
+          prompt: "Напиши название подкаста или выпуска или вставь ссылку",
+          id: "issue_select",
+          class: "InputContainer"%>
+        </div>
 
-<div>
-    <%= button_tag "Добавить", type: "button", id: "add_issue_button", data: { 
+        <div>
+            <%= button_tag "Добавить", type: "button", id: "add_issue_button", class: "A_Button Primary", data: { 
   playlist_id: @playlist.id,
   add_issue_url: add_issue_playlist_path(@playlist.id, issue_id: 'ISSUE_ID_PLACEHOLDER')
 } %>
+        </div>
+    </div>
+    <% end %>
+
+
+    <div class="C_ChartList">
+        <% @playlist.issues.each_with_index do |issue, index| %>
+        <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
+        <% end %>
+    </div>
+
 </div>
+
 
 <%= javascript_tag do %>
 document.addEventListener("DOMContentLoaded", function () {
@@ -59,5 +71,5 @@ alert("Выберите выпуск!");
 });
 });
 
-<% end %>
+
 <% end %>

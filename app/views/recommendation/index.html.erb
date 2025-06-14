@@ -54,13 +54,14 @@
                         <div class="W_TitleWithSmallCard">
                             <h3>Самый обсуждаемый подкаст на сегодня</h3>
                             <div class="C_AuthorsSmallCards">
-                                <%= link_to podcast_path(@popular_podcast) do %>
                                 <div class="W_AuthorSmallCard">
                                     <%= image_tag @popular_podcast.cover, alt: @popular_podcast.name, class: "AuthorsSmallCardsAvatar" %>
                                     <div>
+                                        <%= link_to podcast_path(@popular_podcast) do %>
                                         <h4 style="font-weight: 500">Подкаст «<%= @popular_podcast.name %>»</h4>
+                                        <% end %>
                                         <div class="PodcastThemes">
-                                            <% @popular_podcast.themes.each do |theme| %>
+                                            <% @popular_podcast.themes.first(2).each do |theme| %>
                                             <%= link_to theme_path(theme) do %>
                                             <div class="A_Tag mini">
                                                 <h5><%= theme.name %></h5>
@@ -70,7 +71,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <% end %>
                             </div>
 
                         </div>

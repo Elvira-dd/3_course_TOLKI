@@ -222,3 +222,20 @@
   gap: 8vh;
   margin-top: 40px;
 }
+
+.InputContainer {
+  padding: 18px;
+  border-radius: 100px;
+  width: 73vw;
+  option {
+    font-size: 24px;
+  }
+}
+#issue_select {
+  font-family: 'FormaDJR', sans-serif;
+  font-size: 16px;
+  padding: 18px;
+  border-radius: 100px;
+  background-color: #f9f9f9;
+  color: #333;
+}

@@ -137,7 +137,7 @@ def create_issues_and_posts(quantity)
         issue = podcast.issues.create!(
           name: "Выпуск #{create_title}",
           description: create_sentence,
-          link: "https://example.com/#{SecureRandom.hex(4)}"
+          link: "https://www.youtube.com/watch?v=09kypivMTKE"
         )
 
         cover_dir = podcast.is_audio ? 'audioissue_cover' : 'issue_cover'

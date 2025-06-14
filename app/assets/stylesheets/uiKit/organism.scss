@@ -21,7 +21,6 @@
 .O_BodyMainPage {
   display: flex;
   flex-direction: column;
-  gap: 12vh;
 }
 .O_Footer {
   margin-top: 10vh;
@@ -355,5 +354,13 @@ h2 + .C_Discuss {
   gap: 32px;
   .C_ThemePodcastCards {
     margin-top: 20px;
+  }
+}
+.O_PlaylistPage {
+  display: flex;
+  flex-direction: column;
+  gap: 6vh;
+  .W_FavoriteBg {
+    margin-bottom: 0px;
   }
 }
