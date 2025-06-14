@@ -1,17 +1,13 @@
-<% set_meta_tags(
-  title: "Создание нового плейлиста",
-  keywords: "Создать плейлист, Подкасты, Рецензии"
-) %>
-
 <div class="O_PlaylistPage Edit">
     <%= link_to :back do %>
     <div class="W_BackLink">
         <div class="Q_Arrow backWhite"></div>
     </div>
     <% end %>
+
     <%= form_with model: @playlist, local: true, html: { multipart: true } do |f| %>
 
-    <div class="W_FavoriteBg" id="cover-upload-wrapper" style="background-image: url('<%= asset_path("theme_cover/#{@playlist.cover}.png") %>');">
+    <div class="W_FavoriteBg" id="cover-upload-wrapper" style="background-image: url('<%= asset_path("theme_cover/#{@playlist.cover}.png") %>'); cursor: pointer;">
 
         <div class="Title">
             <h1>
@@ -36,23 +32,47 @@
         <div style="margin-top: 16px;">
             <%= f.label :cover, "Выберите фон обложки", class: "InputLabel" %>
             <%= f.select :cover,
-        options_for_select((1..9).map { |i| ["Обложка #{i}", "theme_cover_#{i}"] }, selected: @playlist.cover),
-        {},
-        { class: "InputContainer", id: "cover-select" } %>
+              options_for_select((1..9).map { |i| ["Обложка #{i}", "theme_cover_#{i}"] }, selected: @playlist.cover),
+              {},
+              { class: "InputContainer", id: "cover-select" } %>
         </div>
+
         <div style="margin-top: 32px;">
-            <%= f.submit "Создать плейлист", class: "A_Button SecondaryMedium white" %>
+            <%= f.submit "Сохранить плейлист", class: "A_Button SecondaryMedium white" %>
         </div>
+    </div>
+
+    <% end %>
+
+    <div class="C_ChartList" style="margin-top: 32px;">
+        <% @playlist.issues.each_with_index do |issue, index| %>
+        <%= render partial: "chartcard", locals: { issue: issue, position: index + 1 } %>
         <% end %>
     </div>
-</div>
 </div>
 
 <%= javascript_tag do %>
 document.addEventListener("DOMContentLoaded", function () {
+// Обработчик для кнопки добавления выпуска — если нужна
+const button = document.getElementById("add_issue_button");
+const select = document.getElementById("issue_select");
+if (button && select) {
+button.addEventListener("click", function () {
+const issueId = select.value;
+if (issueId) {
+let url = this.dataset.addIssueUrl.replace("ISSUE_ID_PLACEHOLDER", issueId);
+window.location.href = url;
+} else {
+alert("Выберите выпуск!");
+}
+});
+}
+
+// Обработчик клика по обложке (фон) для выбора файла — если используешь загрузку своей картинки
 const wrapper = document.getElementById("cover-upload-wrapper");
 const fileInput = document.getElementById("cover-upload");
 
+if (wrapper && fileInput) {
 wrapper.addEventListener("click", function () {
 fileInput.click();
 });
@@ -67,17 +87,14 @@ wrapper.style.backgroundImage = `url('${e.target.result}')`;
 reader.readAsDataURL(file);
 }
 });
-});
-<% end %>
-<%= javascript_tag do %>
-document.addEventListener("DOMContentLoaded", function () {
-const coverSelect = document.getElementById("cover-select");
-const bgWrapper = document.getElementById("cover-upload-wrapper");
+}
 
-if (coverSelect && bgWrapper) {
+// Обновление фона при выборе обложки из селекта
+const coverSelect = document.getElementById("cover-select");
+if (coverSelect && wrapper) {
 coverSelect.addEventListener("change", function () {
 const selected = this.value;
-bgWrapper.style.backgroundImage = `url('/assets/theme_cover/${selected}.png')`;
+wrapper.style.backgroundImage = `url('/assets/theme_cover/${selected}.png')`;
 });
 }
 });

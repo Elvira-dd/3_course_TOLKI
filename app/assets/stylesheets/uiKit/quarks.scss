@@ -78,6 +78,10 @@
     width: 36px;
     height: 36px;
   }
+  &.edit {
+    background-image: url('Q_Icon_edit.svg');
+    background-size: contain;
+  }
   &.star {
     background-image: url('Q_Icon_star.svg');
     width: 36px;

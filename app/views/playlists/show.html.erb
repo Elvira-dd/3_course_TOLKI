@@ -13,17 +13,22 @@ keywords: "Подкасты, Рецензии, Информация"
         <h1><%= @playlist.name %></h1>
     </div>
 
-
-    <div class="M_UserCard" style="justify-content: flex-start; gap: 12px">
-        <% if @playlist.user.profile.avatar.present? %>
-        <%= image_tag @playlist.user.profile.avatar, alt: @playlist.user.profile.name, class: "UserAvatar" %>
-        <% end %>
-        <div class="C_PLaylisttTitle">
-            <div style="display:flex; gap:2px; flex-direction:column">
-                <h4><%= @playlist.user.profile.name %></h4>
-                <p class="small"> знаток подкастов <%= @playlist.user.profile.level %> уровня </p>
+    <div class="C_PodcastsSame">
+        <div class="M_UserCard" style="justify-content: flex-start; gap: 12px">
+            <% if @playlist.user.profile.avatar.present? %>
+            <%= image_tag @playlist.user.profile.avatar, alt: @playlist.user.profile.name, class: "UserAvatar" %>
+            <% end %>
+            <div class="C_PLaylisttTitle">
+                <div style="display:flex; gap:2px; flex-direction:column">
+                    <h4><%= @playlist.user.profile.name %></h4>
+                    <p class="small"> знаток подкастов <%= @playlist.user.profile.level %> уровня </p>
+                </div>
             </div>
         </div>
+        <%= link_to edit_playlist_path(@playlist) do %>
+        <div class="Q_Icon edit">
+        </div>
+        <%end%>
     </div>
 
     <% if @playlist.user == current_user %>

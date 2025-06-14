@@ -360,6 +360,11 @@ h2 + .C_Discuss {
   display: flex;
   flex-direction: column;
   gap: 6vh;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+  }
   .W_FavoriteBg {
     margin-bottom: 0px;
   }

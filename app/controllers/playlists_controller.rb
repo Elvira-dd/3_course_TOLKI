@@ -12,17 +12,19 @@ class PlaylistsController < ApplicationController
     end
   
     def new
-      @playlist = current_user.playlists.new
+       @playlist = current_user.playlists.new(cover: "theme_cover_1")
     end
   
     def create
-      @playlist = current_user.playlists.new(playlist_params)
-      if @playlist.save
-        redirect_to @playlist, notice: "Плейлист успешно создан!"
-      else
-        render :new
-      end
-    end
+  @playlist = current_user.playlists.new(playlist_params)
+  @playlist.cover = "theme_cover_1" if @playlist.cover.blank? # дефолтная обложка
+
+  if @playlist.save
+    redirect_to @playlist, notice: "Плейлист успешно создан!"
+  else
+    render :new
+  end
+end
   
     def edit
     end
@@ -67,6 +69,6 @@ class PlaylistsController < ApplicationController
     end
   
     def playlist_params
-      params.require(:playlist).permit(:name)
-    end
+  params.require(:playlist).permit(:name, :cover)
+end
   end
