@@ -1,11 +1,191 @@
-<% content_for :title, "New podcast" %>
+<div class="O_PodcastPage Edit">
+    <div>
+        <%= form_with model: @podcast, url: podcasts_path, local: true, id: "podcast-form" do |f| %>
+        <div class="M_PodcastTitle Edit">
+            <div class="PodcastCoverUpload">
+                <label for="cover-upload">
+                    <%= image_tag(@podcast.cover.presence || "cover_test.png", alt: "Обложка", class: "PodcastCover", id: "cover-preview") %>
+                </label>
+                <%= f.file_field :cover, accept: "image/*", id: "cover-upload", style: "display: none;" %>
+            </div>
 
-<h1>New podcast</h1>
+            <div class="PodcastText">
+                <div class="Title">
+                    <h1>
+                        <%= f.text_field :name, class: "unstyled-input", placeholder: "Название подкаста", id: "podcast-name" %>
+                    </h1>
+                    <div>
+                        <%= f.submit "Создать подкаст", class: "A_Button SecondaryMedium white", disabled: true %>
+                    </div>
+                </div>
 
-<%= render "form", podcast: @podcast %>
+                <p>
+                    <%= f.text_area :description, class: "unstyled-textarea", placeholder: "Описание подкаста", id: "podcast-description" %>
+                </p>
+                <div class="PodcastAuthors">
+                    <% if @podcast.persisted? %>
+                    <% @podcast.authors.each do |author| %>
+                    <div class="PodcastAuthorCard">
+                        <%= image_tag author.user.profile.avatar, alt: "Avatar Image", class: "PodcastAuthorAvatar" %>
+                        <div class="AuthorCard">
+                            <h5><%= author.user.profile.name %></h5>
+                            <p class="small"><%= author.exten_bio %></p>
+                        </div>
+                    </div>
+                    <% end %>
+                    <% elsif current_user&.author %>
+                    <div class="PodcastAuthorCard">
+                        <%= image_tag current_user.profile.avatar, alt: "Avatar Image", class: "PodcastAuthorAvatar" %>
+                        <div class="AuthorCard">
+                            <h5><%= current_user.profile.name %></h5>
+                            <p class="small"><%= current_user.author.exten_bio %></p>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+                <!-- Темы / Теги -->
+                <div class="PodcastThemes">
+                    <% Theme.all.each do |theme| %>
+                    <div class="A_Tag">
+                        <%= check_box_tag "podcast[theme_ids][]", theme.id, false, id: "theme_#{theme.id}", style: "display:none", class: "theme-checkbox" %>
+                        <%= label_tag "theme_#{theme.id}", theme.name, class: "ThemeLabel" %>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
 
-<br>
-
-<div>
-  <%= link_to "Back to podcasts", podcasts_path %>
+        <div class="W_LinksLine_Title">
+            <p>Слушать на</p>
+            <div class="C_LinksLine">
+                <% services = ["YouTube", "Яндекс Музыка", "Spotify", "Apple Music"] %>
+                <% services.each do |service| %>
+                <div class="A_Link">
+                    <%= label_tag "external_links_#{service}", "#{service}:" %>
+                    <%= text_field_tag "podcast[external_links][#{service}]", "", placeholder: "https://#{service.downcase}.com/...", class: "unstyled-textarea link-input" %>
+                </div>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.ThemeLabel').forEach(label => {
+            label.addEventListener('click', function(e) {
+                const checkbox = document.getElementById(label.htmlFor);
+                checkbox.checked = !checkbox.checked;
+                label.parentElement.classList.toggle('selected', checkbox.checked);
+                e.preventDefault();
+            });
+        });
+
+        const fileInput = document.getElementById("cover-upload");
+        const preview = document.getElementById("cover-preview");
+
+        if (fileInput && preview) {
+            fileInput.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
+<style>
+    .error {
+        border: 2px solid red !important;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("podcast-form");
+        const nameInput = document.getElementById("podcast-name");
+        const descriptionInput = document.getElementById("podcast-description");
+        const themeCheckboxes = document.querySelectorAll(".theme-checkbox");
+        const linkInputs = document.querySelectorAll(".link-input");
+        const submitButton = form.querySelector('input[type="submit"]');
+        const preview = document.getElementById("cover-preview");
+        const coverInput = document.getElementById("cover-upload");
+
+        function validateForm() {
+            let isValid = true;
+
+            // Очистка ошибок
+            nameInput.classList.remove("error");
+            descriptionInput.classList.remove("error");
+            preview.classList.remove("error");
+            themeCheckboxes.forEach(cb => {
+                const label = document.querySelector(`label[for="${cb.id}"]`);
+                label.classList.remove("error");
+            });
+            linkInputs.forEach(input => input.classList.remove("error"));
+
+            // Проверки
+            if (!nameInput.value.trim()) {
+                isValid = false;
+                nameInput.classList.add("error");
+            }
+
+            if (!descriptionInput.value.trim()) {
+                isValid = false;
+                descriptionInput.classList.add("error");
+            }
+
+            const anyThemeChecked = Array.from(themeCheckboxes).some(cb => cb.checked);
+            if (!anyThemeChecked) {
+                isValid = false;
+                themeCheckboxes.forEach(cb => {
+                    const label = document.querySelector(`label[for="${cb.id}"]`);
+                    if (label) label.classList.add("error");
+                });
+            }
+
+            const anyLinkFilled = Array.from(linkInputs).some(input => input.value.trim());
+            if (!anyLinkFilled) {
+                isValid = false;
+                linkInputs.forEach(input => input.classList.add("error"));
+            }
+
+            // Проверка обложки
+            const isCoverAttached = coverInput.files.length > 0;
+            if (!isCoverAttached) {
+                isValid = false;
+                preview.classList.add("error");
+            } else {
+                preview.classList.remove("error");
+            }
+
+            submitButton.disabled = !isValid;
+
+            // Для отладки:
+            // console.log("Validation result:", isValid);
+
+            return isValid;
+        }
+
+        // Навешиваем события на все нужные поля
+        [nameInput, descriptionInput, coverInput, ...themeCheckboxes, ...linkInputs].forEach(element => {
+            element.addEventListener("input", validateForm);
+            element.addEventListener("change", validateForm);
+        });
+
+        // Первичная проверка при загрузке страницы
+        validateForm();
+
+        // Предотвращаем отправку, если невалидно
+        form.addEventListener("submit", function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

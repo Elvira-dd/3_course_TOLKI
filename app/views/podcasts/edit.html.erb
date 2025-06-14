@@ -1,12 +1,101 @@
-<% content_for :title, "Editing podcast" %>
+<div class="O_PodcastPage Edit">
+    <!-- Блок заголовка подкаста -->
+    <div>
+        <%= form_with model: @podcast, url: podcast_path(@podcast), method: :patch, local: true do |f| %>
+        <div class="M_PodcastTitle Edit">
+            <div class="PodcastCoverUpload">
+                <label for="cover-upload">
+                    <%= image_tag(@podcast.cover.present? ? @podcast.cover : "placeholder.jpg",
+                alt: "Обложка", class: "PodcastCover", id: "cover-preview") %>
 
-<h1>Editing podcast</h1>
+                </label>
+                <%= f.file_field :cover, accept: "image/*", id: "cover-upload", style: "display: none;" %>
+            </div>
 
-<%= render "form", podcast: @podcast %>
+            <div class="PodcastText">
+                <div class="Title">
+                    <h1>
+                        <%= f.text_field :name, value: @podcast.name, class: "unstyled-input" %>
+                    </h1>
+                    <div>
+                        <%= f.submit "Сохранить", class: "A_Button SecondaryMedium white" %>
+                    </div>
+                </div>
 
-<br>
+                <p><%= f.text_area :description, value: @podcast.description, class: "unstyled-textarea" %></p>
 
-<div>
-  <%= link_to "Show this podcast", @podcast %> |
-  <%= link_to "Back to podcasts", podcasts_path %>
+                <!-- Авторы -->
+                <div class="PodcastAuthors">
+                    <% @podcast.authors.each do |author| %>
+
+                    <div class="PodcastAuthorCard">
+                        <%= image_tag author.user.profile.avatar, alt: "Avatar Image", class:"PodcastAuthorAvatar" %>
+                        <div class="AuthorCard">
+                            <h5><%= author.user.profile.name %></h5>
+                            <p class="small"><%= author.exten_bio %></p>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+
+                <!-- Темы / Теги -->
+                <div class="PodcastThemes">
+                    <% Theme.all.each do |theme| %>
+                    <% selected = @podcast.themes.include?(theme) %>
+                    <div class="A_Tag <%= 'selected' if selected %>">
+                        <%= check_box_tag "podcast[theme_ids][]", theme.id, selected, id: "theme_#{theme.id}", style: "display:none" %>
+                        <%= label_tag "theme_#{theme.id}", theme.name, class: "ThemeLabel" %>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="W_LinksLine_Title">
+            <p>Слушать на</p>
+            <div class="C_LinksLine">
+                <% services = ["YouTube", "Яндекс Музыка", "Spotify", "Apple Music"] %>
+                <% existing_links = @podcast.external_links.index_by { |link| link["service"] } %>
+
+                <% services.each do |service| %>
+                <% url_value = existing_links[service]&.[]("url") %>
+                <div class="A_Link">
+                    <%= label_tag "external_links_#{service}", "#{service}:" %>
+                    <%= text_field_tag "podcast[external_links][#{service}]", url_value, placeholder: "https://#{service.downcase}.com/...", class: "unstyled-textarea" %>
+                </div>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.ThemeLabel').forEach(label => {
+            label.addEventListener('click', function(e) {
+                const checkbox = document.getElementById(label.htmlFor);
+                checkbox.checked = !checkbox.checked;
+                label.parentElement.classList.toggle('selected', checkbox.checked);
+                e.preventDefault();
+            });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const fileInput = document.getElementById("cover-upload");
+        const preview = document.getElementById("cover-preview");
+
+        if (fileInput && preview) {
+            fileInput.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>

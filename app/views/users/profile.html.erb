@@ -31,7 +31,19 @@
             <% end %>
         </div>
     </div>
-
+    <% if @user.is_author && @author.podcasts.any? %>
+    <div class="W_ProfilePlaylistBlock">
+        <h1>Подкасты</h1>
+        <div class="C_AuthorsCards">
+            <% @podcasts.each do |podcast| %>
+            <%= render partial: "podcastcard", locals: { podcast: podcast } %>
+            <% end %>
+        </div>
+        <%= link_to new_podcast_path, class: "A_Button Primary", role: "button" do %>
+        <h3>Добавить подкаст</h3>
+        <% end %>
+    </div>
+    <% end %>
     <div class="W_ProfilePlaylistBlock">
         <h1>Плейлист </h1>
         <div class="C_ProfilePlaylist">

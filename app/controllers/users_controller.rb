@@ -3,7 +3,12 @@ class UsersController < ApplicationController
     @users = User.all
   end
   def profile
-    @user = current_user
+     @user = current_user
+    if @user.is_author
+    @author = Author.find_by(user_id: @user.id)
+    @podcasts = @author.podcasts.limit(5)
+  end
+   
     @comments = @user.comments.where(comment_id: nil)
     @reviews = @user.reviews
 

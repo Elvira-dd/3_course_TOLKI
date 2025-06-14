@@ -51,6 +51,13 @@ h5 {
   font-weight: 500;
   color: var(--first_gray);
 }
+.ThemeLabel {
+  font-size: 16px;
+  line-height: 110%;
+  letter-spacing: 0.25px;
+  font-weight: 500;
+  color: var(--first_gray);
+}
 p {
   font-size: 16px;
   line-height: 110%;

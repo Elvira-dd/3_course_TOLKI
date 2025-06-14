@@ -9,6 +9,7 @@
     <%= csp_meta_tag %>
 
     <%= yield :head %>
+    <p style="color: green"><%= notice %></p>
 
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="<%= asset_path 'Q_Logo_short.svg' %>" type="image/svg+xml">
@@ -20,7 +21,7 @@
 
 <body class="classicLayout">
     <%= render "menubar" %>
-    <p style="color: green"><%= notice %></p>
+
     <%= yield %>
     <%= render "footer" %>
 </body>

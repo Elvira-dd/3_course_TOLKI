@@ -20,9 +20,17 @@
                     <h1> Подкаст «<%= @podcast.name %>»</h1>
                     <div>
                         <div id="extra-button-wrapper" style="display: none;">
+                            <% if @author.present? && @author.podcasts.include?(@podcast) %>
+                            <%= link_to edit_podcast_path(@podcast) do %>
+                            <div class="A_Button SecondaryMedium">
+                                <h5> Редактировать</h5>
+                            </div>
+                            <%end%>
+                            <% else %>
                             <div class="A_Button SecondaryMedium">
                                 <h5> Это ваш подкаст?</h5>
                             </div>
+                            <%end%>
                         </div>
 
                         <%= link_to toggle_favorite_podcast_path(@podcast.id, type: "Podcast"), method: :get, class: "favorite-button" do %>

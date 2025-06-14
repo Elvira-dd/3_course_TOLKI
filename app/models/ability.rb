@@ -25,6 +25,13 @@ class Ability
       can :like, Issue   
       can :dislike, Issue
     end
+    if user.is_author? && user.author
+      can [:new, :create], Podcast
+      can [:edit, :update, :destroy, :create], Podcast do |podcast|
+        # если автор владеет этим подкастом напрямую
+        podcast.author_id == user.author.id || podcast.authors.include?(user.author)
+      end
+    end
     
     return unless user.admin? 
     can :manage, :all

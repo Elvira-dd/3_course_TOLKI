@@ -364,3 +364,38 @@ h2 + .C_Discuss {
     margin-bottom: 0px;
   }
 }
+.O_PodcastPage {
+  &.Edit {
+    .A_Link {
+      display: flex;
+      flex-direction: row;
+      width: 30vw;
+      input,
+      textarea,
+      label {
+        font-size: 16px;
+        line-height: 110%;
+        letter-spacing: 0.25px;
+        font-weight: 500;
+        color: var(--first_gray);
+      }
+
+      // Стиль для плейсхолдера
+      input::placeholder,
+      textarea::placeholder {
+        font-size: 16px;
+        line-height: 110%;
+        letter-spacing: 0.25px;
+        font-weight: 400;
+        color: var(--second_gray); // можно сделать светлее, если хочешь отличие
+      }
+      label {
+        width: max-content;
+        white-space: nowrap;
+      }
+    }
+    .C_LinksLine {
+      flex-wrap: wrap;
+    }
+  }
+}
