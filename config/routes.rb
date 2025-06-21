@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get 'search', to: 'search#index'
   resources :profiles
 
-  devise_for :users
+  devise_for :users, controllers: {
+  registrations: 'users/registrations'
+}
 
   namespace :api, format: "json" do
     namespace :v1 do
@@ -41,6 +43,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  post "update_favorite_themes", to: "users#update_favorite_themes"
 
   namespace :admin do
     resources :issues do
@@ -69,6 +72,7 @@ Rails.application.routes.draw do
   get "promo/index"
   get "recommendation", to: "recommendation#index"
   get 'main/favorite', to: 'favorites#index'
+  get 'setting_reg', to: 'users#setting', as: :setting_reg
 
   resources :playlists do
     member do

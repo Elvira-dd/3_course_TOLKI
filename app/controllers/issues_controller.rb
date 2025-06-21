@@ -14,6 +14,36 @@ class IssuesController < ApplicationController
       format.json { render json: @issues }
     end
   end
+  def like
+  @issue = Issue.find(params[:id])
+  @commentable = @issue
+
+  likes = @issue.likes.where(user_id: current_user.id)
+  @issue.dislikes.where(user_id: current_user.id).destroy_all
+
+  if likes.exists?
+    likes.destroy_all
+  else
+    @issue.likes.create(user_id: current_user.id)
+  end
+
+  redirect_back fallback_location: @issue
+end
+
+def dislike
+  @issue = Issue.find(params[:id])
+
+  @issue.likes.where(user_id: current_user.id).destroy_all
+  dislikes = @issue.dislikes.where(user_id: current_user.id)
+
+  if dislikes.exists?
+    dislikes.destroy_all
+  else
+    @issue.dislikes.create(user_id: current_user.id)
+  end
+
+  redirect_back fallback_location: @issue
+end
 
 
 

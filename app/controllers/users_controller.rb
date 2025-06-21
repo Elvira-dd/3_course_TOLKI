@@ -17,7 +17,10 @@ class UsersController < ApplicationController
   @last_comment = @user.comments.order(created_at: :desc).first
   @last_commentable = @last_comment.commentable if @last_comment.present?
   end
-
+def setting
+  @user = current_user
+  @themes = Theme.all.limit(17)
+end
   def show
     @users = Profile.where.not(user: current_user)
     @user = User.find(params[:id])
@@ -26,4 +29,11 @@ class UsersController < ApplicationController
 @playlists = @user.playlists.limit(4)
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
   end
+  def update_favorite_themes
+  ids = params[:favorite_themes].to_s.split(",").map(&:to_i)
+  theme_names = Theme.where(id: ids).pluck(:name)
+
+  current_user.profile.update(favorite_themes: theme_names.join(", "))
+  redirect_to my_profile_path, notice: "Темы успешно сохранены!"
+end
 end

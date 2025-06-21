@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_up_path_for(resource)
+    user_regist_setting_path
+  end
+
   def authenticate_guest 
     if cookies[:guest_token] 
       puts "GUEST TOKEN"

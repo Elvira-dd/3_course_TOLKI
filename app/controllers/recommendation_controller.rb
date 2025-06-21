@@ -8,9 +8,22 @@ class RecommendationController < ApplicationController
 
     if user_signed_in?
       @subs_podcast = current_user.favorite_podcasts
+      subs_theme_names = current_user.profile.favorite_themes.to_s.split(",").map(&:strip)
+      themes = Theme.where(name: subs_theme_names)
+      
+      @popular_podcasts = Podcast.joins(:themes).where(themes: { id: themes.pluck(:id) }).distinct
       @subs_feed = Post.where(podcast_id: @subs_podcast.pluck(:id)) + Issue.where(podcast_id: @subs_podcast.pluck(:id))
       @subs_authors = @subs_podcast.map(&:authors).flatten.uniq
+      theme_podcasts = Podcast.joins(:themes).where(themes: { id: themes.ids }).distinct
+theme_issues = Issue.where(podcast_id: theme_podcasts.ids).last(2).to_a
+theme_posts = Post.where(podcast_id: theme_podcasts.ids).last(2).to_a
+theme_issues2 = Issue.where(podcast_id: theme_podcasts.ids).limit(8).to_a
+theme_posts2 = Post.where(podcast_id: theme_podcasts.ids).limit(8).to_a
+@feed = (theme_issues + theme_posts + theme_issues2 + theme_posts2)
+      
+      
     else
+      @popular_podcasts = Podcast.none
       @subs_podcast = []
       @subs_feed = []
       @subs_authors = []

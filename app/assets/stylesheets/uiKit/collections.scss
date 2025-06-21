@@ -190,3 +190,20 @@
   flex-direction: row;
   gap: 24px;
 }
+.C_ThemeSelect {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+  input[type='submit'].A_Button {
+    width: 200px;
+    height: 200px;
+    padding: 0px;
+    justify-content: center;
+  }
+}
+.M_ThemeCard.selected {
+  border: 3px solid #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,43 @@
+<%= form_with url: update_favorite_themes_path, method: :post, local: true, id: "themes-form" do %>
+<div class="O_RegSetting">
+    <h1>Выберите интересующие вас тематики</h1>
+
+    <div class="C_ThemeSelect">
+        <% @themes.each do |theme| %>
+        <div class="M_ThemeCard ThemeSelectable" data-theme-id="<%= theme.id %>">
+            <%= image_tag theme.cover, alt: theme.name, class: "ThemeCoverImage" %>
+            <h5><%= theme.name %></h5>
+        </div>
+        <% end %>
+
+
+        <!-- Скрытое поле для выбранных id -->
+        <%= hidden_field_tag :favorite_themes, "", id: "selected-themes-input" %>
+
+        <%= submit_tag "Готово", class: "A_Button Primary" %>
+    </div>
+</div>
+<% end %>
+
+<%= javascript_tag do %>
+document.addEventListener("DOMContentLoaded", function () {
+const themeCards = document.querySelectorAll(".ThemeSelectable");
+const inputField = document.getElementById("selected-themes-input");
+let selectedIds = [];
+
+themeCards.forEach(card => {
+card.addEventListener("click", () => {
+const id = card.dataset.themeId;
+card.classList.toggle("selected");
+
+if (selectedIds.includes(id)) {
+selectedIds = selectedIds.filter(item => item !== id);
+} else {
+selectedIds.push(id);
+}
+
+inputField.value = selectedIds.join(",");
+});
+});
+});
+<% end %>
