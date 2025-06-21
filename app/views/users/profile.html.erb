@@ -68,49 +68,17 @@
     </div>
 
     <div class="toggle-content" data-id="comm">
-        <div class="W_ProfilePostsCards">
-            <% @comments.each do |comment| %>
-            <%
-likes_count = comment.likes.count
-dislikes_count = comment.dislikes.count
-
-if current_user.present? 
-  user_liked = comment.likes.exists?(user_id: current_user.id)
-  user_disliked = comment.dislikes.exists?(user_id: current_user.id)
-else
-  user_liked = false
-  user_disliked = false
-end
-%>
-            <div class="M_CommentCard">
-                <div class="M_UserCard">
-                    <% if comment.user.profile.avatar.present? %>
-                    <%= image_tag comment.user.profile.avatar, alt: comment.user.profile.name, class: "UserAvatar" %>
-                    <% end %>
-                    <div class="UserTitle">
-                        <h5><%= comment.user.profile.name %></h5>
-                        <div style="display:flex; justify-content:space-between">
-                            <p class="small"> знаток подкастов <%= comment.user.profile.level %> уровня </p>
-                            <p class="small"> <%= comment.created_at.strftime("%d.%m.%Y") %> </p>
-                        </div>
-                        <p><%= comment.content %></p>
-                        <div class="CommentFeedback">
-                            <div>
-                                <%= link_to like_comment_path(comment), class: "Q_HandLike #{'active' if user_liked}" do %>
-                                <% end %>
-                                <span class="like-count"><%= comment.likes.count %></span>
-                            </div>
-                            <div>
-                                <%= link_to dislike_comment_path(comment), class: "Q_HandLike dislike #{'active' if user_disliked}" do %>
-                                <% end %>
-                                <span class="dislike-count"><%= comment.dislikes.count %></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <% if @last_commentable.present? %>
+        <div class="C_Discuss">
+            <% if @last_commentable.is_a?(Issue) %>
+            <%= render partial: "showissuecard", locals: { issue: @last_commentable } %>
+            <% elsif @last_commentable.is_a?(Post) %>
+            <%= render partial: "postcard", locals: { post: @last_commentable } %>
+            <% else %>
+            <p>Комментарий к <%= @last_commentable.class.name %></p>
             <% end %>
         </div>
+        <% end %>
     </div>
     <div class="toggle-content" data-id="review">
         <div class="W_ReviewBlock">

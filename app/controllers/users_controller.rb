@@ -14,6 +14,8 @@ class UsersController < ApplicationController
 
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
   @playlists = @user.playlists.limit(4)
+  @last_comment = @user.comments.order(created_at: :desc).first
+  @last_commentable = @last_comment.commentable if @last_comment.present?
   end
 
   def show
