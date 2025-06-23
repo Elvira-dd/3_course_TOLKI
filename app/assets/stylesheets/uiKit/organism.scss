@@ -415,4 +415,12 @@ h2 + .C_Discuss {
       width: 64vw;
     }
   }
+  .C_SectionList {
+    .A_Button {
+      padding: 16px 24px;
+      h4 {
+        color: var(--five_gray);
+      }
+    }
+  }
 }

@@ -131,6 +131,13 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create, :edit, :update, :destroy, :show]
   end
 
+  resources :authors, only: [:show, :index] do
+  member do
+    post :subscribe
+    delete :unsubscribe
+  end
+end
+
   resources :tags  
   resources :authors
   resources :subscriptions

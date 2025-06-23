@@ -8,14 +8,35 @@ class AuthorsController < ApplicationController
 
   # GET /authors/1 or /authors/1.json
   def show
-    @author = Author.find(params[:id])
-    @podcasts = @author.podcasts.limit(5)
-    @user = @author.user
-    @playlists = @user.playlists.limit(5)
-     @comments = @user.comments.where(comment_id: nil)
-    @reviews = @user.reviews
-      @days_in_app = (Date.today - @user.created_at.to_date).to_i
-  end
+  @author = Author.find(params[:id])
+  @podcasts = @author.podcasts.limit(5)
+  @user = @author.user
+  @playlists = @user.playlists.limit(5)
+  @comments = @user.comments.where(comment_id: nil)
+  @reviews = @user.reviews.limit(3)
+  @days_in_app = (Date.today - @user.created_at.to_date).to_i
+
+  # Лайки
+  likes = @user.likes.includes(:likeable)
+  @liked_posts = likes.select { |like| like.likeable_type == "Post" }.map(&:likeable)
+  @liked_issues = likes.select { |like| like.likeable_type == "Issue" }.map(&:likeable)
+  @liked_posts1 = @liked_posts.last(1)
+  @liked_issues1 = @liked_issues.last(1)
+
+  # Комментированные посты и выпуски
+  commented_ids = @user.comments.select(:commentable_id, :commentable_type).distinct
+  post_ids = commented_ids.where(commentable_type: "Post").pluck(:commentable_id)
+  issue_ids = commented_ids.where(commentable_type: "Issue").pluck(:commentable_id)
+
+  @commented_posts = Post.where(id: post_ids)
+  @commented_issues = Issue.where(id: issue_ids)
+
+  # Последний коммент для превью блока
+  @last_comment = @user.comments.order(created_at: :desc).first
+  @last_commentable = @last_comment.commentable if @last_comment.present?
+
+  @reviews_all = @user.reviews
+end
 
   # GET /authors/new
   def new
@@ -74,6 +95,20 @@ end
       format.html { redirect_to authors_path, status: :see_other, notice: "Author was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def subscribe
+    author = Author.find(params[:id])
+    current_user.author_subscriptions.create(author: author) unless current_user.subscribed_authors.include?(author)
+    
+    redirect_back fallback_location: author_path(author)
+  end
+
+  def unsubscribe
+    author = Author.find(params[:id])
+    current_user.author_subscriptions.where(author: author).destroy_all
+    
+    redirect_back fallback_location: author_path(author)
   end
 
   private

@@ -1,0 +1,5 @@
+ru:
+  subscribers:
+    one: '%{count} подписчик'
+    few: '%{count} подписчика'
+    many: '%{count} подписчиков'
