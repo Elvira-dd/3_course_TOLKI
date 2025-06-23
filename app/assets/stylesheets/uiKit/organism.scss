@@ -409,3 +409,10 @@ h2 + .C_Discuss {
     width: 200px;
   }
 }
+.O_Profile {
+  .C_PostCardsList {
+    &.short {
+      width: 64vw;
+    }
+  }
+}

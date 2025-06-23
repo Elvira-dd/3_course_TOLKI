@@ -10,12 +10,19 @@ class UsersController < ApplicationController
   end
    
     @comments = @user.comments.where(comment_id: nil)
-    @reviews = @user.reviews
+    @reviews_all = @user.reviews
+    @reviews = @user.reviews.limit(3)
 
   @days_in_app = (Date.today - @user.created_at.to_date).to_i
   @playlists = @user.playlists.limit(4)
   @last_comment = @user.comments.order(created_at: :desc).first
   @last_commentable = @last_comment.commentable if @last_comment.present?
+
+  likes = @user.likes.includes(:likeable)
+  @liked_posts = likes.select { |like| like.likeable_type == "Post" }.map(&:likeable)
+  @liked_issues = likes.select { |like| like.likeable_type == "Issue" }.map(&:likeable)
+  @liked_posts1 = likes.select { |like| like.likeable_type == "Post" }.map(&:likeable).last(1)
+  @liked_issues1 = likes.select { |like| like.likeable_type == "Issue" }.map(&:likeable).last(1)
   end
 def setting
   @user = current_user
@@ -34,6 +41,6 @@ end
   theme_names = Theme.where(id: ids).pluck(:name)
 
   current_user.profile.update(favorite_themes: theme_names.join(", "))
-  redirect_to my_profile_path, notice: "Темы успешно сохранены!"
+  redirect_to my_profile_path
 end
 end

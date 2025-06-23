@@ -63,13 +63,21 @@
         </div>
     </div>
     <div class="W_ToggleList">
-        <h3 class="toggle-button active" data-id="comm">КОММЕНТАРИИ</h3>
+        <h3 class="toggle-button active" data-id="all">ВСЕ</h3>
+        <h3 class="toggle-button" data-id="comm">КОММЕНТАРИИ</h3>
         <h3 class="toggle-button" data-id="review">ОТЗЫВЫ</h3>
+        <h3 class="toggle-button" data-id="liked">ЛАЙКИ</h3>
     </div>
+    <div class="toggle-content" data-id="all">
+        <div class="C_PostCardsList short">
+            <div class="W_ListBlock_Title">
+                <h2> Подборка лучших научных подкастов </h2>
+                <%= link_to recommendation_path do %>
+                <h4>посмотреть все </h4>
+                <%end%>
+            </div>
 
-    <div class="toggle-content" data-id="comm">
-        <% if @last_commentable.present? %>
-        <div class="C_Discuss">
+            <% if @last_commentable.present? %>
             <% if @last_commentable.is_a?(Issue) %>
             <%= render partial: "showissuecard", locals: { issue: @last_commentable } %>
             <% elsif @last_commentable.is_a?(Post) %>
@@ -77,18 +85,131 @@
             <% else %>
             <p>Комментарий к <%= @last_commentable.class.name %></p>
             <% end %>
+            <% end %>
         </div>
-        <% end %>
+        <div class="C_PostCardsList ">
+            <div class="W_ListBlock_Title">
+                <h2> Подборка лучших научных подкастов </h2>
+                <%= link_to recommendation_path do %>
+                <h4>посмотреть все </h4>
+                <%end%>
+            </div>
+
+            <div class="W_ReviewBlock">
+                <div class="C_ReviewProfile">
+                    <% @reviews.each do |review| %>
+                    <%= render partial: "reviewcard", locals: { review: review } %>
+                    <%end%>
+                </div>
+            </div>
+        </div>
+        <div class="C_PostCardsList short">
+            <div class="W_ListBlock_Title">
+                <h2> Подборка лучших научных подкастов </h2>
+                <%= link_to recommendation_path do %>
+                <h4>посмотреть все </h4>
+                <%end%>
+            </div>
+
+            <div class="C_PostCardsList short">
+
+                <% @liked_posts1.each do |post| %>
+                <%= render partial: "postcard", locals: { post: post } %>
+                <% end %>
+
+                <% @liked_issues1.each do |issue| %>
+                <%= render partial: "showissuecard", locals: { issue: issue } %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-content" data-id="comm">
+        <div class="C_PostCardsList short">
+            <div class="W_ListBlock_Title">
+                <h2> Подборка лучших научных подкастов </h2>
+                <%= link_to recommendation_path do %>
+                <h4>посмотреть все </h4>
+                <%end%>
+            </div>
+
+            <% if @last_commentable.present? %>
+            <% if @last_commentable.is_a?(Issue) %>
+            <%= render partial: "showissuecard", locals: { issue: @last_commentable } %>
+            <% elsif @last_commentable.is_a?(Post) %>
+            <%= render partial: "postcard", locals: { post: @last_commentable } %>
+            <% else %>
+            <p>Комментарий к <%= @last_commentable.class.name %></p>
+            <% end %>
+            <% end %>
+        </div>
     </div>
     <div class="toggle-content" data-id="review">
-        <div class="W_ReviewBlock">
-            <div class="C_ReviewProfile">
-                <% @reviews.each do |review| %>
-                <%= render partial: "reviewcard", locals: { review: review } %>
+        <div class="C_PostCardsList ">
+            <div class="W_ListBlock_Title">
+                <h2> Подборка лучших научных подкастов </h2>
+                <%= link_to recommendation_path do %>
+                <h4>посмотреть все </h4>
                 <%end%>
+            </div>
+
+            <div class="W_ReviewBlock">
+                <div class="C_ReviewProfile">
+                    <% @reviews_all.each do |review| %>
+                    <%= render partial: "reviewcard", locals: { review: review } %>
+                    <%end%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-content" data-id="liked">
+        <div class="C_PostCardsList ">
+            <div class="W_ListBlock_Title">
+                <h2> Подборка лучших научных подкастов </h2>
+                <%= link_to recommendation_path do %>
+                <h4>посмотреть все </h4>
+                <%end%>
+            </div>
+
+            <div class="C_PostCardsList short">
+
+                <% @liked_posts.each do |post| %>
+                <%= render partial: "postcard", locals: { post: post } %>
+                <% end %>
+
+                <% @liked_issues.each do |issue| %>
+                <%= render partial: "showissuecard", locals: { issue: issue } %>
+                <% end %>
             </div>
         </div>
     </div>
 
 
 </div>
+
+<%= javascript_tag do %>
+document.addEventListener("DOMContentLoaded", function () {
+const buttons = document.querySelectorAll(".toggle-button");
+const contents = document.querySelectorAll(".toggle-content");
+
+function activateTab(id) {
+buttons.forEach(btn => btn.classList.remove("active"));
+contents.forEach(content => content.style.display = "none");
+
+const activeButton = document.querySelector(`.toggle-button[data-id="${id}"]`);
+const activeContent = document.querySelector(`.toggle-content[data-id="${id}"]`);
+
+if (activeButton) activeButton.classList.add("active");
+if (activeContent) activeContent.style.display = "block";
+}
+
+// При инициализации скрываем все кроме активной
+const defaultTab = document.querySelector(".toggle-button.active")?.dataset.id || "comm";
+activateTab(defaultTab);
+
+buttons.forEach(btn => {
+btn.addEventListener("click", () => {
+activateTab(btn.dataset.id);
+});
+});
+});
+<% end %>
