@@ -13,7 +13,7 @@ class MainController < ApplicationController
     @new_podcast = Podcast.find_by(id: 11)
     @latest_issue_for_new_podcast = @new_podcast.issues.where(is_audio: false).first
     @ama_podcast = Podcast.find_by(id: 2)
-    @themes = Theme.where(id: [2, 6, 4, 7,8,9,10])
+    @themes = Theme.where(id: [2, 6, 4, 7,8,9])
     @chart_podcasts = Issue.where(id: [15,47,8,32])
   end
   def favorite

@@ -12,7 +12,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find(params[:id])  
     @issues = @podcast.issues
     @audio_issues = @issues.where(is_audio: true)
-  @video_issues = @issues.where(is_audio: false)
+    @video_issues = @issues.where(is_audio: false)
     @issue = Issue.new
     @user = current_user if user_signed_in?
     @author = Author.find_by(user_id: @user.id) if user_signed_in?    

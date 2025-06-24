@@ -2,6 +2,143 @@
   h1 {
     font-size: 24px;
     font-weight: 500;
+    &.double {
+      font-size: 56px;
+      font-weight: 500;
+    }
+  }
+  .SearchContainer.mini {
+    width: 25vw;
+    .SearchInput {
+      width: 20vw;
+    }
+  }
+  .A_Tag.mini {
+    padding: 6px 8px;
+  }
+  .C_ThemeCards a:nth-child(n + 5) {
+    display: none;
+  }
+  .M_ThemeCard .ThemeCoverImage {
+    width: 150px;
+    height: 150px;
+  }
+  .W_ReviewCards {
+    .M_ReviewCard:nth-child(n + 3) {
+      display: none;
+    }
+  }
+  .C_ChartList {
+    gap: 0px;
+  }
+  .Q_Logo {
+    width: 130px;
+  }
+  .M_PostFullCard .IssueCover.audio {
+    width: 16vw;
+    height: 16vw;
+  }
+  .M_PodcastTitle .PodcastCover {
+    width: 120px;
+    height: 120px;
+  }
+  .C_ThemeReview {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .W_ReviewBlock .C_ThemeReview .W_ThemeCountCard {
+    width: 24vw;
+  }
+  .A_Link {
+    padding: 8px 12px;
+  }
+  .A_Link a {
+    font-size: 14px;
+  }
+  .M_ReviewCard {
+    padding: 16px;
+  }
+  .O_PostFullCard_WithComments {
+    padding: 24px;
+  }
+  .C_AuthorsSmallCards {
+    padding: 12px;
+  }
+  .W_AuthorSmallCard {
+    h4 {
+      font-size: 12px;
+    }
+  }
+  p {
+    &.small {
+      font-size: 9px;
+    }
+  }
+  .W_AuthorSmallCard .AuthorsSmallCardsAvatar {
+    width: 32px;
+    height: 32px;
+  }
+  .W_IssueInfo_Podcast .gray {
+    display: none;
+  }
+  .A_Tag {
+    padding: 8px 16px;
+    width: max-content;
+  }
+  .Q_Icon.tg {
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+  }
+  .O_BgRecPage {
+    height: 27vh;
+  }
+  .O_BgMainPage {
+    height: 51vh;
+    margin-top: -1vh;
+  }
+  .Q_Icon.more {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+  }
+  .A_Link.mini {
+    padding: 5px 8px;
+  }
+  .M_ChartCard h2 {
+    line-height: 60px;
+  }
+  .M_ChartCard .C_LinksLine {
+    height: 60px;
+  }
+  .SmallPodcastCoverImage {
+    width: 60px;
+    height: 60px;
+  }
+  .M_ChartCard .C_LinksLine + div {
+    margin-left: 2vw;
+  }
+  .C_ChartCard_Info {
+    width: 62vw;
+  }
+  .A_Tag.mini h5 {
+    font-size: 10px;
+  }
+  .A_Link.mini a {
+    font-size: 10px;
+  }
+  .C_AuthorsCards {
+    gap: 8px;
+  }
+  .W_AccentCover {
+    width: 100%;
+    margin-left: 0;
+    h1 {
+      width: 80%;
+    }
+    h1 + h3 {
+      width: 78%;
+    }
   }
   h2 {
     font-size: 20px;
@@ -24,7 +161,7 @@
 /* Адаптивные стили для экранов с шириной до 480px (например, мобильные телефоны) */
 @media screen and (max-width: 480px) {
   h1 {
-    .dounble {
+    .double {
     }
     font-size: 32px;
     font-weight: 500;
@@ -34,30 +171,68 @@
     font-weight: 500;
   }
   h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
+  }
+  .C_AuthorsCards {
+    a:nth-child(n + 5) {
+      display: none;
+    }
+  }
+  .M_IssueCard {
+    &.Secondary {
+      .Title {
+        margin-top: 12px;
+        gap: 5px;
+      }
+    }
+  }
+  .SmallPodcastCoverImage {
+    width: 45px;
+    height: 45px;
+  }
+  .M_ChartCard h2 {
+    font-size: 18px;
+  }
+  .W_ListBlock_Title {
+    a {
+      h4 {
+        display: none;
+      }
+    }
   }
   h4 {
     font-size: 16px;
     font-weight: 400;
   }
+  .Q_Logo {
+    &.long {
+      width: 60px;
+      height: 20px;
+    }
+  }
   .W_AccentCover {
     h1 {
       width: 80%;
       text-align: center;
-      font-size: 34px !important;
+      font-size: 44px !important;
     }
     .A_Button {
-      width: 270px;
+      width: 17vw;
     }
   }
   .W_TitleWith h4 + div {
     gap: 6px;
   }
-
+  .W_AccentCover h1 + h3 {
+    width: 78%;
+  }
   .AuthorAvatarImage {
     width: 165px !important;
     height: 165px !important;
+  }
+  .O_BgRecPage {
+    height: 13vh;
   }
   .C_AuthorsCards {
     justify-content: flex-start;
@@ -171,7 +346,8 @@
     }
   }
   .C_ChartCard_Info {
-    width: 46vw;
+    width: 62vw;
+    height: 80px;
   }
   .M_ChartCard .C_LinksLine + div {
     margin-left: 1vw;
@@ -180,7 +356,22 @@
     width: 155px;
     height: 155px;
   }
+  .W_CardBlock {
+    gap: 0;
+  }
   .C_ThemeCards {
     gap: 18px;
+  }
+  .O_BgMainPage {
+    height: 29vh;
+    margin-top: 2vh;
+  }
+  .O_LentaPosts {
+    flex-direction: column-reverse;
+    .W_PopularFeed {
+      width: 100%;
+      position: relative;
+      top: 0;
+    }
   }
 }
