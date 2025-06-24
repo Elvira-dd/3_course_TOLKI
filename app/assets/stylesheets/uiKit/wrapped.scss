@@ -342,3 +342,84 @@
   background-size: cover;
   background-position: center;
 }
+.W_CreatePostForPodcast {
+  width: calc(100%-80px);
+  padding: 24px 32px;
+  border-radius: 8px;
+  background-color: var(--four_gray);
+  #post_form_block,
+  #issue_form_block {
+    .A_Tag {
+      .unstyled-textarea {
+        width: 200px;
+      }
+      display: flex;
+      flex-direction: row;
+      gap: 2px;
+      align-items: center;
+      width: fit-content;
+      input::placeholder {
+        color: var(--second_gray);
+        font-size: 16px;
+      }
+    }
+    margin-top: 16px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+  input[type='submit'].A_Button {
+    font-size: 16px;
+    line-height: 110%;
+    letter-spacing: 0.25px;
+    font-weight: 500;
+    color: var(--five_gray);
+  }
+  .C_TopCreatingLine {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: space-between;
+    .InfoLine {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      .A_Tag {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
+      }
+    }
+  }
+}
+.HiddenFileInput {
+  display: none;
+}
+
+.FileUploadWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.Icon.upload {
+  width: 16px;
+  height: 16px;
+  background-image: url('/assets/icons/upload.svg'); /* путь к иконке загрузки */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#issue_form_block {
+  .A_Tag {
+    label {
+      display: flex;
+      flex-direction: row;
+      gap: 2px;
+      align-items: center;
+    }
+  }
+}

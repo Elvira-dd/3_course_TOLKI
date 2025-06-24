@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_23_064816) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_24_131124) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -164,6 +164,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_23_064816) do
     t.datetime "updated_at", null: false
     t.integer "podcast_id"
     t.integer "author_id"
+    t.string "link"
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["podcast_id"], name: "index_posts_on_podcast_id"
   end

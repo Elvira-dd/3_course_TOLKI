@@ -218,7 +218,111 @@
                         <div class="W_DiscussFeed">
 
                             <h2>Лента авторов</h2>
+
+
+
                             <div class="C_Discuss">
+                                <div class="W_CreatePostForPodcast">
+
+                                    <div class="C_TopCreatingLine">
+
+                                        <div class="InfoLine">
+                                            <%= image_tag @podcast.cover, alt: "Обложка подкаста", class: "UserAvatar" %>
+                                            <h4 style="font-weight:500">Подкаст «<%= @podcast.name %>»</h4>
+                                        </div>
+
+                                        <div class="InfoLine">
+                                            <p class="small">Формат поста: </p>
+                                            <div class="A_Tag format-selector">
+                                                <select id="post_format_select" class="unstyled-select">
+                                                    <option value="post" selected>Пост</option>
+                                                    <option value="issue">Выпуск</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Форма поста -->
+                                    <div id="post_form_block">
+                                        <%= form_with model: @post, url: posts_path, method: :post, local: true do |f| %>
+                                        <h2>
+                                            <%= f.text_field :title, placeholder: "Заголовок", class: "unstyled-input" %>
+                                        </h2>
+                                        <p>
+                                            <%= f.text_area :content, placeholder: "Описание", class: "unstyled-textarea" %>
+                                        </p>
+
+
+
+
+
+                                        <%= f.hidden_field :podcast_id, value: @podcast.id %>
+                                        <%= f.hidden_field :date, value: Time.current %>
+
+                                        <div class="W_IssueFullCard_Footer">
+                                            <div class="Footer">
+                                                <div class="CommentFeedback">
+                                                    <div class="Q_HandLike"></div>
+                                                    <div class="Q_HandLike dislike"></div>
+
+
+
+                                                </div>
+                                                <div class="SubmitButton">
+                                                    <%= f.submit "Опубликовать", class: "A_Button PrimaryMedium" %>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <% end %>
+                                    </div>
+
+                                    <!-- Форма выпуска (пока демонстрационная) -->
+                                    <div id="issue_form_block" style="display: none;">
+                                        <%= form_with model: @issue, url: issues_path, method: :post, local: true, html: { multipart: true } do |f| %>
+                                        <h2>
+                                            <%= f.text_field :name, placeholder: "Название выпуска", class: "unstyled-input" %>
+                                        </h2>
+                                        <p>
+                                            <%= f.text_area :description, placeholder: "Описание выпуска", class: "unstyled-textarea" %>
+                                        </p>
+                                        <div class="C_InputLine">
+                                            <div class="A_Tag">
+                                                <label for="cover_upload">
+                                                    <div class="Q_Icon image"></div>
+                                                    <span id="upload_text">Загрузить обложку</span>
+                                                </label>
+
+                                                <%= f.file_field :cover, id: "cover_upload", class: "HiddenFileInput" %>
+                                            </div>
+
+                                            <%= f.hidden_field :podcast_id, value: @podcast.id %>
+                                            <div class="A_Tag">
+                                                <div class="Q_Icon link"> </div>
+                                                <%= label_tag "Ссылка:" %>
+                                                <%= f.text_field :link, placeholder: "Ссылка", class: "unstyled-textarea link-input" %>
+                                            </div>
+                                        </div>
+                                        <div class="W_IssueFullCard_Footer">
+                                            <div class="Footer">
+                                                <div class="CommentFeedback">
+                                                    <div class="Q_HandLike"></div>
+                                                    <div class="Q_HandLike dislike"></div>
+
+                                                    <div class="SubmitButton">
+                                                        <%= f.submit "Создать выпуск", class: "A_Button PrimaryMedium" %>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <% end %>
+                                    </div>
+
+                                </div>
                                 <% @content_items.each do |item| %>
                                 <% if item.is_a?(Issue) %>
                                 <%= render partial: "showissuecard", locals: { issue: item } %>
@@ -276,6 +380,59 @@
                         <div class="W_DiscussFeed">
 
                             <h2>Лента авторов</h2>
+                            <div class="W_CreatePostForPodcast">
+                                <div class="C_TopCreatingLine">
+
+                                    <div class="PodcastInfo">
+                                        <%= image_tag @podcast.cover, alt: "Обложка подкаста", class: "PodcastCoverImage" %>
+                                        <h5 class="Medium"><%= @podcast.name %></h5>
+                                    </div>
+
+                                    <div class="PostFormat">
+                                        <p class="Text14">Формат поста</p>
+                                        <div class="A_Tag">
+                                            <p class="Text16 Medium">Обсуждение</p>
+                                            <div class="Icon"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <%= form_with model: @post, url: posts_path, method: :post, local: true do |f| %>
+
+                                <%= f.text_field :title, placeholder: "Заголовок", class: "A_Input" %>
+                                <%= f.text_area :content, placeholder: "Описание", class: "A_Input" %>
+
+                                <div class="TagsWrapper">
+                                    <% ["Наука", "Технологии", "Интервью", "Рецензия"].each do |tag| %>
+                                    <div class="A_Tag">
+                                        <div class="Icon"></div>
+                                        <p class="Text14"><%= tag %></p>
+                                    </div>
+                                    <% end %>
+                                </div>
+
+                                <!-- Скрытые поля для связи поста с подкастом и автором -->
+                                <%= f.hidden_field :podcast_id, value: @podcast.id %>
+                                <%= f.hidden_field :date, value: Time.current %>
+
+                                <div class="W_IssueFullCard_Footer">
+                                    <div class="Footer">
+                                        <div class="CommentFeedback">
+                                            <div class="Q_HandLike"></div>
+                                            <div class="Q_HandLike dislike"></div>
+
+                                            <div class="SubmitButton">
+                                                <%= f.submit "Создать", class: "A_Button PrimaryMedium" %>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% end %>
+                            </div>
+
                             <div class="C_Discuss">
                                 <% @content_items.each do |item| %>
                                 <% if item.is_a?(Issue) %>
@@ -325,4 +482,17 @@ scroll = setTimeout(function(){scrollCount=0;}, 200);
 if(scrollCount) return 0;
 scrollCount=1;
 
-if (e.originalEvent.deltaY < 0) { $(this).slick('slickNext'); } else { $(this).slick('slickPrev'); } }); }); $(document).ready(function() { $('.slider').slick({ slidesToShow: 4, slidesToScroll: 1, infinite: true }); }); document.addEventListener('DOMContentLoaded', function () { const toggleButton=document.getElementById('toggle-button'); const extraWrapper=document.getElementById('extra-button-wrapper'); toggleButton.addEventListener('click', function () { if (extraWrapper.style.display==='none' ) { extraWrapper.style.display='inline-block' ; } else { extraWrapper.style.display='none' ; } }); }); <% end %>
+if (e.originalEvent.deltaY < 0) { $(this).slick('slickNext'); } else { $(this).slick('slickPrev'); } }); }); $(document).ready(function() { $('.slider').slick({ slidesToShow: 4, slidesToScroll: 1, infinite: true }); }); document.addEventListener('DOMContentLoaded', function () { const toggleButton=document.getElementById('toggle-button'); const extraWrapper=document.getElementById('extra-button-wrapper'); toggleButton.addEventListener('click', function () { if (extraWrapper.style.display==='none' ) { extraWrapper.style.display='inline-block' ; } else { extraWrapper.style.display='none' ; } }); }); <% end %> <%= javascript_tag do %> document.addEventListener("DOMContentLoaded", function() { const formatSelect=document.getElementById("post_format_select"); const postForm=document.getElementById("post_form_block"); const issueForm=document.getElementById("issue_form_block"); formatSelect.addEventListener("change", function() { if (this.value==="post" ) { postForm.style.display="block" ; issueForm.style.display="none" ; } else { postForm.style.display="none" ; issueForm.style.display="block" ; } }); }); <% end %> <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.getElementById("cover_upload");
+    const uploadText = document.getElementById("upload_text");
+
+    fileInput.addEventListener("change", function() {
+    if (fileInput.files.length > 0) {
+    uploadText.textContent = fileInput.files[0].name;
+    } else {
+    uploadText.textContent = "Загрузить обложку";
+    }
+    });
+    });
+    </script>

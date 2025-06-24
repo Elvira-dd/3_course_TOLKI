@@ -73,6 +73,7 @@ end
   # issue /issues or /issues.json
   def create
     @issue = Issue.new(issue_params)
+    @podcast = Podcast.find(params[:issue][:podcast_id]) if params[:issue] && params[:issue][:podcast_id]
 
     respond_to do |format|
       if @issue.save
@@ -122,7 +123,7 @@ end
 
     # Only allow a list of trusted parameters through.
     def issue_params
-      params.require(:issue).permit(:name, :link, :podcastt, :references)
-    end
+  params.require(:issue).permit(:name, :description, :link, :cover, :podcast_id)
+end
 end
 

@@ -8,8 +8,10 @@ class PodcastsController < ApplicationController
   end
 
   def show
+    @post = Post.new
     @podcast = Podcast.find(params[:id])  
     @issues = @podcast.issues
+    @issue = Issue.new
     @user = current_user if user_signed_in?
     @author = Author.find_by(user_id: @user.id) if user_signed_in?    
     @content_items = (@podcast.issues + @podcast.posts).sort_by(&:created_at)

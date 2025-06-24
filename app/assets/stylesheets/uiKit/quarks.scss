@@ -51,7 +51,24 @@
   &.menu {
     background-image: url('Q_Icons_menu.svg');
   }
-
+  &.link {
+    background-image: url('Q_Icons_link.svg');
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+  }
+  &.image {
+    background-image: url('Q_Icons_image.svg');
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+  }
+  &.drop_list {
+    background-image: url('Q_Icons_drop_list.svg');
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+  }
   &.search {
     background-image: url('Q_Icons_search.svg');
     width: 24px;

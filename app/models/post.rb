@@ -2,6 +2,7 @@ class Post < ApplicationRecord
     belongs_to :podcast
     belongs_to :author, class_name: "Author" 
     has_many :comments, as: :commentable, dependent: :destroy
+    has_one_attached :cover
 
     validates :title, presence: true
     validates :content, presence: true

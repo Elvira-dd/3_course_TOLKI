@@ -57,9 +57,19 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
-    render :new
+  @post = Post.new(post_params)
+  @post.author_id = current_user&.author&.id # если автор существует
+  if @post.save
+    redirect_to podcast_path(@post.podcast_id), notice: "Пост успешно создан"
+  else
+    @podcast = Podcast.find(@post.podcast_id)
+    @issues = @podcast.issues
+    @reviews = @podcast.reviews
+    @content_items = [] # или загрузи то, что нужно для страницы
+    flash.now[:alert] = "Не удалось создать пост"
+    render "podcasts/show"
   end
+end
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
@@ -92,6 +102,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :hashtag, :author_id)
-    end
+  params.require(:post).permit(:title, :content, :link, :cover, :podcast_id, :author_id, :date)
+end
 end

@@ -263,6 +263,15 @@ h1 {
     color: var(--second_gray);
   }
 }
+h2 {
+  input::placeholder {
+    font-size: 40px;
+    line-height: 110%;
+    letter-spacing: 0.7px;
+    font-weight: 500;
+    color: var(--second_gray);
+  }
+}
 
 .A_Tag.selected {
   background-color: var(--accent_green); /* зелёный фон */
@@ -296,4 +305,25 @@ h1 {
 
 .PodcastCoverWrapper:hover .OverlayHint {
   opacity: 1;
+}
+.unstyled-select {
+  appearance: none; /* убирает стандартную стрелку браузера */
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  line-height: 110%;
+  letter-spacing: 0.25px;
+  font-weight: 500;
+  color: var(--text);
+  background-image: url('Q_Icons_drop_list.svg'); /* твоя иконка стрелочки */
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 22px 22px;
+  cursor: pointer;
+  width: 80px;
+}
+.C_InputLine {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 }
