@@ -92,8 +92,7 @@ def create_podcast(quantity)
       name: create_name,
       description: create_sentence,
       average_rating: "Средняя оценка: #{random_rating}/100",
-      external_links: generate_random_links,
-      is_audio: rand(0..1) == 1
+      external_links: generate_random_links
     )
 
     cover_files = Dir.entries('app/assets/images/podcast_covers').select { |file| file.match?(/\.jpg$/) }
@@ -112,7 +111,6 @@ def create_podcast(quantity)
     puts "Podcast with id #{podcast.id} created with authors: #{authors_to_assign.map(&:id).join(', ')}"
   end
 end
-
 def create_issues_and_posts(quantity)
   podcasts = Podcast.all
   authors = Author.all
@@ -120,7 +118,6 @@ def create_issues_and_posts(quantity)
   podcasts.each do |podcast|
     puts "Creating mixed content for podcast with id #{podcast.id}"
 
-    # Сформируем массив из символов :post и :issue в случайном порядке
     types = Array.new(quantity) { [:post, :issue].sample }
 
     types.each do |type|
@@ -134,32 +131,35 @@ def create_issues_and_posts(quantity)
         )
         puts "Post with id #{post.id} created for Podcast #{podcast.id}"
       else
+
         issue = podcast.issues.create!(
-          name: "Выпуск #{create_title}",
-          description: create_sentence,
-          link: "https://www.youtube.com/watch?v=09kypivMTKE"
-        )
+  name: "Выпуск #{create_title}",
+  description: create_sentence,
+  link: "https://www.youtube.com/watch?v=09kypivMTKE",
+  is_audio: [true, false].sample
+)
 
-        cover_dir = podcast.is_audio ? 'audioissue_cover' : 'issue_cover'
-        cover_path = Rails.root.join('app', 'assets', 'images', cover_dir)
-        cover_files = Dir.entries(cover_path).select { |f| f.match?(/\.jpg$/) }
+cover_dir = issue.is_audio ? 'audioissue_cover' : 'issue_cover'
+cover_path = Rails.root.join('app', 'assets', 'images', cover_dir)
+cover_files = Dir.entries(cover_path).select { |f| f.match?(/\.jpg$/) }
 
-        if cover_files.present?
-          random_cover = cover_files.sample
-          issue.cover.attach(
-            io: File.open(File.join(cover_path, random_cover)),
-            filename: random_cover,
-            content_type: 'image/jpeg'
-          )
-        else
-          puts "No cover files found in #{cover_path}"
-        end
+if cover_files.present?
+  random_cover = cover_files.sample
+  issue.cover.attach(
+    io: File.open(File.join(cover_path, random_cover)),
+    filename: random_cover,
+    content_type: 'image/jpeg'
+  )
+else
+  puts "No cover files found in #{cover_path}"
+end
 
-        puts "Issue with id #{issue.id} created for Podcast #{podcast.id}"
+puts "Issue with id #{issue.id} created for Podcast #{podcast.id}, format: #{issue.is_audio ? 'audio' : 'video'}"
       end
     end
   end
 end
+
 def create_reviews(total_quantity)
   users = User.all.to_a
   podcasts = Podcast.all.to_a

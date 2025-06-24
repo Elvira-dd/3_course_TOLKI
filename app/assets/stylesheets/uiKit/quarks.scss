@@ -190,3 +190,9 @@
     background-image: url('Q_Logo_long.png');
   }
 }
+.hidden {
+  display: none;
+}
+.W_ToggleList h3.active {
+  color: var(--accent_green);
+}

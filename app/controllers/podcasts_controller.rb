@@ -11,10 +11,12 @@ class PodcastsController < ApplicationController
     @post = Post.new
     @podcast = Podcast.find(params[:id])  
     @issues = @podcast.issues
+    @audio_issues = @issues.where(is_audio: true)
+  @video_issues = @issues.where(is_audio: false)
     @issue = Issue.new
     @user = current_user if user_signed_in?
     @author = Author.find_by(user_id: @user.id) if user_signed_in?    
-    @content_items = (@podcast.issues + @podcast.posts).sort_by(&:created_at)
+    @content_items = (@podcast.issues + @podcast.posts).sort_by(&:created_at).reverse
     @same_podcasts = Podcast.where(id:[5,7,9,20])
     @reviews = @podcast.reviews.limit(3)
     @review = user_signed_in? ? @podcast.reviews.new(user: current_user) : nil

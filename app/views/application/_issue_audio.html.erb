@@ -1,0 +1,23 @@
+<div class="M_IssueCard MainAudio">
+    <%= image_tag issue.cover, alt: issue.name, class: "IssueCoverImage" %>
+
+    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <h1><%= issue.name %></h1>
+            <p><%= issue.description %></p>
+        </div>
+
+        <% if issue.podcast.external_links.any? %>
+        <div class="W_LinksLine_Title hor">
+            <p>Слушать <br> на площадках</p>
+            <div class="C_LinksLine">
+                <% issue.podcast.external_links.each do |link| %>
+                <div class="A_Link">
+                    <a href="<%= link['url'] %>" target="_blank"><%= link['service'] %></a>
+                </div>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>

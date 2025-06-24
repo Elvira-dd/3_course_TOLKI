@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_24_131124) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_24_162931) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -105,6 +105,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_24_131124) do
     t.integer "podcast_id", null: false
     t.text "description"
     t.string "cover"
+    t.string "format", default: "video"
+    t.boolean "is_audio"
     t.index ["podcast_id"], name: "index_issues_on_podcast_id"
   end
 
@@ -144,7 +146,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_24_131124) do
     t.string "average_rating"
     t.json "external_links"
     t.integer "author_id"
-    t.boolean "is_audio"
     t.index ["author_id"], name: "index_podcasts_on_author_id"
   end
 

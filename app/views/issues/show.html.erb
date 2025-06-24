@@ -42,67 +42,44 @@
             </div>
         </div>
     </div>
-    <% if @issue.podcast.is_audio %>
-    <div class="M_IssueCard MainAudio">
-        <%= image_tag @issue.cover, alt: @issue.name, class: "IssueCoverImage" %>
-        <div style="display:flex; flex-direction:column; justify-content: space-between">
-            <div>
-                <h1> <%= @issue.name %></h1>
-                <p> <%= @issue.description %></p>
-            </div>
-            <div class="W_LinksLine_Title hor">
-                <p>Слушать <br> на площадках</p>
-                <div class="C_LinksLine">
-                    <% if @issue.podcast.external_links.any? %>
-                    <% @issue.podcast.external_links.each do |link| %>
-                    <div class="A_Link">
-                        <a href="<%= link['url'] %>" target="_blank"><%= link['service'] %></a>
-                    </div>
-                    <% end %>
-                    <% else %>
-                    <p>Нет внешних ссылок</p>
-                    <% end %>
-                </div>
-            </div>
+    <% if @issue.is_audio && @issue.podcast.external_links.any? { |link| link["service"] == "YouTube" } %>
+    <div class="W_ToggleAudioVideo">
+        <div class="W_ToggleList">
+            <h3 id="audioIssueTab" class="active">АУДИОВЫПУСК</h3>
+            <h3 id="videoIssueTab">ВИДЕОВЫПУСК</h3>
+        </div>
+
+        <div id="audioIssue" style="display: none;">
+            <%= render "issue_audio", issue: @issue %>
+        </div>
+
+        <div id="videoIssue" style="display: block;">
+            <%= render "issue_video", issue: @issue %>
         </div>
     </div>
+
+    <% elsif !@issue.is_audio && @issue.podcast.external_links.any? { |link| link["service"] == "Яндекс Музыка" } %>
+    <div class="W_ToggleAudioVideo">
+        <div class="W_ToggleList">
+            <h3 id="videoIssueTab" class="active">ВИДЕОВЫПУСК</h3>
+            <h3 id="audioIssueTab">АУДИОВЫПУСК</h3>
+        </div>
+
+        <div id="videoIssue" style="display: block;">
+            <%= render "issue_video", issue: @issue %>
+        </div>
+
+        <div id="audioIssue" style="display: none;">
+            <%= render "issue_audio", issue: @issue %>
+        </div>
+    </div>
+
+    <% elsif @issue.is_audio %>
+    <%= render "issue_audio", issue: @issue %>
 
     <% else %>
-    <div class="M_IssueCard Main">
-        <h1> <%= @issue.name %></h1>
-
-        <div class="Pleer">
-
-            <% # Извлекаем ID видео из ссылки %>
-            <% youtube_id = "09kypivMTKE" %>
-            <% if youtube_id.present? %>
-            <div style="border-radius: 16px; overflow: hidden; width: 1010px; height: 500px;">
-                <iframe width="1010" height="500" src="https://www.youtube.com/embed/<%= youtube_id %>?controls=1&modestbranding=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
-            </div>
-            <% else %>
-            <%= image_tag @issue.cover_url, alt: "Обложка выпуска" %>
-            <% end %>
-
-
-        </div>
-        <p><%= @issue.created_at.strftime("%d.%m.%Y") %></p>
-    </div>
-    <div class="W_LinksLine_Title hor">
-        <p>Слушать <br> на площадках</p>
-        <div class="C_LinksLine">
-            <% if @issue.podcast.external_links.any? %>
-            <% @issue.podcast.external_links.each do |link| %>
-            <div class="A_Link">
-                <a href="<%= link['url'] %>" target="_blank"><%= link['service'] %></a>
-            </div>
-            <% end %>
-            <% else %>
-            <p>Нет внешних ссылок</p>
-            <% end %>
-        </div>
-    </div>
-    <%end%>
-    <iframe height="600" width="100%" title="Media player" src="https://embed.podcasts.apple.com/us/podcast/the-elixir-of-life/id152249110?i=1000711747827&amp;itscg=30200&amp;itsct=podcast_box_player&amp;ls=1&amp;mttnsubad=1000711747827&amp;theme=auto" id="embedPlayer" style="border: 0px; border-radius: 12px; width: 100%; height: 600px; max-width: 375px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write"></iframe>
+    <%= render "issue_video", issue: @issue %>
+    <% end %>
     <!--ВЕРХНЯЯ ЧАСТЬ КОНЕЦ -->
     <div class="W_ToggleList">
         <h3 class="toggle-button active" data-id="all">ВСЕ</h3>
@@ -293,31 +270,54 @@
         </div>
     </div>
 </div>
-</div>
-
 
 <%= javascript_tag do %>
-$(document).ready(function() {
-/* Small card slider */
-$('.slider').slick({
-arrows: false,
-dots: false,
-infinite: true,
-initialSlide: 0,
-slidesToScroll: 1,
-slidesToShow: 3
+document.addEventListener('DOMContentLoaded', function () {
+const toggleContainer = document.querySelector('.W_Content');
+if (!toggleContainer) return;
+
+const buttons = document.querySelectorAll('.W_ToggleList .toggle-button');
+const contents = toggleContainer.querySelectorAll('.toggle-content');
+
+buttons.forEach(button => {
+button.addEventListener('click', () => {
+const targetId = button.dataset.id;
+
+// Снимаем active со всех
+buttons.forEach(b => b.classList.remove('active'));
+contents.forEach(c => c.classList.add('hidden'));
+
+// Включаем нужный
+button.classList.add('active');
+const targetContent = toggleContainer.querySelector(`.toggle-content[data-id="${targetId}"]`);
+if (targetContent) targetContent.classList.remove('hidden');
+});
+});
+});
+<% end %>
+<%= javascript_tag do %>
+document.addEventListener('DOMContentLoaded', function () {
+const audioTab = document.getElementById('audioIssueTab');
+const videoTab = document.getElementById('videoIssueTab');
+const audioBlock = document.getElementById('audioIssue');
+const videoBlock = document.getElementById('videoIssue');
+
+if (!audioTab || !videoTab || !audioBlock || !videoBlock) return;
+
+audioTab.addEventListener('click', function () {
+audioBlock.style.display = "block";
+videoBlock.style.display = "none";
+
+audioTab.classList.add('active');
+videoTab.classList.remove('active');
 });
 
-const slider = $(".slider");
-var scrollCount = null;
-var scroll= null;
+videoTab.addEventListener('click', function () {
+audioBlock.style.display = "none";
+videoBlock.style.display = "block";
 
-slider.on('wheel', function(e) {
-e.preventDefault();
-
-clearTimeout(scroll);
-scroll = setTimeout(function(){scrollCount=0;}, 200);
-if(scrollCount) return 0;
-scrollCount=1;
-
-if (e.originalEvent.deltaY < 0) { $(this).slick('slickNext'); } else { $(this).slick('slickPrev'); } }); }); $(document).ready(function() { $('.slider').slick({ slidesToShow: 4, slidesToScroll: 1, infinite: true }); }); document.addEventListener('DOMContentLoaded', function () { const toggleButton=document.getElementById('toggle-button'); const extraWrapper=document.getElementById('extra-button-wrapper'); toggleButton.addEventListener('click', function () { if (extraWrapper.style.display==='none' ) { extraWrapper.style.display='inline-block' ; } else { extraWrapper.style.display='none' ; } }); }); <% end %>
+videoTab.classList.add('active');
+audioTab.classList.remove('active');
+});
+});
+<% end %>

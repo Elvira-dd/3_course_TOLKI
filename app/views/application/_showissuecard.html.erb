@@ -30,8 +30,8 @@ end
                 </div>
             </div>
         </div>
-        <div class=" <%= 'audio' if issue.podcast.is_audio %>">
-            <%= image_tag issue.cover, alt: issue.name, class: "IssueCover #{'audio' if issue.podcast.is_audio}" if issue.cover.present? %>
+        <div class=" <%= 'audio' if issue.is_audio %>">
+            <%= image_tag issue.cover, alt: issue.name, class: "IssueCover #{'audio' if issue.is_audio}" if issue.cover.present? %>
 
             <div class="A_Content">
                 <h1><%= issue.name %></h1>

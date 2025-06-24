@@ -1,5 +1,5 @@
 class PodcastSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :average_rating, :cover_url, :external_links, :is_audio
+  attributes :id, :name, :description, :created_at, :average_rating, :cover_url, :external_links
 
   # Ссылка на связанные issues
   def issues_url

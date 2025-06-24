@@ -98,7 +98,7 @@
     </div>
     <div class="W_Content">
         <div class="toggle-content C_PodcastAll" data-id="all">
-            <% if @podcast.is_audio %>
+
             <!-- Галерея аудиовыпусков -->
             <div class="podcastsIssues">
                 <div class="W_ListBlock_Title">
@@ -108,25 +108,25 @@
                     <% end %>
                 </div>
                 <div class="slider">
-                    <% @issues.each do |issue| %>
+                    <% @audio_issues.each do |issue| %>
                     <div class="slider__item">
                         <%= render partial: "issueaudiocard_secondary", locals: { issue: issue } %>
                     </div>
                     <% end %>
                 </div>
             </div>
-            <% else %>
+
             <!-- Галерея выпусков -->
             <div class="podcastsIssues">
                 <div class="W_ListBlock_Title">
-                    <h2>Лучшие выпуски</h2>
+                    <h2>Лучшие видеовыпуски</h2>
                     <%= link_to podcast_issues_path(@podcast) do %>
                     <h4>посмотреть все</h4>
                     <% end %>
                 </div>
 
                 <div class="slider audio">
-                    <% @issues.each do |issue| %>
+                    <% @video_issues.each do |issue| %>
                     <div class="slider__item video">
                         <%= render partial: "issuecard_secondary", locals: { issue: issue } %>
                     </div>
@@ -135,7 +135,7 @@
 
 
             </div>
-            <% end %>
+
             <!-- Секция отзывов -->
             <div class="W_ReviewBlock">
                 <h2> Рейтинг подкаста </h2>
@@ -222,6 +222,7 @@
 
 
                             <div class="C_Discuss">
+                                <% if current_user.present? && current_user.is_author? && current_user.author.podcasts.include?(@podcast) %>
                                 <div class="W_CreatePostForPodcast">
 
                                     <div class="C_TopCreatingLine">
@@ -323,6 +324,7 @@
                                     </div>
 
                                 </div>
+                                <% end %>
                                 <% @content_items.each do |item| %>
                                 <% if item.is_a?(Issue) %>
                                 <%= render partial: "showissuecard", locals: { issue: item } %>

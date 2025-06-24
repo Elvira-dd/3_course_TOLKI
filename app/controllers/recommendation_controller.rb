@@ -30,6 +30,7 @@ class RecommendationController < ApplicationController
       @popular_podcasts = Podcast.none
       @subs_podcast = []
       @subs_feed = []
+      @feed = (Issue.where(id: [3, 4, 5, 6, 11, 8, 9]).to_a + Post.where(id: [2, 3, 4, 5]).to_a)
       @subs_authors = []
     end
   end

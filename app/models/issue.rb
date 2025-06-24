@@ -1,5 +1,7 @@
 class Issue < ApplicationRecord
     belongs_to :podcast
+
+    validates :format, inclusion: { in: %w[audio video], message: "%{value} не является допустимым форматом" }
     has_many :comments, as: :commentable, dependent: :destroy
 
     has_many :likes, as: :likeable

@@ -1,0 +1,30 @@
+<div class="M_IssueCard Main">
+    <h1><%= issue.name %></h1>
+    <div class="Pleer">
+        <% youtube_link = issue.podcast.external_links.find { |l| l["service"] == "YouTube" } %>
+        <% youtube_id = "09kypivMTKE?si=9KQaoHqUvQCEzsB_" %>
+
+        <% if youtube_id.present? %>
+        <div style="border-radius: 16px; overflow: hidden; width: 100%; height: 600px;">
+            <iframe width="100%" height="600" src="https://www.youtube.com/embed/<%= youtube_id %>?controls=1&modestbranding=1&rel=0" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <% else %>
+        <%= image_tag issue.cover, alt: "Обложка выпуска", class:"IssueCoverImage"%>
+        <% end %>
+    </div>
+
+    <p><%= issue.created_at.strftime("%d.%m.%Y") %></p>
+
+    <% if issue.podcast.external_links.any? %>
+    <div class="W_LinksLine_Title hor">
+        <p>Слушать <br> на площадках</p>
+        <div class="C_LinksLine">
+            <% issue.podcast.external_links.each do |link| %>
+            <div class="A_Link">
+                <a href="<%= link['url'] %>" target="_blank"><%= link['service'] %></a>
+            </div>
+            <% end %>
+        </div>
+    </div>
+    <% end %>
+</div>
