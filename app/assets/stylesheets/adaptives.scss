@@ -374,4 +374,93 @@
       top: 0;
     }
   }
+  .O_BgRecPage {
+    background-image: url('BgRecPage_mobile.png');
+    height: 38vh;
+  }
+  .C_AuthorsSmallCards {
+    padding: 0px;
+    background-color: var(--bg_black);
+    .AuthorsSmallCardsAvatar {
+      width: 45px;
+      height: 45px;
+    }
+    .W_AuthorSmallCard h4 {
+      font-size: 20px;
+    }
+  }
+  .O_LentaPosts {
+    gap: 17vw;
+  }
+  .O_LentaPosts .W_DiscussFeed {
+    width: 100%;
+  }
+  .O_PostFullCard_WithComments {
+    padding: 0;
+    background-color: var(--bg_black);
+    padding-bottom: 64px;
+    border-bottom: 1px solid var(--four_gray);
+    .M_UserCard {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .M_PostFullCard .M_UserCard + .audio {
+      flex-direction: column;
+    }
+    .M_PostFullCard .IssueCover.audio {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .O_PostFullCard_WithComments + .O_PostFullCard_WithComments {
+    padding-top: 64px;
+  }
+  .W_TitleWith p {
+    text-align: center;
+  }
+  .W_Form .A_Input {
+    width: 80%;
+    border-radius: 12px;
+  }
+  .W_Form .actions {
+    width: 92%;
+  }
+  .W_TitleWith {
+    margin-top: 5vh;
+  }
+  .M_ProfileCardOpened {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 2vh;
+    div:nth-child(1) {
+      flex-direction: column;
+    }
+    .ProfileAvatarImage {
+      width: 88vw;
+    }
+    .M_ProfileCardOpened .ProfileTitle {
+      gap: 10px;
+    }
+  }
+  .W_ProfilePlaylistBlock .C_ProfilePlaylist .M_PlaylistCard .PlaylistCover {
+    width: 24vw;
+    height: 24vw;
+  }
+  .W_ProfilePlaylistBlock .C_ProfilePlaylist .M_PlaylistCard {
+    width: 25vw;
+  }
+  .O_Profile .C_PostCardsList.short {
+    width: 86vw;
+  }
+  .O_Profile .C_ReviewProfile {
+    display: flex;
+  }
+  .O_Profile .M_ReviewCard {
+    width: 63vw;
+  }
+  .C_AuthorsCards + .A_Button {
+    margin-top: 4vh;
+    width: 68vw;
+    justify-content: center;
+  }
 }
