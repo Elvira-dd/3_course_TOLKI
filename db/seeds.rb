@@ -236,15 +236,43 @@ def create_comment_replies
     end
   end
 end
-
 def create_themes_and_assign_to_podcasts(theme_count)
   themes = theme_count.times.map do |i|
-    Theme.create!(name: "Theme ##{i + 1}", cover: "long_theme_cover.png", description: create_sentence)
+    theme = Theme.create!(
+      name: "Theme ##{i + 1}",
+      description: create_sentence
+    )
+
+    cover_dir = Rails.root.join('app/assets/images/theme_cover')
+    cover_files = Dir.entries(cover_dir).select { |file| file.match?(/\.(jpg|jpeg|png)$/i) }
+    
+    if cover_files.present?
+      random_cover = cover_files.sample
+      file_path = cover_dir.join(random_cover)
+
+      content_type = case File.extname(random_cover).downcase
+                     when ".jpg", ".jpeg" then "image/jpeg"
+                     when ".png" then "image/png"
+                     else "application/octet-stream"
+                     end
+
+      theme.cover.attach(
+        io: File.open(file_path),
+        filename: random_cover,
+        content_type: content_type
+      )
+
+      puts "Theme #{theme.name} создана с обложкой #{random_cover}"
+    else
+      puts "Нет доступных обложек для тематик"
+    end
+
+    theme
   end
 
   Podcast.all.each do |podcast|
     podcast.themes = themes.sample(rand(1..3))
-    puts "Assigned themes to podcast with id #{podcast.id}"
+    puts "Темы назначены подкасту с id #{podcast.id}"
   end
 end
 

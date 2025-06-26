@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: "json" do
     namespace :v1 do
+      get 'favorites', to: 'favorites#index'
       patch 'me', to: 'sessions#update_me'
       resources :comments, only: [:index]
       resources :podcasts, only: [:index, :show] do

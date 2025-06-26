@@ -23,22 +23,28 @@ end
   end
   # POST /comments
   def create
-    unless current_user
-      return render json: { error: "Unauthorized" }, status: :unauthorized
-    end
-  
-    @comment = @commentable.comments.new(comment_params.merge(user_id: current_user.id))
-  
-    if params[:comment][:parent_id].present?
-      @comment.parent_id = params[:comment][:parent_id] # исправлено (было comment_id)
-    end
-  
-    if @comment.save
-      render json: @comment, status: :created
-    else
-      render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
-    end
+  unless current_user
+    return render json: { error: "Unauthorized" }, status: :unauthorized
   end
+
+  @comment = @commentable.comments.new(comment_params.merge(user_id: current_user.id))
+
+  if params[:comment][:parent_id].present?
+    @comment.parent_id = params[:comment][:parent_id]
+  end
+
+  if @comment.save
+    # Возвращаем весь выпуск (или другой комментируемый объект) вместе с комментариями
+    if @commentable.is_a?(Issue)
+      issue = Issue.includes(:comments).find(@commentable.id)
+      render json: issue, status: :created
+    else
+      render json: @comment, status: :created
+    end
+  else
+    render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
+  end
+end
 
   def like
     @comment = Comment.find(params[:id])
