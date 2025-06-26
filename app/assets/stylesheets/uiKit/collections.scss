@@ -203,11 +203,24 @@
   }
 }
 .M_ThemeCard.selected {
-  border: 3px solid #000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  h5 {
+    color: var(--accent_green);
+  }
 }
 .C_PostCardsList {
   .O_PostFullCard_WithComments {
     margin-bottom: 24px;
   }
+}
+.M_ProfileCardOpened + .O_RegSetting {
+  margin-top: 5vh;
+}
+.PodcastCoverUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.ProfileFunc {
+  height: min-content;
 }

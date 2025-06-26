@@ -1,0 +1,80 @@
+<%= form_with model: @profile, url: update_full_profile_path(@profile), method: :patch, local: true do |f| %>
+<div class="M_ProfileCardOpened">
+    <div style="display:flex; gap:16px">
+        <div class="PodcastCoverUpload">
+            <label for="avatar-upload">
+                <%= image_tag(@profile.avatar.present? ? @profile.avatar : "placeholder.jpg", alt: "Аватар", class: "ProfileAvatarImage", id: "avatar-preview") %>
+            </label>
+            <%= f.file_field :avatar, accept: "image/*", id: "avatar-upload", style: "display: none;" %>
+            <p> Изменить аватарку </p>
+        </div>
+
+        <div class="ProfileTitle">
+            <h1>
+                <%= f.text_field :name, class: "unstyled-input" %>
+            </h1>
+            <p>
+                <%= f.text_area :bio, class: "unstyled-textarea" %>
+            </p>
+        </div>
+        <div class="ProfileFunc">
+            <%= f.submit "Сохранить", class: "A_Button SecondaryMedium white" %>
+        </div>
+    </div>
+</div>
+
+<div class="O_RegSetting">
+    <h3>Выберите интересующие вас тематики</h3>
+    <div class="C_ThemeSelect">
+        <% @themes.each do |theme| %>
+        <div class="M_ThemeCard ThemeSelectable" data-theme-id="<%= theme.id %>">
+            <%= image_tag theme.cover, alt: theme.name, class: "ThemeCoverImage" %>
+            <h5><%= theme.name %></h5>
+        </div>
+        <% end %>
+    </div>
+
+    <%= f.hidden_field :favorite_themes, id: "selected-themes-input" %>
+</div>
+
+
+<% end %>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const fileInput = document.getElementById("avatar-upload");
+        const preview = document.getElementById("avatar-preview");
+
+        if (fileInput && preview) {
+            fileInput.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        const themeCards = document.querySelectorAll(".ThemeSelectable");
+        const inputField = document.getElementById("selected-themes-input");
+        let selectedIds = [];
+
+        themeCards.forEach(card => {
+            card.addEventListener("click", () => {
+                const id = card.dataset.themeId;
+                card.classList.toggle("selected");
+
+                if (selectedIds.includes(id)) {
+                    selectedIds = selectedIds.filter(item => item !== id);
+                } else {
+                    selectedIds.push(id);
+                }
+
+                inputField.value = selectedIds.join(",");
+            });
+        });
+    });
+</script>

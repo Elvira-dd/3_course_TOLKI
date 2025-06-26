@@ -1,12 +1,46 @@
-<% content_for :title, "Editing profile" %>
+<div class="M_ProfileCardOpened">
+    <%= form_with model: @profile, url: profile_path(@profile), method: :patch, local: true do |f| %>
+    <div style="display:flex; gap:16px">
 
-<h1>Editing profile</h1>
+        <div class="PodcastCoverUpload">
+            <label for="avatar-upload">
+                <%= image_tag(@profile.avatar.present? ? @profile.avatar : "placeholder.jpg", alt: "Аватар", class: "ProfileAvatarImage", id: "avatar-preview") %>
+            </label>
+            <%= f.file_field :avatar, accept: "image/*", id: "avatar-upload", style: "display: none;" %>
+        </div>
 
-<%= render "form", profile: @profile %>
+        <div class="ProfileTitle">
+            <h1>
+                <%= f.text_field :name, value: @profile.name, class: "unstyled-input" %>
+            </h1>
+            <p>
+                <%= f.text_area :bio, value: @profile.bio, class: "unstyled-textarea" %>
+            </p>
+        </div>
+    </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this profile", @profile %> |
-  <%= link_to "Back to profiles", profiles_path %>
+    <div class="ProfileFunc">
+        <%= f.submit "Сохранить", class: "A_Button SecondaryMedium white" %>
+    </div>
+    <% end %>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const fileInput = document.getElementById("avatar-upload");
+        const preview = document.getElementById("avatar-preview");
+
+        if (fileInput && preview) {
+            fileInput.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>

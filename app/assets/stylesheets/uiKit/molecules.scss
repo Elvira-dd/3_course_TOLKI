@@ -480,10 +480,17 @@
   height: 100px;
   border-radius: 8px;
 }
+.ProfileAvatarImage {
+  width: 212px;
+  height: 212px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 .M_CommentForm {
   .ProfileAvatarImage {
     width: 40px;
     height: 40px;
+    object-fit: cover;
     border-radius: 40px;
   }
   display: flex;

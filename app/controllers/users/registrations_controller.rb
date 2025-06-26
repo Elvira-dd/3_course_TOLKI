@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Редирект после успешной регистрации
   def after_sign_up_path_for(resource)
-    setting_reg_path
-  end
+  profile = resource.profile || Profile.create(user: resource)
+  edit_full_profile_path(profile)
+end
 end

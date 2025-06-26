@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
   registrations: 'users/registrations'
 }
-
+resources :profiles do
+  member do
+    get :edit_full
+    patch :update_full
+  end
+end
   namespace :api, format: "json" do
     namespace :v1 do
       get 'favorites', to: 'favorites#index'
