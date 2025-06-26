@@ -57,7 +57,7 @@ def seed
   create_users(16)
   create_podcast(35)
   create_issues_and_posts(10)
-  create_themes_and_assign_to_podcasts(20)
+  create_themes_and_assign_to_podcasts()
   create_comments(1..3)
   create_reviews(50)
   create_playlists_with_items(40)
@@ -236,18 +236,36 @@ def create_comment_replies
     end
   end
 end
-def create_themes_and_assign_to_podcasts(theme_count)
-  themes = theme_count.times.map do |i|
-    theme = Theme.create!(
-      name: "Theme ##{i + 1}",
-      description: create_sentence
-    )
 
-    cover_dir = Rails.root.join('app/assets/images/theme_cover')
-    cover_files = Dir.entries(cover_dir).select { |file| file.match?(/\.(jpg|jpeg|png)$/i) }
-    
+def create_themes_and_assign_to_podcasts
+  themes_data = [
+    ["Наука", "Познавательные подкасты о последних открытиях, исследованиях и удивительных явлениях в мире науки."],
+    ["Кино и сериалы", "Обсуждение новинок, культовых фильмов, сериалов и закулисья киноиндустрии."],
+    ["Юмор", "Весёлые истории, шутки и комедийные шоу для отличного настроения."],
+    ["Здоровье и лайфстайл", "Советы по здоровью, питанию, спорту и гармоничной жизни."],
+    ["Бизнес и работа", "Инсайты, кейсы и лайфхаки для развития карьеры и собственного дела."],
+    ["История", "Увлекательные рассказы о событиях и людях, изменивших ход истории."],
+    ["Документальное", "Реальные истории, расследования и глубокий анализ актуальных тем."],
+    ["Общество и культура", "Разговоры о социальных тенденциях, традициях и культурных феноменах."],
+    ["Тру крайм", "Захватывающие расследования преступлений и загадочных происшествий."],
+    ["Хобби и творчество", "Идеи и вдохновение для развития увлечений и творческих проектов."],
+    ["Технологии", "Всё о современных гаджетах, IT-новинках и будущем технологий."],
+    ["Искусство и литература", "Беседы о книгах, художниках, выставках и культурных событиях."],
+    ["Для всей семьи", "Интересные и познавательные подкасты для слушателей всех возрастов."],
+    ["Психология", "Практические советы и размышления о внутреннем мире и отношениях."],
+    ["Политика", "Анализ событий, мнения экспертов и обсуждение актуальных политических тем."],
+    ["Новости", "Самые важные события дня и свежие обзоры новостей."],
+    ["Спорт", "Репортажи, интервью и аналитика из мира спорта и активного образа жизни."]
+  ]
+
+  cover_dir = Rails.root.join('app/assets/images/theme_cover')
+  cover_files = Dir.entries(cover_dir).select { |file| file.match?(/\.(jpg|jpeg|png)$/i) }
+
+  themes = themes_data.map.with_index do |(name, description), index|
+    theme = Theme.create!(name: name, description: description)
+
     if cover_files.present?
-      random_cover = cover_files.sample
+      random_cover = cover_files[index % cover_files.length]
       file_path = cover_dir.join(random_cover)
 
       content_type = case File.extname(random_cover).downcase
@@ -262,9 +280,9 @@ def create_themes_and_assign_to_podcasts(theme_count)
         content_type: content_type
       )
 
-      puts "Theme #{theme.name} создана с обложкой #{random_cover}"
+      puts "Тема '#{theme.name}' создана с обложкой '#{random_cover}'"
     else
-      puts "Нет доступных обложек для тематик"
+      puts "Нет доступных обложек для темы '#{theme.name}'"
     end
 
     theme
@@ -272,7 +290,7 @@ def create_themes_and_assign_to_podcasts(theme_count)
 
   Podcast.all.each do |podcast|
     podcast.themes = themes.sample(rand(1..3))
-    puts "Темы назначены подкасту с id #{podcast.id}"
+    puts "Темы назначены подкасту '#{podcast.name}'"
   end
 end
 
